@@ -4,8 +4,9 @@ var path = require('path');
 
 module.exports = {
 	context: path.join(__dirname, "src"),
-	devtool: debug ? "inline-sourcemap" : false,
-	entry: "./js/scripts.js",
+	devtool: false,
+	mode: "production",
+	entry: "./main/javascript/scripts.js",
 	module: {
 		rules: [
 			{
@@ -22,7 +23,7 @@ module.exports = {
 		]
 	},
 	output: {
-		path: path.resolve(__dirname, "target"),
+		path: path.resolve(__dirname, "target/js"),
 		publicPath: "/js/",
 		filename: "scripts.min.js"
 	},

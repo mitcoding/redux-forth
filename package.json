@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base target --inline --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --mode development --devtool 'inline-sourcemap' --content-base target --inline --hot",
+    "test": "karma start karma.config.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "karma-cucumber-js-latest": "^1.0.5",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "redux": "^4.0.4",
@@ -27,6 +28,16 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "chai": "^4.2.0",
+    "cucumber": "^5.0.2",
+    "karma": "^4.3.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.1",
+    "karma-sinon-chai": "^2.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^4.0.2",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.3.0",
     "webpack": "^4.41.0",
     "webpack-dev-server": "^3.8.2"
   }
