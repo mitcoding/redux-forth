@@ -19,7 +19,7 @@ module.exports = function(config) {
 		],
 		// list of files / patterns to load in the browser
 		files: [
-			{ pattern: "src/main/javascript/**/!(*min).js", included: true },
+			"src/main/javascript/**/*.js",
 			{ pattern: "src/test/resources/javascript/feature/**/*.feature", included: false },
 			{ pattern: "src/test/javascript/feature/**/*.js", included: false }
 		],
@@ -30,7 +30,7 @@ module.exports = function(config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			'src/main/javascript/**/!(*min).js': ['webpack', 'coverage', 'sourcemap'],
+			'src/main/javascript/**/!(*min).js': ['webpack', 'sourcemap'],
 			'src/test/javascript/**/!(*min).js': ['webpack']
 		},
 
@@ -47,7 +47,6 @@ module.exports = function(config) {
 			type: 'html',
 			dir : './target/site/javascript-ut/'
 		},
-
 		// web server port
 		port: 9877,
 
@@ -78,6 +77,26 @@ module.exports = function(config) {
 			devtool: "inline-sourcemap",
 			mode: "development"
 		}),
+		/**
+		 * Webpack please don't spam the console when running in karma!
+		 */
+		
+		webpackMiddleware: {
+			/**
+			 * webpack-dev-middleware configuration
+			 * i.e.
+			 */
+			logLevel: 'warn',
+			/**
+			 * and use stats to turn off verbose output
+			 */
+			stats: {
+				/**
+			 	 * options i.e.
+			 	*/
+				chunks: false 
+			}
+		},
 		webpackServer: {
 			noInfo: true 
 		}

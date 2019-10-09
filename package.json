@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --devtool 'inline-sourcemap' --content-base target --inline --hot",
-    "test": "karma start karma.config.js"
+    "test": "cross-env NODE_ENV=test karma start karma.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,9 +26,11 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-plugin-istanbul": "^5.2.0",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "chai": "^4.2.0",
+    "cross-env": "^6.0.3",
     "cucumber": "^5.0.2",
     "karma": "^4.3.0",
     "karma-chrome-launcher": "^3.1.0",
