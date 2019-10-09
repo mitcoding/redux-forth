@@ -1,5 +1,4 @@
 const debug = process.env.NODE_ENV !== "production";
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -40,6 +39,5 @@ module.exports = {
 		}
 	},
 	plugins: [
-		new HardSourceWebpackPlugin()
 	]
 };
