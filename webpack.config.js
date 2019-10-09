@@ -1,6 +1,7 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
+const debug = process.env.NODE_ENV !== "production";
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
 	context: path.join(__dirname, "src"),
@@ -33,13 +34,12 @@ module.exports = {
 		filename: "[name].min.js"
 	},
 	optimization: {
+		occurrenceOrder: true,
 		splitChunks: {
 			chunks: 'all'
 		}
 	},
-	plugins: debug ? [] : [
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+	plugins: [
+		new HardSourceWebpackPlugin()
 	]
 };
