@@ -1,5 +1,6 @@
 const debug = process.env.NODE_ENV !== "production";
 const path = require('path');
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const webpack = require('webpack');
 
 module.exports = {
@@ -39,5 +40,6 @@ module.exports = {
 		}
 	},
 	plugins: [
-	]
+		new SpeedMeasurePlugin()
+	]	
 };

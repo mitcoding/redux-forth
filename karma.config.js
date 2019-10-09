@@ -76,27 +76,28 @@ module.exports = function(config) {
 		webpack: Object.assign({}, webpackConfig, { 
 			devtool: false,
 			mode: "development"
+
 		}),
 		/**
 		 * Webpack please don't spam the console when running in karma!
 		 */
 		
-		webpackMiddleware: {
+		//webpackMiddleware: {
 			/**
 			 * webpack-dev-middleware configuration
 			 * i.e.
 			 */
-			logLevel: 'warn',
+		//	logLevel: 'warn',
 			/**
 			 * and use stats to turn off verbose output
 			 */
-			stats: {
+		//	stats: {
 				/**
 			 	 * options i.e.
 			 	*/
-				chunks: false 
-			}
-		},
+		//		chunks: false 
+		//	}
+	//	},
 		webpackServer: {
 			noInfo: true 
 		}
