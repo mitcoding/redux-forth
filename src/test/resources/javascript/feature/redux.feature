@@ -4,7 +4,7 @@ Scenario Outline: <action> <int1> by <int2> leaving the <resultName> <resultInt>
 	Given User has entered <int1>
 	And User has entered <int2>
 	When User runs <command>
-	Then <resultInt> should be on top 
+	Then <resultInt> should be on top of NumberStack 
 	And NumberStack should only have 1 number
 
 Examples:
@@ -17,7 +17,7 @@ Examples:
 Scenario Outline: <action> <int1> by <command> leaving the <resultName> <resultInt>
 	Given User has entered <int1>
 	When User runs <command>
-	Then <resultInt> should be on top
+	Then <resultInt> should be on top of NumberStack
 	And NumberStack should only have 1 number
 
 Examples:
@@ -34,7 +34,7 @@ Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by i
 	And User has entered 9
 	And User has entered 10
 	When User runs */
-	Then 1 should be on top
+	Then 1 should be on top of NumberStack
 	And NumberStack should only have 1 number
 
 Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by integer 3, and leaving the integer 4 and remainder 5
@@ -42,34 +42,34 @@ Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by i
 	And User has entered 6
 	And User has entered 10
 	When User runs */MOD
-	Then 1 should be on top 
+	Then 1 should be on top of NumberStack 
 	And 8 should be under 1
 	And NumberStack should only have 2 numbers 
 
 Scenario: Give me the absolute value of integer 1, leaving integer 2
 	Given User has entered -80
 	When User runs ABS
-	Then 80 should be on top 
+	Then 80 should be on top of NumberStack 
 	And NumberStack should only have 1 number
 
 Scenario: Find if integer 1 or integer 2 is greater
 	Given User has entered 30
 	And User has entered 20
 	When User runs MAX
-	Then 30 should be on top
+	Then 30 should be on top of NumberStack
 	And NumberStack should only have 1 number
 
 Scenario: Find if integer 1 or integer 2 is lesser
 	Given User has entered 100
 	And User has entered 300
 	When User runs MIN
-	Then 100 should be on top
+	Then 100 should be on top of NumberStack
 	And NumberStack should only have 1 number
 
 Scenario: Negate the top integer, leaving the changed integer
 	Given User has entered -10
 	When User runs NEGATE
-	Then 10 should be on top
+	Then 10 should be on top of NumberStack
 	And NumberStack should only have 1 number
 
 Scenario: User prints integer 1

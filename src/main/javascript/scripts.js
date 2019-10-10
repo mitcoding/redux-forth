@@ -43,7 +43,6 @@ const numberStackReducer = function(state=[], action) {
 			return state;
 		case "." :
 			topInt = state.pop();
-			store.dispatch({type: "PRINT", payload: [topInt]});
 			return state;
 		case "+" :
 			topInt = state.pop();
@@ -93,9 +92,7 @@ const displayStackReducer = function(state=[], action) {
 	state = [...state];
 	switch(action.type) {
 		case "PRINT" :
-		console.log(action);
-		state.concat(action.payload);
-		return state;
+		return state.concat(action.payload);
 	}
 
 	return state;
@@ -107,5 +104,16 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
-const middleware = applyMiddleware(createLogger() );
+const printCommands = store => next => action => {
+	switch(action.type) {
+		case "." :
+			let topInt = [...store.getState().numberStack].pop();
+			next(action);
+			return next({...action, type: "PRINT", payload: [topInt]});
+	}
+
+	return next(action);
+};
+
+const middleware = applyMiddleware(createLogger(), printCommands);
 const store = window.store = createStore(reducers, middleware);

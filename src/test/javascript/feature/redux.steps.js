@@ -13,12 +13,14 @@ When(/User runs ([^\s]+)$/i, function (command) {
 	return true;
 });
 
-Then('{int} should be on top', function (expectedInt) {
-	expect([...store.getState().numberStack].pop()).to.equal(expectedInt);
+Then(/^(\d+) should be on top of ([^\s]*)$/i, function (expectedInt, stackName) {
+	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
+	expect([...store.getState()[stackName]].pop()).to.equal(expectedInt);
 });
 
-Then(/^NumberStack should only have (\d+) numbers?$/i, function(int) {
-	expect([...store.getState().numberStack]).to.have.length(int);
+Then(/^([^\s]*) should only have (\d+) (numbers?|value)$/i, function(stackName, int, foo) {
+	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
+	expect([...store.getState()[stackName]]).to.have.length(int);
 });
 
 Then('{int} should be under {int}', function(expectedUnderInt1, expectedInt1) {
