@@ -22,6 +22,12 @@ const numberStackReducer = function(state=[], action) {
 			return state;
 		case "CLEAR_INTEGER_STACK" :
 			return [];
+		case "DUP" :
+			state.push(state[state.length - 1]);
+			console.log(state);
+			return state;
+		case "DROP" :
+			return state.slice(0, state.length - 1);
 		case "MAX" :
 			let topInt = state.pop();
 			let nextInt = state.pop();
@@ -40,6 +46,27 @@ const numberStackReducer = function(state=[], action) {
 		case "NEGATE" : 
 			topInt = state.pop();
 			state.push(topInt * -1);
+			return state;
+		case "OVER" :
+			nextInt = state[state.length - 2];
+			state.push(nextInt);
+			return state;
+		case "PICK" :
+			topInt = state[state.length - 1];
+			let copyInt = state[state.length - (topInt + 1)];
+			state.push(copyInt);
+			return state;
+		case "ROT" :
+			let removeIndex = state.length - 3;
+			nextInt = state[removeIndex];
+			state = state.filter(function(value, index, arr) { return index !== removeIndex });
+			state.push(nextInt);
+			return state;
+		case "SWAP" :
+			topInt = state.pop();
+			nextInt = state.pop();
+			state.push(topInt);
+			state.push(nextInt);
 			return state;
 		case "." :
 			topInt = state.pop();
@@ -91,8 +118,10 @@ const dictionaryReducer = function(state={}, action) {
 const displayStackReducer = function(state=[], action) {
 	state = [...state];
 	switch(action.type) {
+		case "CLEAR_DISPLAY_STACK" :
+			return [];
 		case "PRINT" :
-		return state.concat(action.payload);
+			return state.concat(action.payload);
 	}
 
 	return state;
@@ -110,6 +139,9 @@ const printCommands = store => next => action => {
 			let topInt = [...store.getState().numberStack].pop();
 			next(action);
 			return next({...action, type: "PRINT", payload: [topInt]});
+		case ".S" :
+			let numberStack = [...store.getState().numberStack];
+			return next({...action, type: "PRINT", payload: numberStack });
 	}
 
 	return next(action);
