@@ -8,11 +8,19 @@ Scenario Outline: <action> <int1> by <int2> leaving the <resultName> <resultInt>
 	And NumberStack should only have 1 number
 
 Examples:
-	| action   | command | int1 | int2 | resultName | resultInt |
-	| Multiply | *	     | 2    | 3	   | product    | 6	    |
-	| Divide   | /	     | 29   | 10   | quotient   | 2	    |
-	| Add	   | +	     | 4    | 9	   | sum	| 13	    |
-	| Subtract | -	     | 20   | 10   | difference | 10	    |
+	| action	| command    | int1 | int2 | resultName | resultInt |
+	| Multiply	| *	     | 2    | 3	   | product    | 6	    |
+	| Divide	| /	     | 29   | 10   | quotient   | 2	    |
+	| Add		| +	     | 4    | 9	   | sum	| 13	    |
+	| Subtract	| -	     | 20   | 10   | difference | 10	    |
+	| Less Than	| <	     | 5    | 6	   | true flag	| -1	    |
+	| Greater Than	| >	     | 7    | 3    | true flag	| -1	    |
+	| Equal		| =	     | 4    | 4	   | true flag	| -1	    |
+	| Not Equal	| <>	     | 50   | 20   | true flag	| -1	    |
+	| Less Than	| <	     | 10   | 2	   | false flag	| 0 	    |
+	| Greater Than	| >	     | 1    | 9    | false flag	| 0	    |
+	| Equal		| =	     | 8    | 4	   | false flag	| 0	    |
+	| Not Equal	| <>	     | 4    | 4    | false flag	| 0	    |
 
 Scenario Outline: <action> <int1> by <command> leaving the <resultName> <resultInt>
 	Given User has entered <int1>
@@ -21,13 +29,17 @@ Scenario Outline: <action> <int1> by <command> leaving the <resultName> <resultI
 	And NumberStack should only have 1 number
 
 Examples:
-	| action      | command | int1 | resultName | resultInt |
-	| One-minus   | 1-      | 3    | difference | 2		|
-	| One-plus    | 1+      | 29   | sum	    | 30	|
-	| Two-minus   | 2-      | 6    | difference | 4		|
-	| Two-plus    | 2+      | 20   | sum	    | 22	|
-	| 25-multiply | 25*     | 5    | product    | 125	|
-	| 45-divide   | 30/     | 99   | quotient   | 3		|
+	| action	 | command | int1 | resultName	| resultInt |
+	| One-minus 	 | 1-      | 3    | difference	| 2	    |
+	| One-plus	 | 1+      | 29   | sum		| 30	    |
+	| Two-minus	 | 2-      | 6    | difference	| 4	    |
+	| Two-plus	 | 2+      | 20   | sum		| 22	    |
+	| 25-multiply	 | 25*     | 5    | product	| 125	    |
+	| 45-divide	 | 30/     | 99   | quotient	| 3	    |
+	| 0-less-than	 | 0<      | -5   | true flag	| -1	    |
+	| 0-not-equal	 | 0<>     | 10   | true flag	| -1	    |
+	| 0-equal	 | 0=      | 0    | true flag   | -1	    |
+	| 0-greater-than | 0>      | 99   | true flag   | -1	    |
 
 Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by integer 3, leaving the integer 4. 
 	Given User has entered 2 
@@ -142,3 +154,19 @@ Scenario: User wants to use the top number to determine which number to copy to 
 	And 6 should be on top of NumberStack
 	And 2 should be under 6
 	And 6 should be 4 positions from the top of NumberStack
+
+Scenario: User adds a TRUE flag and FALSE flag to the stack then NOTs the FALSE flag
+	Given User runs TRUE
+	And User runs FALSE
+	When User runs NOT
+	Then TRUE should be on top of NumberStack
+	And TRUE should be 1 position from the top of NumberStack
+	And NumberStack should only have 2 numbers
+	
+Scenario: User adds a FALSE flag and TRUE flag to the stack then NOTs the TRUE flag
+	Given User runs FALSE
+	And User runs TRUE
+	When User runs NOT
+	Then FALSE should be on top of NumberStack
+	And FALSE should be 1 position from the top of NumberStack
+	And NumberStack should only have 2 numbers

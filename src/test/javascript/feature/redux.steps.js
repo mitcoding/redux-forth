@@ -14,7 +14,8 @@ When(/User runs ([^\s]+)$/i, function (command) {
 	return true;
 });
 
-Then(/^(\d+) should be on top of ([^\s]*)$/i, function (expectedInt, stackName) {
+Then(/^((-?\d+)|(TRUE)|(FALSE)) should be on top of ([^\s]*)$/i, function (expectedInt, stackName) {
+	expectedInt = expectedInt === 'TRUE' ? -1 : expectedInt === 'FALSE' ? 0 : expectedInt * 1;
 	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
 	expect([...store.getState()[stackName]].pop()).to.equal(expectedInt);
 });
@@ -41,7 +42,9 @@ Then('DisplayStack should equal NumberStack', function() {
 	});
 });
 
-Then('{int} should be {int} positions from the top of NumberStack', function(expectedValue, expectedIndexFromTotalLength) {
-	let numberStack = [...store.getState().numberStack];
+Then(/^((-?\d+)|(TRUE)|(FALSE)) should be (\d+) positions? from the top of ([^\s]*)$/i, function(expectedValue, expectedIndexFromTotalLength, stackName) {
+	expectedValue = expectedValue === 'TRUE' ? -1 : expectedValue === 'FALSE' ? 0 : expectedValue * 1;
+	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
+	let numberStack = [...store.getState()[stackName]];
 	expect(numberStack[numberStack.length - expectedIndexFromTotalLength], "numberStack[" + (numberStack.length - expectedIndexFromTotalLength)  + "] to equal " + expectedValue + " but got " + numberStack[numberStack.length - expectedIndexFromTotalLength]).to.equal(expectedValue);
 });

@@ -5,7 +5,7 @@ import {createLogger} from "redux-logger";
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
 
-	let specialDigitCommandRegex = /^([\d]+)([\+\*\/\-])$/gi;
+	let specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]{1,2})$/gi;
 	let specialDigitCommandMatch = specialDigitCommandRegex.exec(action.type);
 	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 3) {
 		let command = specialDigitCommandMatch[2];
@@ -28,6 +28,9 @@ const numberStackReducer = function(state=[], action) {
 			return state;
 		case "DROP" :
 			return state.slice(0, state.length - 1);
+		case "FALSE" :
+			state.push(0);
+			return state;
 		case "MAX" :
 			let topInt = state.pop();
 			let nextInt = state.pop();
@@ -46,6 +49,10 @@ const numberStackReducer = function(state=[], action) {
 		case "NEGATE" : 
 			topInt = state.pop();
 			state.push(topInt * -1);
+			return state;
+		case "NOT" :
+			topInt = state.pop();
+			state.push(topInt === 0 ? -1 : 0);
 			return state;
 		case "OVER" :
 			nextInt = state[state.length - 2];
@@ -67,6 +74,9 @@ const numberStackReducer = function(state=[], action) {
 			nextInt = state.pop();
 			state.push(topInt);
 			state.push(nextInt);
+			return state;
+		case "TRUE" :
+			state.push(-1);
 			return state;
 		case "." :
 			topInt = state.pop();
@@ -104,6 +114,27 @@ const numberStackReducer = function(state=[], action) {
 			state = numberStackReducer(state, {...action, type: 'MOD'});
 			state.push(divState.pop());
 			return state;
+		case "<" :
+			topInt = state.pop();
+			nextInt = state.pop();
+			state.push(nextInt < topInt ? -1 : 0);
+			return state;
+		case ">" :
+			topInt = state.pop();
+			nextInt = state.pop();
+			state.push(nextInt > topInt ? -1 : 0);
+			return state;
+		case "=" :
+			topInt = state.pop();
+			nextInt = state.pop();
+			state.push(nextInt === topInt ? -1 : 0);
+			return state;
+		case "<>" :
+			topInt = state.pop();
+			nextInt = state.pop();
+			state.push(nextInt !== topInt ? -1 : 0);
+			return state;
+
 
 	}
 
