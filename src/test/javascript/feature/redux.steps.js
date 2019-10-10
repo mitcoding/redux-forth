@@ -8,7 +8,7 @@ Given('User has entered {int}', function (int) {
 	return true; 
 });
 
-When('User runs {string}', function (command) {
+When(/User runs ([^\s]+)$/i, function (command) {
 	store.dispatch({type: command});
 	return true;
 });
@@ -17,7 +17,7 @@ Then('{int} should be on top', function (expectedInt) {
 	expect([...store.getState().numberStack].pop()).to.equal(expectedInt);
 });
 
-Then(/^NumberStack should only have (\d+) numbers?$/, function(int) {
+Then(/^NumberStack should only have (\d+) numbers?$/i, function(int) {
 	expect([...store.getState().numberStack]).to.have.length(int);
 });
 

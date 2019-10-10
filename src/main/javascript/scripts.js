@@ -1,7 +1,18 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {createLogger} from "redux-logger";
+
+
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
+
+	let specialDigitCommandRegex = /^([\d]+)([\+\*\/\-])$/gi;
+	let specialDigitCommandMatch = specialDigitCommandRegex.exec(action.type);
+	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 3) {
+		let command = specialDigitCommandMatch[2];
+		state.push(specialDigitCommandMatch[1] * 1);
+		return numberStackReducer(state, {...action, type: command});
+	}
+
 	switch(action.type) {
 		case "ABS" :
 			state.push(Math.abs(state.pop() ) );
@@ -31,7 +42,9 @@ const numberStackReducer = function(state=[], action) {
 			state.push(topInt * -1);
 			return state;
 		case "." :
-			return state.slice(0, state.length - 1);
+			topInt = state.pop();
+			store.dispatch({type: "PRINT", payload: [topInt]});
+			return state;
 		case "+" :
 			topInt = state.pop();
 			nextInt = state.pop();
@@ -76,17 +89,22 @@ const dictionaryReducer = function(state={}, action) {
 	return state;
 };
 
-const  errorHandler = store => next => action => {
-	try {
-		return next(action);
-	} catch(e) {
-		console.log("Caught an action exception!", e);
+const displayStackReducer = function(state=[], action) {
+	state = [...state];
+	switch(action.type) {
+		case "PRINT" :
+		console.log(action);
+		state.concat(action.payload);
+		return state;
 	}
+
+	return state;
 };
 
 const reducers = combineReducers({
 	numberStack: numberStackReducer,
-	dictionary: dictionaryReducer 
+	dictionary: dictionaryReducer,
+	displayStack: displayStackReducer
 });
 
 const middleware = applyMiddleware(createLogger() );
