@@ -137,8 +137,6 @@ const numberStackReducer = function(state=[], action) {
 			nextInt = state.pop();
 			state.push(nextInt !== topInt ? -1 : 0);
 			return state;
-
-
 	}
 
 	return state;
@@ -167,8 +165,22 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
+const processInput = store => next => action => {
+	action = {...action, type: (action.type + "").trim() };
+	let searchForWhiteSpace = /\s/gi;
+
+	if (action.type.match(searchForWhiteSpace) !== null) {
+		let commands = action.type.split(searchForWhiteSpace);
+		commands.forEach(function(command, index) {
+			return next({...action, type: command });
+		});
+	}
+	
+	return next(action);
+};
+
 const printCommands = store => next => action => {
-	switch(action.type) {
+	switch(action.type.toUpperCase() ) {
 		case "." :
 			let topInt = [...store.getState().numberStack].pop();
 			next(action);
@@ -181,5 +193,5 @@ const printCommands = store => next => action => {
 	return next(action);
 };
 
-const middleware = applyMiddleware(createLogger(), printCommands);
+const middleware = applyMiddleware(createLogger(), processInput, printCommands);
 const store = window.store = createStore(reducers, middleware);

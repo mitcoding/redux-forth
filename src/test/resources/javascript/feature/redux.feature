@@ -170,3 +170,16 @@ Scenario: User adds a FALSE flag and TRUE flag to the stack then NOTs the TRUE f
 	Then FALSE should be on top of NumberStack
 	And FALSE should be 1 position from the top of NumberStack
 	And NumberStack should only have 2 numbers
+
+Scenario Outline: User inputs several forth commands
+	When User runs '<command>'
+	Then <valueOnTop1> should be on top of <stackName1>
+	And <stackName1> should only have <totalValues1> numbers
+	And <valueOnTop2> should be on top of <stackName2>
+	And <stackName2> should only have <totalValues2> values
+	And Both stacks are '<doStacksMatch>'
+
+Examples: 
+	| command 		| valueOnTop1	| stackName1	| totalValues1	| valueOnTop2 	| stackName2 	| totalValues2	| doStacksMatch |
+	| 20 30 + 2 * 100 = .s  | TRUE		| NumberStack	| 1		| TRUE		| DisplayStack 	| 1		| same		|
+	| 5 9 + 3 *  5/ 8 = .	| undefined	| NumberStack	| 0		| TRUE		| DisplayStack	| 1		| different	| 
