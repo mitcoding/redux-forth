@@ -5,7 +5,7 @@ Before(function() {
 });
 
 Given('User has entered {int}', function (int) {
-	store.dispatch({type: "ADD_NUMBER", payload: int});
+	store.dispatch({type: int});
 	return true; 
 });
 

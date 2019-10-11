@@ -4,6 +4,12 @@ import {createLogger} from "redux-logger";
 
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
+	action = {...action};
+
+	if (/^-?\d+$/.exec(action.type)) {
+		state.push(action.type * 1);
+		return state;
+	}
 
 	let specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]{1,2})$/gi;
 	let specialDigitCommandMatch = specialDigitCommandRegex.exec(action.type);
@@ -16,9 +22,6 @@ const numberStackReducer = function(state=[], action) {
 	switch(action.type) {
 		case "ABS" :
 			state.push(Math.abs(state.pop() ) );
-			return state;
-		case "ADD_NUMBER" :
-			state.push(action.payload);
 			return state;
 		case "CLEAR_INTEGER_STACK" :
 			return [];
