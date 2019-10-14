@@ -1,0 +1,4 @@
+
+> redux-forth@1.0.0 test /home/hmt/hmtgithub/redux-forth
+> cross-env NODE_ENV=test karma start karma.config.js
+

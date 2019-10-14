@@ -1,0 +1,1968 @@
+
+> redux-forth@1.0.0 test /home/hmt/hmtgithub/redux-forth
+> cross-env NODE_ENV=test karma start karma.config.js
+
+
+
+ SMP  ⏱  
+General output time took 2.17 secs
+
+ SMP  ⏱  Loaders
+babel-loader took 1.68 secs
+  module count = 3
+modules with no loaders took 0.156 secs
+  module count = 17
+
+
+
+[34mℹ[39m [90m｢wdm｣[39m: Hash: [1m4b018a514ef86bf49dd5[39m[22m
+Version: webpack [1m4.41.0[39m[22m
+Time: [1m645[39m[22mms
+Built at: 2019-10-14 [1m10:31:03[39m[22m
+                                     [1mAsset[39m[22m      [1mSize[39m[22m                                   [1mChunks[39m[22m  [1m[39m[22m           [1m[39m[22m[1mChunk Names[39m[22m
+                                   [1m[32mmain.js[39m[22m   119 KiB                                     [1mmain[39m[22m  [1m[32m[emitted][39m[22m  main
+            [1m[32msrc/main/javascript/scripts.js[39m[22m   119 KiB              [1msrc/main/javascript/scripts[39m[22m  [1m[32m[emitted][39m[22m  src/main/javascript/scripts
+[1m[32msrc/test/javascript/feature/redux.steps.js[39m[22m  90.4 KiB  [1msrc/test/javascript/feature/redux.steps[39m[22m  [1m[32m[emitted][39m[22m  src/test/javascript/feature/redux.steps
+Entrypoint [1mmain[39m[22m = [1m[32mmain.js[39m[22m
+Entrypoint [1msrc/test/javascript/feature/redux.steps[39m[22m = [1m[32msrc/test/javascript/feature/redux.steps.js[39m[22m
+Entrypoint [1msrc/main/javascript/scripts[39m[22m = [1m[32msrc/main/javascript/scripts.js[39m[22m
+[[1m../node_modules/object-assign/index.js[39m[22m] 2.06 KiB {[1m[33msrc/test/javascript/feature/redux.steps[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/prop-types/checkPropTypes.js[39m[22m] 3.69 KiB {[1m[33msrc/test/javascript/feature/redux.steps[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/prop-types/lib/ReactPropTypesSecret.js[39m[22m] 314 bytes {[1m[33msrc/test/javascript/feature/redux.steps[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/react/cjs/react.development.js[39m[22m] 73.3 KiB {[1m[33msrc/test/javascript/feature/redux.steps[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/react/index.js[39m[22m] 190 bytes {[1m[33msrc/test/javascript/feature/redux.steps[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/redux-logger/dist/redux-logger.js[39m[22m] 10.3 KiB {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/redux/es/redux.js[39m[22m] 23.5 KiB {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/symbol-observable/es/index.js[39m[22m] 403 bytes {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/symbol-observable/es/ponyfill.js[39m[22m] 333 bytes {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/webpack/buildin/global.js[39m[22m] 472 bytes {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m../node_modules/webpack/buildin/harmony-module.js[39m[22m] 573 bytes {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m./main/javascript/scripts.js[39m[22m] 75.3 KiB {[1m[33mmain[39m[22m} {[1m[33msrc/main/javascript/scripts[39m[22m}[1m[32m [built][39m[22m
+[[1m./test/javascript/feature/redux.steps.js[39m[22m] 5.08 KiB {[1m[33msrc/test/javascript/feature/redux.steps[39m[22m}[1m[32m [built][39m[22m
+[34mℹ[39m [90m｢wdm｣[39m: Compiled successfully.
+[33m14 10 2019 10:31:03.659:WARN [karma]: [39mNo captured browser, open http://localhost:9877/
+[32m14 10 2019 10:31:03.683:INFO [karma-server]: [39mKarma v4.3.0 server started at http://0.0.0.0:9877/
+[32m14 10 2019 10:31:03.684:INFO [launcher]: [39mLaunching browsers ChromeHeadless with concurrency unlimited
+[32m14 10 2019 10:31:03.692:INFO [launcher]: [39mStarting browser ChromeHeadless
+[32m14 10 2019 10:31:04.146:INFO [HeadlessChrome 75.0.3770 (Linux 0.0.0)]: [39mConnected on socket IaOKHmiohyjB-Px-AAAA with id 95045193
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 2}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '3'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 3}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '*'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '*'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '29'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 29}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [29], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [29], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [29, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '/'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [29, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '/'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '9'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 9}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 9], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '+'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 9], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '+'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [13], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [13], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '20'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 20}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [20, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '-'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [20, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '-'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '5'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 5}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '6'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 6}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [5, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '<'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [5, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '<'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '7'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 7}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [7], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '3'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [7], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 3}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [7, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [7, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '='}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '='}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '50'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 50}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [50], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '20'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [50], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 20}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [50, 20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '<>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [50, 20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '<>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 2}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [10, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '<'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [10, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '<'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '1'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 1}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '9'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 9}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 9], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 9], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '8'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 8}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [8], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [8], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [8, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '='}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [8, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '='}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '<>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '<>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '3'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 3}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '1-'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '1-'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '29'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 29}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [29], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '1+'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [29], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '1+'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [30], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [30], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '6'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 6}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2-'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '2-'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '20'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 20}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2+'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '2+'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [22], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [22], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '5'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 5}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '25*'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '25*'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [125], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [125], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '99'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 99}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [99], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '30/'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [99], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '30/'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '-5'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: -5}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '0<'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '0<'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '0<>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '0<>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '0'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 0}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '0='}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '0='}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '99'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 99}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [99], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '0>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [99], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '0>'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 2}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '9'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 9}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2, 9], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2, 9], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [2, 9, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '*/'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [2, 9, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '*/'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '3'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 3}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '6'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 6}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [3, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [3, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [3, 6, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '*/MOD'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [3, 6, 10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '*/MOD'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [8, 1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{numberStack: [8, 1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [8, 1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '-80'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: -80}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-80], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'ABS'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-80], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'ABS'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [80], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [80], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '30'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 30}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [30], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '20'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [30], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 20}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [30, 20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'MAX'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [30, 20], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'MAX'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [30], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [30], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '100'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 100}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [100], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '300'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [100], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 300}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [100, 300], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'MIN'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [100, 300], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'MIN'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [100], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [100], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '-10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: -10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'NEGATE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'NEGATE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '10'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 10}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '.'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [10], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '.'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: [10]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: [10]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: [10]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: [10]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '38'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 38}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [38], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '46'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [38], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 46}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [38, 46], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '.S'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [38, 46], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '.S'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [38, 46], dictionary: Object{stack: []}, displayStack: [38, 46]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [38, 46], dictionary: Object{stack: []}, displayStack: [38, 46]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: [38, 46]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: [38, 46]}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '91'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 91}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [91], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '60'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [91], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 60}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [91, 60], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'DUP'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [91, 60], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'DUP'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [91, 60, 60], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [91, 60, 60], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '37'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 37}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [37], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '110'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [37], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 110}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [37, 110], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '16'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [37, 110], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 16}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [37, 110, 16], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'DROP'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [37, 110, 16], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'DROP'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [37, 110], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [37, 110], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '1'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 1}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 2}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '3'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 3}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 2, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'SWAP'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 2, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'SWAP'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 3, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{numberStack: [1, 3, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 3, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '5'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 5}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '6'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 6}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'OVER'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'OVER'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5, 6, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{numberStack: [4, 5, 6, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5, 6, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '1'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 1}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 2}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '3'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 3}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 2, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 2, 3], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 2, 3, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'ROT'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 2, 3, 4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'ROT'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [1, 3, 4, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{numberStack: [1, 3, 4, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [1, 3, 4, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '4'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 4}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '5'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 5}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '6'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 6}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '7'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 7}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5, 6, 7], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: '2'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5, 6, 7], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 2}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5, 6, 7, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'PICK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5, 6, 7, 2], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'PICK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [4, 5, 6, 7, 2, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{numberStack: [4, 5, 6, 7, 2, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [4, 5, 6, 7, 2, 6], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'TRUE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'TRUE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'FALSE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'FALSE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1, 0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'NOT'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1, 0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'NOT'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [-1, -1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [-1, -1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'FALSE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'FALSE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'TRUE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'TRUE'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0, -1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'NOT'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0, -1], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'NOT'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [0, 0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [0, 0], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mundefined[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '20 30 + 2 * 100 = .s'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mundefined[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: '5 9 + 3 *  5/ 8 = .'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_INTEGER_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mObject{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: 'CLEAR_DISPLAY_STACK'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36mundefined[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c prev state', 'color: #9E9E9E; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c action    ', 'color: #03A9F4; font-weight: bold', Object{type: ': SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED'}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'%c next state', 'color: #4CAF50; font-weight: bold', Object{numberStack: [], dictionary: Object{stack: []}, displayStack: []}[39m
+
+HeadlessChrome 75.0.3770 (Linux 0.0.0) LOG: [36m'Failures:
+
+[93mFeature: Fouth Emulator [33m(/base/src/test/resources/javascript/feature/redux.feature)[0m
+1) Scenario: User inputs several forth commands # [90m/base/src/test/resources/javascript/feature/redux.feature:184[39m
+   [32m✔ Before[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [32m✔ When User runs '20 30 + 2 * 100 = .s'[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [31m✖ Then TRUE should be on top of NumberStack[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+       [31mAssertionError: expected undefined to equal -1[39m[90m
+           at World.<anonymous> (http://localhost:9877/base/src/test/javascript/feature/redux.steps.js:2744:68)
+           at Function._callee$ (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66516:31)
+           at tryCatch (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51935:40)
+           at Generator.invoke [as _invoke] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:52161:22)
+           at Generator.prototype.<computed> [as next] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51987:21)
+           at asyncGeneratorStep (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66476:103)
+           at _next (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:194)
+           at http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:364
+           at new Promise (<anonymous>)
+           at Function.<anonymous> (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:97)
+           at Function.run (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66625:21)
+           at Object._callee$ (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:65099:46)
+           at tryCatch (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51935:40)
+           at Generator.invoke [as _invoke] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:52161:22)
+           at Generator.prototype.<computed> [as next] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51987:21)
+           at asyncGeneratorStep (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:65044:103)[39m
+   [36m- And NumberStack should only have 1 numbers[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [36m- And TRUE should be on top of DisplayStack[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [36m- And DisplayStack should only have 1 values[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [36m- And Both stacks are 'same'[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+
+[93mFeature: Fouth Emulator [33m(/base/src/test/resources/javascript/feature/redux.feature)[0m
+2) Scenario: User inputs several forth commands # [90m/base/src/test/resources/javascript/feature/redux.feature:185[39m
+   [32m✔ Before[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [32m✔ When User runs '5 9 + 3 *  5/ 8 = .'[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [32m✔ Then undefined should be on top of NumberStack[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [32m✔ And NumberStack should only have 0 numbers[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [31m✖ And TRUE should be on top of DisplayStack[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+       [31mAssertionError: expected undefined to equal -1[39m[90m
+           at World.<anonymous> (http://localhost:9877/base/src/test/javascript/feature/redux.steps.js:2744:68)
+           at Function._callee$ (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66516:31)
+           at tryCatch (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51935:40)
+           at Generator.invoke [as _invoke] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:52161:22)
+           at Generator.prototype.<computed> [as next] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51987:21)
+           at asyncGeneratorStep (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66476:103)
+           at _next (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:194)
+           at http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:364
+           at new Promise (<anonymous>)
+           at Function.<anonymous> (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:97)
+           at Function.run (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66625:21)
+           at Object._callee$ (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:65099:46)
+           at tryCatch (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51935:40)
+           at Generator.invoke [as _invoke] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:52161:22)
+           at Generator.prototype.<computed> [as next] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51987:21)
+           at asyncGeneratorStep (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:65044:103)[39m
+   [36m- And DisplayStack should only have 1 values[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [36m- And Both stacks are 'different'[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+
+[93mFeature: Fouth Emulator [33m(/base/src/test/resources/javascript/feature/redux.feature)[0m
+3) Scenario: User creates a new custom command to Square Numbers. Which they use. # [90m/base/src/test/resources/javascript/feature/redux.feature:187[39m
+   [32m✔ Before[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [32m✔ When User runs ': SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED'[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [31m✖ Then 'SQUARED' should be added to the dictionary[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+       [31mAssertionError: expected undefined to exist[39m[90m
+           at World.<anonymous> (http://localhost:9877/base/src/test/javascript/feature/redux.steps.js:2793:33)
+           at Function._callee$ (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66516:31)
+           at tryCatch (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51935:40)
+           at Generator.invoke [as _invoke] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:52161:22)
+           at Generator.prototype.<computed> [as next] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51987:21)
+           at asyncGeneratorStep (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66476:103)
+           at _next (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:194)
+           at http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:364
+           at new Promise (<anonymous>)
+           at Function.<anonymous> (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66478:97)
+           at Function.run (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66625:21)
+           at Object._callee$ (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:65099:46)
+           at tryCatch (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51935:40)
+           at Generator.invoke [as _invoke] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:52161:22)
+           at Generator.prototype.<computed> [as next] (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:51987:21)
+           at asyncGeneratorStep (http://localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:65044:103)[39m
+   [36m- And 36 should be on top of NumberStack[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+   [36m- And NumberStack should only have 1 number[39m # [90mhttp:/localhost:9877/base/node_modules/cucumber/dist/cucumber.js?d26dba2d243753ad877577bbe2ebb7a5ef1da337:66013[39m
+
+[93mFeature: Fouth Emulator [33m(/base/src/test/resources/javascript/feature/redux.feature)[0m
+41 scenarios ([31m3 failed[39m, [32m38 passed[39m)
+214 steps ([31m3 failed[39m, [36m8 skipped[39m, [32m203 passed[39m)
+0m00.172s'[39m
+
+
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 0 of 255[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 1 of 255[32m SUCCESS[39m (0 secs / 0.004 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 2 of 255[32m SUCCESS[39m (0 secs / 0.005 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 3 of 255[32m SUCCESS[39m (0 secs / 0.006 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 4 of 255[32m SUCCESS[39m (0 secs / 0.007 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 5 of 255[32m SUCCESS[39m (0 secs / 0.008 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 6 of 255[32m SUCCESS[39m (0 secs / 0.009 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 7 of 255[32m SUCCESS[39m (0 secs / 0.01 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 8 of 255[32m SUCCESS[39m (0 secs / 0.011 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 9 of 255[32m SUCCESS[39m (0 secs / 0.012 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 10 of 255[32m SUCCESS[39m (0 secs / 0.014 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 11 of 255[32m SUCCESS[39m (0 secs / 0.014 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 12 of 255[32m SUCCESS[39m (0 secs / 0.014 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 13 of 255[32m SUCCESS[39m (0 secs / 0.015 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 14 of 255[32m SUCCESS[39m (0 secs / 0.016 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 15 of 255[32m SUCCESS[39m (0 secs / 0.017 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 16 of 255[32m SUCCESS[39m (0 secs / 0.018 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 17 of 255[32m SUCCESS[39m (0 secs / 0.019 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 18 of 255[32m SUCCESS[39m (0 secs / 0.019 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 19 of 255[32m SUCCESS[39m (0 secs / 0.02 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 20 of 255[32m SUCCESS[39m (0 secs / 0.02 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 21 of 255[32m SUCCESS[39m (0 secs / 0.02 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 22 of 255[32m SUCCESS[39m (0 secs / 0.021 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 23 of 255[32m SUCCESS[39m (0 secs / 0.021 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 24 of 255[32m SUCCESS[39m (0 secs / 0.022 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 25 of 255[32m SUCCESS[39m (0 secs / 0.024 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 26 of 255[32m SUCCESS[39m (0 secs / 0.025 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 27 of 255[32m SUCCESS[39m (0 secs / 0.026 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 28 of 255[32m SUCCESS[39m (0 secs / 0.026 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 29 of 255[32m SUCCESS[39m (0 secs / 0.026 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 30 of 255[32m SUCCESS[39m (0 secs / 0.027 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 31 of 255[32m SUCCESS[39m (0 secs / 0.028 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 32 of 255[32m SUCCESS[39m (0 secs / 0.029 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 33 of 255[32m SUCCESS[39m (0 secs / 0.03 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 34 of 255[32m SUCCESS[39m (0 secs / 0.031 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 35 of 255[32m SUCCESS[39m (0 secs / 0.031 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 36 of 255[32m SUCCESS[39m (0 secs / 0.031 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 37 of 255[32m SUCCESS[39m (0 secs / 0.032 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 38 of 255[32m SUCCESS[39m (0 secs / 0.033 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 39 of 255[32m SUCCESS[39m (0 secs / 0.033 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 40 of 255[32m SUCCESS[39m (0 secs / 0.034 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 41 of 255[32m SUCCESS[39m (0 secs / 0.034 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 42 of 255[32m SUCCESS[39m (0 secs / 0.035 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 43 of 255[32m SUCCESS[39m (0 secs / 0.036 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 44 of 255[32m SUCCESS[39m (0 secs / 0.039 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 45 of 255[32m SUCCESS[39m (0 secs / 0.04 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 46 of 255[32m SUCCESS[39m (0 secs / 0.041 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 47 of 255[32m SUCCESS[39m (0 secs / 0.042 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 48 of 255[32m SUCCESS[39m (0 secs / 0.042 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 49 of 255[32m SUCCESS[39m (0 secs / 0.043 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 50 of 255[32m SUCCESS[39m (0 secs / 0.043 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 51 of 255[32m SUCCESS[39m (0 secs / 0.043 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 52 of 255[32m SUCCESS[39m (0 secs / 0.044 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 53 of 255[32m SUCCESS[39m (0 secs / 0.044 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 54 of 255[32m SUCCESS[39m (0 secs / 0.044 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 55 of 255[32m SUCCESS[39m (0 secs / 0.046 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 56 of 255[32m SUCCESS[39m (0 secs / 0.047 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 57 of 255[32m SUCCESS[39m (0 secs / 0.048 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 58 of 255[32m SUCCESS[39m (0 secs / 0.048 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 59 of 255[32m SUCCESS[39m (0 secs / 0.048 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 60 of 255[32m SUCCESS[39m (0 secs / 0.049 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 61 of 255[32m SUCCESS[39m (0 secs / 0.05 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 62 of 255[32m SUCCESS[39m (0 secs / 0.051 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 63 of 255[32m SUCCESS[39m (0 secs / 0.052 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 64 of 255[32m SUCCESS[39m (0 secs / 0.053 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 65 of 255[32m SUCCESS[39m (0 secs / 0.053 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 66 of 255[32m SUCCESS[39m (0 secs / 0.054 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 67 of 255[32m SUCCESS[39m (0 secs / 0.055 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 68 of 255[32m SUCCESS[39m (0 secs / 0.056 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 69 of 255[32m SUCCESS[39m (0 secs / 0.056 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 70 of 255[32m SUCCESS[39m (0 secs / 0.057 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 71 of 255[32m SUCCESS[39m (0 secs / 0.058 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 72 of 255[32m SUCCESS[39m (0 secs / 0.059 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 73 of 255[32m SUCCESS[39m (0 secs / 0.06 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 74 of 255[32m SUCCESS[39m (0 secs / 0.061 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 75 of 255[32m SUCCESS[39m (0 secs / 0.062 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 76 of 255[32m SUCCESS[39m (0 secs / 0.063 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 77 of 255[32m SUCCESS[39m (0 secs / 0.064 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 78 of 255[32m SUCCESS[39m (0 secs / 0.065 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 79 of 255[32m SUCCESS[39m (0 secs / 0.066 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 80 of 255[32m SUCCESS[39m (0 secs / 0.067 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 81 of 255[32m SUCCESS[39m (0 secs / 0.067 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 82 of 255[32m SUCCESS[39m (0 secs / 0.068 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 83 of 255[32m SUCCESS[39m (0 secs / 0.069 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 84 of 255[32m SUCCESS[39m (0 secs / 0.069 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 85 of 255[32m SUCCESS[39m (0 secs / 0.07 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 86 of 255[32m SUCCESS[39m (0 secs / 0.071 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 87 of 255[32m SUCCESS[39m (0 secs / 0.072 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 88 of 255[32m SUCCESS[39m (0 secs / 0.073 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 89 of 255[32m SUCCESS[39m (0 secs / 0.074 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 90 of 255[32m SUCCESS[39m (0 secs / 0.075 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 91 of 255[32m SUCCESS[39m (0 secs / 0.075 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 92 of 255[32m SUCCESS[39m (0 secs / 0.075 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 93 of 255[32m SUCCESS[39m (0 secs / 0.076 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 94 of 255[32m SUCCESS[39m (0 secs / 0.077 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 95 of 255[32m SUCCESS[39m (0 secs / 0.077 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 96 of 255[32m SUCCESS[39m (0 secs / 0.077 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 97 of 255[32m SUCCESS[39m (0 secs / 0.077 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 98 of 255[32m SUCCESS[39m (0 secs / 0.078 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 99 of 255[32m SUCCESS[39m (0 secs / 0.078 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 100 of 255[32m SUCCESS[39m (0 secs / 0.078 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 101 of 255[32m SUCCESS[39m (0 secs / 0.078 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 102 of 255[32m SUCCESS[39m (0 secs / 0.078 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 103 of 255[32m SUCCESS[39m (0 secs / 0.079 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 104 of 255[32m SUCCESS[39m (0 secs / 0.08 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 105 of 255[32m SUCCESS[39m (0 secs / 0.08 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 106 of 255[32m SUCCESS[39m (0 secs / 0.08 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 107 of 255[32m SUCCESS[39m (0 secs / 0.08 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 108 of 255[32m SUCCESS[39m (0 secs / 0.081 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 109 of 255[32m SUCCESS[39m (0 secs / 0.082 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 110 of 255[32m SUCCESS[39m (0 secs / 0.083 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 111 of 255[32m SUCCESS[39m (0 secs / 0.084 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 112 of 255[32m SUCCESS[39m (0 secs / 0.084 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 113 of 255[32m SUCCESS[39m (0 secs / 0.085 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 114 of 255[32m SUCCESS[39m (0 secs / 0.086 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 115 of 255[32m SUCCESS[39m (0 secs / 0.087 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 116 of 255[32m SUCCESS[39m (0 secs / 0.087 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 117 of 255[32m SUCCESS[39m (0 secs / 0.087 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 118 of 255[32m SUCCESS[39m (0 secs / 0.088 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 119 of 255[32m SUCCESS[39m (0 secs / 0.088 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 120 of 255[32m SUCCESS[39m (0 secs / 0.088 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 121 of 255[32m SUCCESS[39m (0 secs / 0.088 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 122 of 255[32m SUCCESS[39m (0 secs / 0.088 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 123 of 255[32m SUCCESS[39m (0 secs / 0.089 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 124 of 255[32m SUCCESS[39m (0 secs / 0.09 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 125 of 255[32m SUCCESS[39m (0 secs / 0.091 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 126 of 255[32m SUCCESS[39m (0 secs / 0.091 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 127 of 255[32m SUCCESS[39m (0 secs / 0.092 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 128 of 255[32m SUCCESS[39m (0 secs / 0.093 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 129 of 255[32m SUCCESS[39m (0 secs / 0.093 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 130 of 255[32m SUCCESS[39m (0 secs / 0.095 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 131 of 255[32m SUCCESS[39m (0 secs / 0.096 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 132 of 255[32m SUCCESS[39m (0 secs / 0.097 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 133 of 255[32m SUCCESS[39m (0 secs / 0.098 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 134 of 255[32m SUCCESS[39m (0 secs / 0.099 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 135 of 255[32m SUCCESS[39m (0 secs / 0.099 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 136 of 255[32m SUCCESS[39m (0 secs / 0.099 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 137 of 255[32m SUCCESS[39m (0 secs / 0.099 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 138 of 255[32m SUCCESS[39m (0 secs / 0.1 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 139 of 255[32m SUCCESS[39m (0 secs / 0.101 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 140 of 255[32m SUCCESS[39m (0 secs / 0.102 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 141 of 255[32m SUCCESS[39m (0 secs / 0.102 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 142 of 255[32m SUCCESS[39m (0 secs / 0.103 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 143 of 255[32m SUCCESS[39m (0 secs / 0.104 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 144 of 255[32m SUCCESS[39m (0 secs / 0.104 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 145 of 255[32m SUCCESS[39m (0 secs / 0.104 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 146 of 255[32m SUCCESS[39m (0 secs / 0.105 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 147 of 255[32m SUCCESS[39m (0 secs / 0.105 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 148 of 255[32m SUCCESS[39m (0 secs / 0.105 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 149 of 255[32m SUCCESS[39m (0 secs / 0.106 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 150 of 255[32m SUCCESS[39m (0 secs / 0.108 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 151 of 255[32m SUCCESS[39m (0 secs / 0.109 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 152 of 255[32m SUCCESS[39m (0 secs / 0.111 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 153 of 255[32m SUCCESS[39m (0 secs / 0.111 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 154 of 255[32m SUCCESS[39m (0 secs / 0.112 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 155 of 255[32m SUCCESS[39m (0 secs / 0.113 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 156 of 255[32m SUCCESS[39m (0 secs / 0.113 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 157 of 255[32m SUCCESS[39m (0 secs / 0.114 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 158 of 255[32m SUCCESS[39m (0 secs / 0.115 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 159 of 255[32m SUCCESS[39m (0 secs / 0.115 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 160 of 255[32m SUCCESS[39m (0 secs / 0.116 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 161 of 255[32m SUCCESS[39m (0 secs / 0.116 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 162 of 255[32m SUCCESS[39m (0 secs / 0.117 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 163 of 255[32m SUCCESS[39m (0 secs / 0.117 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 164 of 255[32m SUCCESS[39m (0 secs / 0.117 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 165 of 255[32m SUCCESS[39m (0 secs / 0.117 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 166 of 255[32m SUCCESS[39m (0 secs / 0.118 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 167 of 255[32m SUCCESS[39m (0 secs / 0.118 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 168 of 255[32m SUCCESS[39m (0 secs / 0.118 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 169 of 255[32m SUCCESS[39m (0 secs / 0.119 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 170 of 255[32m SUCCESS[39m (0 secs / 0.119 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 171 of 255[32m SUCCESS[39m (0 secs / 0.12 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 172 of 255[32m SUCCESS[39m (0 secs / 0.12 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 173 of 255[32m SUCCESS[39m (0 secs / 0.121 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 174 of 255[32m SUCCESS[39m (0 secs / 0.122 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 175 of 255[32m SUCCESS[39m (0 secs / 0.123 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 176 of 255[32m SUCCESS[39m (0 secs / 0.125 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 177 of 255[32m SUCCESS[39m (0 secs / 0.126 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 178 of 255[32m SUCCESS[39m (0 secs / 0.127 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 179 of 255[32m SUCCESS[39m (0 secs / 0.128 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 180 of 255[32m SUCCESS[39m (0 secs / 0.129 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 181 of 255[32m SUCCESS[39m (0 secs / 0.13 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 182 of 255[32m SUCCESS[39m (0 secs / 0.13 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 183 of 255[32m SUCCESS[39m (0 secs / 0.131 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 184 of 255[32m SUCCESS[39m (0 secs / 0.132 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 185 of 255[32m SUCCESS[39m (0 secs / 0.133 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 186 of 255[32m SUCCESS[39m (0 secs / 0.134 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 187 of 255[32m SUCCESS[39m (0 secs / 0.135 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 188 of 255[32m SUCCESS[39m (0 secs / 0.135 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 189 of 255[32m SUCCESS[39m (0 secs / 0.136 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 190 of 255[32m SUCCESS[39m (0 secs / 0.136 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 191 of 255[32m SUCCESS[39m (0 secs / 0.137 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 192 of 255[32m SUCCESS[39m (0 secs / 0.137 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 193 of 255[32m SUCCESS[39m (0 secs / 0.137 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 194 of 255[32m SUCCESS[39m (0 secs / 0.138 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 195 of 255[32m SUCCESS[39m (0 secs / 0.139 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 196 of 255[32m SUCCESS[39m (0 secs / 0.14 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 197 of 255[32m SUCCESS[39m (0 secs / 0.141 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 198 of 255[32m SUCCESS[39m (0 secs / 0.141 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 199 of 255[32m SUCCESS[39m (0 secs / 0.141 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 200 of 255[32m SUCCESS[39m (0 secs / 0.141 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 201 of 255[32m SUCCESS[39m (0 secs / 0.142 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 202 of 255[32m SUCCESS[39m (0 secs / 0.143 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 203 of 255[32m SUCCESS[39m (0 secs / 0.144 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 204 of 255[32m SUCCESS[39m (0 secs / 0.145 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 205 of 255[32m SUCCESS[39m (0 secs / 0.146 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 206 of 255[32m SUCCESS[39m (0 secs / 0.147 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 207 of 255[32m SUCCESS[39m (0 secs / 0.148 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 208 of 255[32m SUCCESS[39m (0 secs / 0.149 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 209 of 255[32m SUCCESS[39m (0 secs / 0.15 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 210 of 255[32m SUCCESS[39m (0 secs / 0.15 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 211 of 255[32m SUCCESS[39m (0 secs / 0.151 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 212 of 255[32m SUCCESS[39m (0 secs / 0.152 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 213 of 255[32m SUCCESS[39m (0 secs / 0.153 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 214 of 255[32m SUCCESS[39m (0 secs / 0.153 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 215 of 255[32m SUCCESS[39m (0 secs / 0.153 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 216 of 255[32m SUCCESS[39m (0 secs / 0.154 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 217 of 255[32m SUCCESS[39m (0 secs / 0.154 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 218 of 255[32m SUCCESS[39m (0 secs / 0.155 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 219 of 255[32m SUCCESS[39m (0 secs / 0.155 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 220 of 255[32m SUCCESS[39m (0 secs / 0.155 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 221 of 255[32m SUCCESS[39m (0 secs / 0.156 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 222 of 255[32m SUCCESS[39m (0 secs / 0.156 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 223 of 255[32m SUCCESS[39m (0 secs / 0.157 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 224 of 255[32m SUCCESS[39m (0 secs / 0.158 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 225 of 255[32m SUCCESS[39m (0 secs / 0.159 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 226 of 255[32m SUCCESS[39m (0 secs / 0.16 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 227 of 255[32m SUCCESS[39m (0 secs / 0.16 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 228 of 255[32m SUCCESS[39m (0 secs / 0.16 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 229 of 255[32m SUCCESS[39m (0 secs / 0.16 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 230 of 255[32m SUCCESS[39m (0 secs / 0.161 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 231 of 255[32m SUCCESS[39m (0 secs / 0.161 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 232 of 255[32m SUCCESS[39m (0 secs / 0.162 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 233 of 255[32m SUCCESS[39m (0 secs / 0.163 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 234 of 255[32m SUCCESS[39m (0 secs / 0.163 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 235 of 255[32m SUCCESS[39m (0 secs / 0.164 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 236 of 255[32m SUCCESS[39m (0 secs / 0.165 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 237 of 255[32m SUCCESS[39m (0 secs / 0.166 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 238 of 255[32m SUCCESS[39m (0 secs / 0.167 secs)
+[1A[2K[31mHeadlessChrome 75.0.3770 (Linux 0.0.0) Fouth Emulator 	| 20 30 + 2 * 100 = .s  | TRUE		| NumberStack	| 1		| TRUE		| DisplayStack 	| 1		| same		| Scenario: User creates a new custom command to Square Numbers. Which they use. FAILED[39m
+	Step: Scenario: User creates a new custom command to Square Numbers. Which they use. <- src/test/resources/javascript/feature/redux.feature:184
+HeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 239 of 255[31m (1 FAILED)[39m (0 secs / 0.168 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 240 of 255[31m (1 FAILED)[39m (skipped 4) (0 secs / 0.169 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 241 of 255[31m (1 FAILED)[39m (skipped 4) (0 secs / 0.169 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 242 of 255[31m (1 FAILED)[39m (skipped 4) (0 secs / 0.169 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 243 of 255[31m (1 FAILED)[39m (skipped 4) (0 secs / 0.169 secs)
+[1A[2K[31mHeadlessChrome 75.0.3770 (Linux 0.0.0) Fouth Emulator 	| 5 9 + 3 *  5/ 8 = .	| undefined	| NumberStack	| 0		| TRUE		| DisplayStack	| 1		| different	|  And 36 should be on top of NumberStack FAILED[39m
+	Step: And 36 should be on top of NumberStack <- src/test/resources/javascript/feature/redux.feature:190
+HeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 244 of 255[31m (2 FAILED)[39m (skipped 4) (0 secs / 0.17 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 245 of 255[31m (2 FAILED)[39m (skipped 6) (0 secs / 0.171 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 246 of 255[31m (2 FAILED)[39m (skipped 6) (0 secs / 0.172 secs)
+[1A[2K[31mHeadlessChrome 75.0.3770 (Linux 0.0.0) Fouth Emulator User creates a new custom command to Square Numbers. Which they use. And 36 should be on top of NumberStack FAILED[39m
+	Step: And 36 should be on top of NumberStack <- src/test/resources/javascript/feature/redux.feature:190
+HeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 247 of 255[31m (3 FAILED)[39m (skipped 6) (0 secs / 0.172 secs)
+[1A[2KHeadlessChrome 75.0.3770 (Linux 0.0.0): Executed 247 of 255[31m (3 FAILED)[39m (skipped 8) (0.374 secs / 0.172 secs)
+[31mTOTAL: 3 FAILED, 244 SUCCESS[39m

@@ -183,3 +183,9 @@ Examples:
 	| command 		| valueOnTop1	| stackName1	| totalValues1	| valueOnTop2 	| stackName2 	| totalValues2	| doStacksMatch |
 	| 20 30 + 2 * 100 = .s  | TRUE		| NumberStack	| 1		| TRUE		| DisplayStack 	| 1		| same		|
 	| 5 9 + 3 *  5/ 8 = .	| undefined	| NumberStack	| 0		| TRUE		| DisplayStack	| 1		| different	| 
+
+Scenario: User creates a new custom command to Square Numbers. Which they use.
+	When User runs ': SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED'
+	Then 'SQUARED' should be added to the dictionary
+	And 36 should be on top of NumberStack
+	And NumberStack should only have 1 number

@@ -27,7 +27,6 @@ const numberStackReducer = function(state=[], action) {
 			return [];
 		case "DUP" :
 			state.push(state[state.length - 1]);
-			console.log(state);
 			return state;
 		case "DROP" :
 			return state.slice(0, state.length - 1);
@@ -143,7 +142,19 @@ const numberStackReducer = function(state=[], action) {
 };
 
 
-const dictionaryReducer = function(state={}, action) {
+const dictionaryReducer = function(state={stack: []}, action) {
+	state = {...state, stack: [...state.stack] };
+	action = {...action};
+	switch(action.type) {
+		case "CREATE_NEW_COMMAND" :
+			action.payload.command = action.payload.command.trim();
+			action.payload.comment = action.payload.comment.trim();
+			state.stack.push(action.payload);
+			let command = state[action.payload.name] = Object.assign({ indexes: [] }, {...state[action.payload.name]});
+			command.indexes.push(state.stack.length - 1);
+			
+			return state;
+	}
 	return state;
 };
 
@@ -165,18 +176,75 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
-const processInput = store => next => action => {
+const searchDictionary = function(command, dictionary) {
+	let indexes = [...Object.assign({ indexes: [] }, dictionary[command]).indexes]; 
+	let index = indexes.pop();
+	let customCommand = index >= 0 ? dictionary.stack[index].command : command	
+	return customCommand;
+};
+
+class CustomCommand {
+	constructor() {
+		this.comment = "";
+		this.command = "";
+	}
+}
+
+const processCommands = function(action, next) {
 	action = {...action, type: (action.type + "").trim() };
 	let searchForWhiteSpace = /\s/gi;
+	let returnActions = [];
 
 	if (action.type.match(searchForWhiteSpace) !== null) {
 		let commands = action.type.split(searchForWhiteSpace);
+		let isWritingNewCommand = false;
+		let isWritingNewComment = false;
+		let customCommands = [];
+		let startOfCustomCommandIndex = 0;
 		commands.forEach(function(command, index) {
-			return next({...action, type: command });
+			switch(command) {
+				case ":" :
+					isWritingNewCommand = true;
+					startOfCustomCommandIndex = index;
+					customCommands.push(new CustomCommand() );
+					break;
+				case ";" :
+					isWritingNewCommand = false;
+					return next({...action, type: "CREATE_NEW_COMMAND", payload: customCommands.pop() });
+				case "(" :
+					isWritingNewComment = true;
+					break;
+				case ")" :
+					isWritingNewComment = false;
+					customCommands[customCommands.length - 1].comment += " " + command;
+					return;
+			}
+			if (isWritingNewCommand === false && isWritingNewComment === false) {
+				command = searchDictionary(command, {...store.getState().dictionary});
+				returnActions = returnActions.concat(processCommands({...action, type: command }, next) );
+				return; 
+			} else if (isWritingNewCommand) {
+				if (startOfCustomCommandIndex + 1 === index) {
+					customCommands[customCommands.length - 1].name = command;
+				} else if (isWritingNewComment === false && command !== ":")  {
+					customCommands[customCommands.length - 1].command += " " + command;
+				} else {
+					customCommands[customCommands.length - 1].comment += " " + command;
+				}
+			}
 		});
+	} else {
+		returnActions.push({...action, type: searchDictionary(action.type, {...store.getState().dictionary}) } );
 	}
-	
-	return next(action);
+
+	return returnActions;
+};
+
+const processInput = store => next => action => {
+	let actions = processCommands(action, next);
+	actions.forEach(function(action, index) {
+		return next(action);
+	});
 };
 
 const printCommands = store => next => action => {

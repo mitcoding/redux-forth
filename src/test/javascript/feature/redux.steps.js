@@ -66,3 +66,10 @@ Then('Both stacks are {string}', function (doBothStacksMatch) {
         });
 });
 
+
+Then('{string} should be added to the dictionary', function (command) {
+	let dictionary = {...store.getState().dictionary};
+	expect(dictionary[command]).to.exist;
+	expect(dictionary.stack[dictionary[command].indexes.pop()]).to.exist;
+});
+
