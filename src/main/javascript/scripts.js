@@ -147,14 +147,19 @@ const dictionaryReducer = function(state={stack: []}, action) {
 	action = {...action};
 	switch(action.type) {
 		case "CREATE_NEW_COMMAND" :
-			action.payload.command = action.payload.command.trim();
-			action.payload.comment = action.payload.comment.trim();
-			state.stack.push(action.payload);
-			let command = state[action.payload.name] = Object.assign({ indexes: [] }, {...state[action.payload.name]});
-			command.indexes.push(state.stack.length - 1);
-			
+			if (action.payload instanceof CustomCommand) {
+				action.payload.command = action.payload.command.trim();
+				action.payload.comment = action.payload.comment.trim();
+				state.stack.push(action.payload);
+				let command = state[action.payload.name] = Object.assign({ indexes: [] }, {...state[action.payload.name]});
+				command.indexes.push(state.stack.length - 1);
+			} else {
+				throw new CreateCustomCommandError();
+			}
+
 			return state;
 	}
+
 	return state;
 };
 
@@ -190,6 +195,12 @@ class CustomCommand {
 	}
 }
 
+class CreateCustomCommandError extends Error {
+	constructor() {
+		super("expected payload to be of type CustomCommand");
+	}
+}
+
 const processCommands = function(action, next) {
 	action = {...action, type: (action.type + "").trim() };
 	let searchForWhiteSpace = /\s/gi;
@@ -215,10 +226,13 @@ const processCommands = function(action, next) {
 					isWritingNewComment = true;
 					break;
 				case ")" :
+					if (isWritingNewCommand) {
+						customCommands[customCommands.length - 1].comment += " " + command;
+					}
 					isWritingNewComment = false;
-					customCommands[customCommands.length - 1].comment += " " + command;
 					return;
 			}
+
 			if (isWritingNewCommand === false && isWritingNewComment === false) {
 				command = searchDictionary(command, {...store.getState().dictionary});
 				returnActions = returnActions.concat(processCommands({...action, type: command }, next) );
