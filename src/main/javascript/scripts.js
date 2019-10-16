@@ -1,10 +1,22 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {createLogger} from "redux-logger";
 
-class WordNotFoundError extends Error {
+class ForthCommandError extends Error {
+	constructor(command, message) {
+		super(command + " " + message);
+		this.getMessage = function() { return message; };
+	}
+}
+
+class WordNotFoundError extends ForthCommandError {
 	constructor(command) {
-		super(command + " not found ");
-		this.getCommand = function() { return command; };
+		super(command, command + " ?");
+	}
+}
+
+class StackUnderFlowError extends ForthCommandError {
+	constructor(command) {
+		super(command, "Stack Underflow");
 	}
 }
 
@@ -334,7 +346,7 @@ const numberStackReducer = function(state=[], action) {
 	}
 
 	let word = defaultDictionary[command];
-	if (word instanceof Word) {
+	if (word instanceof Word && word.command instanceof Function) {
 		return word.command(state);
 	}
 
@@ -351,12 +363,12 @@ const dictionaryReducer = function(state={stack: []}, action) {
 	action = {...action};
 	switch(action.type) {
 		case "CREATE_NEW_COMMAND" :
-
 			action.payload.command = action.payload.command.trim();
 			action.payload.comment = action.payload.comment.trim();
 			state.stack.push(action.payload);
 
 			let command = state[action.payload.name] = Object.assign({ indexes: [] }, {...state[action.payload.name]});
+			
 			command.indexes = [...command.indexes];
 			command.indexes.push(state.stack.length - 1);
 
@@ -393,7 +405,7 @@ const displayStackReducer = function(state=[], action) {
 		case "PRINT" :
 			return state.concat(action.payload);
 		case "ERROR" :
-			state.push(action.payload.getCommand() + " ?");
+			state.push(action.payload.getMessage() );
 			return state;
 	}
 
@@ -438,13 +450,16 @@ const processCommands = function(action, next) {
 	let commands = action.type.split(searchForWhiteSpace);
 	let isWritingNewCommand = false;
 	let isWritingNewComment = false;
+	let isNewConstant = false;
 	let customWords = [];
 	let startOfCustomWordIndex = 0;
 	let wasErrorThrown = false;
 	commands.forEach(function(command, index) {
 		if (wasErrorThrown === false) {
 			if (isWritingNewComment === false || command === ")") {
-				switch(command) {
+				switch(command.toUpperCase() ) {
+					case "CONSTANT" :
+						isNewConstant = true;
 					case ":" :
 						isWritingNewCommand = true;
 						startOfCustomWordIndex = index;
@@ -475,7 +490,30 @@ const processCommands = function(action, next) {
 			
 			if (isWritingNewCommand) {
 				if (startOfCustomWordIndex + 1 === index) {
-					customWords[customWords.length - 1].name = command.toUpperCase();
+					let constant = customWords[customWords.length - 1];
+					constant.name = command.toUpperCase();
+					if (isNewConstant) {
+
+						isNewConstant = false;
+						isWritingNewCommand = false;
+						
+						command = Object.assign({}, [...returnActions].pop()).type;
+						if (isNaN(command * 1) === false) {
+							returnActions.pop();
+						} else {
+							command = [...store.getState().numberStack].pop();
+							if (isNaN(command) ) { 
+								wasErrorThrown = true;
+								return next({...action, type: "ERROR", payload: new StackUnderFlowError() });
+							}
+
+							returnActions.push({...action, type: "DROP" });
+						}
+						
+						constant.command = command + "";
+						constant.comment = "( -- " + command + ")";
+						return next({...action, type: "CREATE_NEW_COMMAND", payload: customWords.pop() });
+					}
 				} else if (isWritingNewComment)  {
 					customWords[customWords.length - 1].comment += " " + command;
 				} else {

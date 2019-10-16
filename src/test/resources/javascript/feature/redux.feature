@@ -171,6 +171,19 @@ Scenario: User adds a FALSE flag and TRUE flag to the stack then NOTs the TRUE f
 	And FALSE should be 1 position from the top of NumberStack
 	And NumberStack should only have 2 numbers
 
+Scenario: User creates Constant quatro
+	Given User runs 4
+	When User runs 'constant quatro'
+	Then NumberStack should only have 0 numbers
+	And 'quatro' should have a comment of '( -- 4)'
+
+Scenario: User tries to create when no numbers are on stack
+	When User runs 'constant uhOh'
+	Then NumberStack should only have 0 numbers
+	And DisplayStack should only have 1 value
+	And 'Stack Underflow' should be on top of DisplayStack
+	And 'UhOh' should not be added to the dictionary
+
 Scenario Outline: User inputs several forth commands
 	When User runs '<command>'
 	Then <valueOnTop1> should be on top of <stackName1>
@@ -199,4 +212,6 @@ Examples:
 	| : DOZEN 12 ; DOZEN			   | DOZEN		| 12		| NumberStack	| 1		| 		|
 	| ( : ignore words ; )			   |			| undefined	| NumberStack	| 0		| 		|
 	| : 5 DUP * ; 4 5			   | 5			| 16		| NumberStack	| 1		|		|
+	| 12 constant dozen dozen		   | DOZEN		| 12		| NumberStack	| 1		| ( -- 12)	|
+	| 12 constant dozen			   | DOZEN		| undefined	| NumberStack	| 0		| ( -- 12)	|
 

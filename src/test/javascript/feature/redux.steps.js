@@ -21,7 +21,7 @@ When("User runs {string}", function (command) {
 Then(/^'?([^']*)'? should be on top of ([^\s]*)$/i, function (expectedValue, stackName) {
 	expectedValue = isNaN(expectedValue * 1) ? (expectedValue === 'undefined' ? undefined : expectedValue === 'FALSE' ? 0 : expectedValue === 'TRUE' ? -1 : expectedValue) : expectedValue * 1;
 	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
-	expect([...store.getState()[stackName]].pop()).to.equal(expectedValue);
+	expect([...store.getState()[stackName]].pop(), " ").to.equal(expectedValue);
 });
 
 Then(/^([^\s]*) should only have (\d+) (number|value)s?$/i, function(stackName, int, foo) {
@@ -75,7 +75,14 @@ Then('{string} should be added to the dictionary', function (command) {
 	}
 });
 
+Then('{string} should not be added to the dictionary', function (command) {
+	let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
+	expect(dictionary[command]).to.not.exist;
+});
+
+
 Then('{string} should have a comment of {string}', function (command, comment) {
+	command = command.toUpperCase();
 	if (command && comment) {
 		let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
 		let customCommand = dictionary.stack[dictionary[command].indexes.pop()];
