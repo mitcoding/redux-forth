@@ -1,18 +1,23 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {createLogger} from "redux-logger";
 
+class WordNotFoundError extends Error {
+	constructor(command) {
+		super(command + " not found ");
+		this.getCommand = function() { return command; };
+	}
+}
 
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
 	action = {...action};
 
-	if (/^-?\d+$/.exec(action.type)) {
+	if (isNumber(action.type)) {
 		state.push(action.type * 1);
 		return state;
 	}
 
-	let specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]{1,2})$/gi;
-	let specialDigitCommandMatch = specialDigitCommandRegex.exec(action.type);
+	let specialDigitCommandMatch = isSpecialDigitCommand(action.type);
 	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 3) {
 		let command = specialDigitCommandMatch[2];
 		state.push(specialDigitCommandMatch[1] * 1);
@@ -147,20 +152,78 @@ const dictionaryReducer = function(state={stack: []}, action) {
 	action = {...action};
 	switch(action.type) {
 		case "CREATE_NEW_COMMAND" :
-			if (action.payload instanceof CustomCommand) {
-				action.payload.command = action.payload.command.trim();
-				action.payload.comment = action.payload.comment.trim();
-				state.stack.push(action.payload);
-				let command = state[action.payload.name] = Object.assign({ indexes: [] }, {...state[action.payload.name]});
-				command.indexes.push(state.stack.length - 1);
-			} else {
-				throw new CreateCustomCommandError();
-			}
+			
+			action.payload.command = action.payload.command.trim();
+			action.payload.comment = action.payload.comment.trim();
+			state.stack.push(action.payload);
+
+			let command = state[action.payload.name] = Object.assign({ indexes: [] }, {...state[action.payload.name]});
+			command.indexes = [...command.indexes];
+			command.indexes.push(state.stack.length - 1);
 
 			return state;
+		case "CLEAR_DICTIONARY" :
+			return { stack: [] };
 	}
 
 	return state;
+};
+
+const isSpecialDigitCommand = function (command) {
+	var 
+		specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]{1,2})$/gi,
+		specialDigitCommandMatch = specialDigitCommandRegex.exec(command)
+	;
+
+	return specialDigitCommandMatch;
+};
+
+const isNumber = function(command) {
+	return /^-?\d+$/.exec(command);
+};
+
+const isInDefaultDictionary = function(command) {
+	var dictionary = {
+		"ABS" : "(n -- -n)",
+		"CONSTANT" : "( -- w)",
+		"DO" : "(limit starting_value -- )",
+		"DUP" : "(n -- n n)",
+		"DROP" : "(n -- )",
+		"ELSE" : "( -- )",
+		"FALSE" : "( -- flag)",
+		"FORGET" : "(w -- )",
+		"IF" : "(flag -- )",
+		"LOOP" : "( -- )",
+		"MAX" : "(n1 n2 -- n3)",
+		"MIN" : "(n1 n2 -- n3)",
+		"MOD" : "(n1 n2 -- n3)",
+		"NEGATE" : "(n -- -n)",
+		"NOT" : "(flag1 -- flag2)",
+		"OVER" : "(n1 n2 -- n1 n2 n1)",
+		"PICK" : "(n -- nth number)",
+		"ROT" : "(n1 n2 n3 -- n2 n3 n1)",
+		"SWAP" : "(n1 n2 -- n2 n1)",
+		"THEN" : "( -- )",
+		"TRUE" : "( -- flag)",
+		"." : "(n -- )",
+		"+" : "(n1 n2 -- n1+n2)",
+		"-" : "(n1 n2 -- n1-n2)",
+		"*" : "(n1 n2 -- n1*n2)",
+		"/" : "(n1 n2 -- n1/n2)",
+		"*/" : "(n1 n2 n3 -- (n1*n2)/n3)",
+		"*/MOD" : "(n1 n2 n3 -- (n1*n2)%n3=n4 (n1*n2)/n3=n5)",
+		"<" : "(n1 n2 -- (n1<n2)=flag)",
+		">" : "(n1 n2 -- (n1>n2)=flag)",
+		"=" : "(n1 n2 -- (n1=n2)=flag)",
+		"<>" : "(n1 n2 -- (n1!=n2)=flag)",
+		";" : "( -- w)",
+		":" : "( -- )",
+		".S" : "( -- )",
+		"(" : "( -- )",
+		")" : "( -- )"
+	};
+	
+	return isNumber(command) || isSpecialDigitCommand(command) || dictionary[command.toUpperCase()]; 
 };
 
 const displayStackReducer = function(state=[], action) {
@@ -170,6 +233,9 @@ const displayStackReducer = function(state=[], action) {
 			return [];
 		case "PRINT" :
 			return state.concat(action.payload);
+		case "ERROR" :
+			state.push(action.payload.getCommand() + " ?");
+			return state;
 	}
 
 	return state;
@@ -181,11 +247,23 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
-const searchDictionary = function(command, dictionary) {
-	let indexes = [...Object.assign({ indexes: [] }, dictionary[command]).indexes]; 
-	let index = indexes.pop();
-	let customCommand = index >= 0 ? dictionary.stack[index].command : command	
-	return customCommand;
+const searchDictionary = function(action, command, dictionary) {
+	var 
+		indexes = [...Object.assign({ indexes: [] }, dictionary[command.toUpperCase()]).indexes],
+		index = indexes.pop(),
+		isInCustomDictionary = index >= 0 && dictionary.stack[index] ? true : false,
+		isInDictionary = isInDefaultDictionary(command) ? true : false;
+	;
+
+	if (isInCustomDictionary === true) {
+		return {...action, type: dictionary.stack[index].command + "" };
+	}
+
+	if (isInDictionary === true) {
+		return {...action, type: command + "" };
+	}
+	
+	return {...action, type: "ERROR", payload: new WordNotFoundError(command) };	
 };
 
 class CustomCommand {
@@ -195,66 +273,77 @@ class CustomCommand {
 	}
 }
 
-class CreateCustomCommandError extends Error {
-	constructor() {
-		super("expected payload to be of type CustomCommand");
-	}
-}
-
 const processCommands = function(action, next) {
-	action = {...action, type: (action.type + "").trim() };
-	let searchForWhiteSpace = /\s/gi;
+	action = {...action, type: ((action.type + "") ).trim() };
+	let searchForWhiteSpace = /\s+/gi;
 	let returnActions = [];
 
-	if (action.type.match(searchForWhiteSpace) !== null) {
-		let commands = action.type.split(searchForWhiteSpace);
-		let isWritingNewCommand = false;
-		let isWritingNewComment = false;
-		let customCommands = [];
-		let startOfCustomCommandIndex = 0;
-		commands.forEach(function(command, index) {
-			switch(command) {
-				case ":" :
-					isWritingNewCommand = true;
-					startOfCustomCommandIndex = index;
-					customCommands.push(new CustomCommand() );
-					break;
-				case ";" :
-					isWritingNewCommand = false;
-					return next({...action, type: "CREATE_NEW_COMMAND", payload: customCommands.pop() });
-				case "(" :
-					isWritingNewComment = true;
-					break;
-				case ")" :
-					if (isWritingNewCommand) {
-						customCommands[customCommands.length - 1].comment += " " + command;
-					}
-					isWritingNewComment = false;
-					return;
+	if (action.type.match(searchForWhiteSpace) === null) {
+		returnActions.push(searchDictionary(action, action.type, {...store.getState().dictionary}) );
+		return returnActions;
+	}
+
+	let commands = action.type.split(searchForWhiteSpace);
+	let isWritingNewCommand = false;
+	let isWritingNewComment = false;
+	let customCommands = [];
+	let startOfCustomCommandIndex = 0;
+	let wasErrorThrown = false;
+	commands.forEach(function(command, index) {
+		if (wasErrorThrown === false) {
+			if (isWritingNewComment === false || command === ")") {
+				switch(command) {
+					case ":" :
+						isWritingNewCommand = true;
+						startOfCustomCommandIndex = index;
+						customCommands.push(new CustomCommand() );
+						return;
+					case ";" :
+						isWritingNewCommand = false;
+						return next({...action, type: "CREATE_NEW_COMMAND", payload: customCommands.pop() });
+					case "(" :
+						isWritingNewComment = true;
+						break;
+					case ")" :
+						if (isWritingNewCommand) {
+							customCommands[customCommands.length - 1].comment += " " + command;
+						}
+						isWritingNewComment = false;
+						return;
+				}
 			}
 
 			if (isWritingNewCommand === false && isWritingNewComment === false) {
-				command = searchDictionary(command, {...store.getState().dictionary});
-				returnActions = returnActions.concat(processCommands({...action, type: command }, next) );
+				action = searchDictionary(action, command, {...store.getState().dictionary});
+				if (action.type === "ERROR") { wasErrorThrown = true; return next(action); }
+				
+				returnActions = returnActions.concat(processCommands(action, next) );
 				return; 
-			} else if (isWritingNewCommand) {
+			} 
+			
+			if (isWritingNewCommand) {
 				if (startOfCustomCommandIndex + 1 === index) {
-					customCommands[customCommands.length - 1].name = command;
-				} else if (isWritingNewComment === false && command !== ":")  {
-					customCommands[customCommands.length - 1].command += " " + command;
-				} else {
+					customCommands[customCommands.length - 1].name = command.toUpperCase();
+				} else if (isWritingNewComment)  {
 					customCommands[customCommands.length - 1].comment += " " + command;
+				} else {
+					customCommands[customCommands.length - 1].command += " " + command;
 				}
 			}
-		});
-	} else {
-		returnActions.push({...action, type: searchDictionary(action.type, {...store.getState().dictionary}) } );
-	}
+		}
+	});
 
 	return returnActions;
 };
 
 const processInput = store => next => action => {
+	switch(action.type) {
+		case "CLEAR_DISPLAY_STACK" :
+		case "CLEAR_INTEGER_STACK" :
+		case "CLEAR_DICTIONARY" :
+			return next(action);
+	}
+
 	let actions = processCommands(action, next);
 	actions.forEach(function(action, index) {
 		return next(action);
@@ -262,7 +351,7 @@ const processInput = store => next => action => {
 };
 
 const printCommands = store => next => action => {
-	switch(action.type.toUpperCase() ) {
+	switch((action.type + "").toUpperCase() ) {
 		case "." :
 			let topInt = [...store.getState().numberStack].pop();
 			next(action);

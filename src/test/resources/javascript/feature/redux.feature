@@ -175,7 +175,7 @@ Scenario Outline: User inputs several forth commands
 	When User runs '<command>'
 	Then <valueOnTop1> should be on top of <stackName1>
 	And <stackName1> should only have <totalValues1> numbers
-	And <valueOnTop2> should be on top of <stackName2>
+	And '<valueOnTop2>' should be on top of <stackName2>
 	And <stackName2> should only have <totalValues2> values
 	And Both stacks are '<doStacksMatch>'
 
@@ -183,9 +183,20 @@ Examples:
 	| command 		| stackName1	| totalValues1	| valueOnTop1	| stackName2 	| totalValues2 	| valueOnTop2	| doStacksMatch |
 	| 20 30 + 2 * 100 = .s  | NumberStack	| 1		| TRUE		| DisplayStack	| 1		| TRUE		| same		|
 	| 5 9 + 3 *  5/ 8 = .	| NumberStack	| 0		| undefined	| DisplayStack	| 1		| TRUE		| different	| 
+	| 2 3 4 */MOD		| NumberStack	| 2		| 1		| DisplayStack	| 0		| undefined	| different	|
+	| foo *			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| foo ?		| different	|
 
-Scenario: User creates a new custom command to Square Numbers. Which they use.
-	When User runs ': SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED'
-	Then 'SQUARED' should be added to the dictionary
-	And 36 should be on top of NumberStack
-	And NumberStack should only have 1 number
+Scenario Outline: User creates a new custom command. Which they use.
+	When User runs '<command>' 
+	Then '<customCommandNames>' should be added to the dictionary
+	And <valueOnTop> should be on top of <stackName>
+	And <stackName> should only have <totalValues> number
+	And '<customCommandNames>' should have a comment of '<comments>'
+
+Examples:
+	| command				   | customCommandNames | valueOnTop	| stackName	| totalValues	| comments	|
+	| : SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED | SQUARED		| 36		| NumberStack	| 1		| ( n1 -- n2 )	|
+	| : DOZEN 12 ; DOZEN			   | DOZEN		| 12		| NumberStack	| 1		| 		|
+	| ( : ignore words ; )			   |			| undefined	| NumberStack	| 0		| 		|
+	| : 5 DUP * ; 4 5			   | 5			| 16		| NumberStack	| 1		|		|
+

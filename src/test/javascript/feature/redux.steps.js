@@ -2,6 +2,7 @@ import React from "react"
 Before(function() {
 	store.dispatch({type: "CLEAR_INTEGER_STACK"});
 	store.dispatch({type: "CLEAR_DISPLAY_STACK"});
+	store.dispatch({type: "CLEAR_DICTIONARY"});
 });
 
 Given('User has entered {int}', function (int) {
@@ -11,17 +12,16 @@ Given('User has entered {int}', function (int) {
 
 When(/User runs ([^\s]+)$/i, function (command) {
 	store.dispatch({type: command});
-	return true;
 });
 
-When('User runs {string}', function (input) {
-	store.dispatch({type: input});
+When("User runs {string}", function (command) {
+	store.dispatch({type: command});
 });
 
-Then(/^((-?\d+)|(TRUE)|(FALSE)|(undefined)) should be on top of ([^\s]*)$/i, function (expectedInt, stackName) {
-	expectedInt = expectedInt === 'TRUE' ? -1 : expectedInt === 'FALSE' ? 0 : expectedInt === 'undefined' ? undefined : expectedInt * 1;
+Then(/^'?([^']*)'? should be on top of ([^\s]*)$/i, function (expectedValue, stackName) {
+	expectedValue = isNaN(expectedValue * 1) ? (expectedValue === 'undefined' ? undefined : expectedValue === 'FALSE' ? 0 : expectedValue === 'TRUE' ? -1 : expectedValue) : expectedValue * 1;
 	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
-	expect([...store.getState()[stackName]].pop()).to.equal(expectedInt);
+	expect([...store.getState()[stackName]].pop()).to.equal(expectedValue);
 });
 
 Then(/^([^\s]*) should only have (\d+) (number|value)s?$/i, function(stackName, int, foo) {
@@ -68,8 +68,17 @@ Then('Both stacks are {string}', function (doBothStacksMatch) {
 
 
 Then('{string} should be added to the dictionary', function (command) {
-	let dictionary = {...store.getState().dictionary};
-	expect(dictionary[command]).to.exist;
-	expect(dictionary.stack[dictionary[command].indexes.pop()]).to.exist;
+	let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
+	if (command) {
+		expect(dictionary[command]).to.exist;
+		expect(dictionary.stack[dictionary[command].indexes.pop()]).to.exist;
+	}
 });
 
+Then('{string} should have a comment of {string}', function (command, comment) {
+	if (command && comment) {
+		let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
+		let customCommand = dictionary.stack[dictionary[command].indexes.pop()];
+		expect(customCommand.comment, "customCommand.comment to equal '" + comment + "' but got '" + customCommand.comment + "' instead").to.equal(comment);
+	}
+});
