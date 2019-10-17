@@ -361,7 +361,8 @@ const numberStackReducer = function(state=[], action) {
 const dictionaryReducer = function(state={stack: []}, action) {
 	state = {...state, stack: [...state.stack] };
 	action = {...action};
-	switch(action.type) {
+
+	switch(action.type.toUpperCase() ) {
 		case "CREATE_NEW_COMMAND" :
 			action.payload.command = action.payload.command.trim();
 			action.payload.comment = action.payload.comment.trim();
@@ -375,6 +376,9 @@ const dictionaryReducer = function(state={stack: []}, action) {
 			return state;
 		case "CLEAR_DICTIONARY" :
 			return { stack: [] };
+
+		case "FORGET" :
+			
 	}
 
 	return state;
@@ -425,7 +429,7 @@ const searchDictionary = function(action, command, dictionary) {
 		isInCustomDictionary = index >= 0 && dictionary.stack[index] ? true : false,
 		isInDictionary = isInDefaultDictionary(command) ? true : false;
 	;
-
+	
 	if (isInCustomDictionary === true) {
 		return {...action, type: dictionary.stack[index].command + "" };
 	}
@@ -443,85 +447,66 @@ const processCommands = function(action, next) {
 	let returnActions = [];
 
 	if (action.type.match(searchForWhiteSpace) === null) {
-		returnActions.push(searchDictionary(action, action.type, {...store.getState().dictionary}) );
-		return returnActions;
+
+		action = searchDictionary(action, action.type, {...store.getState().dictionary});
+		if (action.type.match(searchForWhiteSpace) === null) {
+			returnActions.push(action);
+			return returnActions;
+		}
 	}
 
 	let commands = action.type.split(searchForWhiteSpace);
-	let isWritingNewCommand = false;
-	let isWritingNewComment = false;
-	let isNewConstant = false;
-	let customWords = [];
-	let startOfCustomWordIndex = 0;
-	let wasErrorThrown = false;
-	commands.forEach(function(command, index) {
-		if (wasErrorThrown === false) {
-			if (isWritingNewComment === false || command === ")") {
-				switch(command.toUpperCase() ) {
-					case "CONSTANT" :
-						isNewConstant = true;
-					case ":" :
-						isWritingNewCommand = true;
-						startOfCustomWordIndex = index;
-						customWords.push(new Word("", "", "") );
-						return;
-					case ";" :
-						isWritingNewCommand = false;
-						return next({...action, type: "CREATE_NEW_COMMAND", payload: customWords.pop() });
-					case "(" :
-						isWritingNewComment = true;
-						break;
-					case ")" :
-						if (isWritingNewCommand) {
-							customWords[customWords.length - 1].comment += " " + command;
-						}
-						isWritingNewComment = false;
-						return;
-				}
-			}
+	let totalCommands = commands.length;
+	for (let index = 0; index < totalCommands; index++) {
 
-			if (isWritingNewCommand === false && isWritingNewComment === false) {
+		let command = commands[index];
+		switch(command.toUpperCase() ) {
+			case "CONSTANT" :
+				command = commands[index - 1];
+
+				if (isNaN(command * 1) === false) {
+					returnActions.pop();
+				} else {
+					command = [...store.getState().numberStack].pop();
+					if (isNaN(command) ) { 
+						returnActions.push({...action, type: "ERROR", payload: new StackUnderFlowError() });
+						return returnActions;
+					}
+
+					returnActions.push({...action, type: "DROP" });
+				}
+				
+				next({...action, type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") });
+				continue;
+
+			case ":" :
+				let words = commands.slice(index + 2, commands.indexOf(";") );
+				let comment = [];
+
+				if (words[0] === "(") {
+					comment = words.slice(0, words.indexOf(")") + 1);
+					words = words.slice(words.indexOf(")") + 1);
+				}
+
+				next({...action, type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), comment.join(" "), words.join(" ").toUpperCase() ) });
+				index = commands.indexOf(";");
+				continue;
+
+			case "(" :
+				index = commands.indexOf(")");
+				continue;
+
+			default :
 				action = searchDictionary(action, command, {...store.getState().dictionary});
-				if (action.type === "ERROR") { wasErrorThrown = true; return next(action); }
+			
+				if (action.type === "ERROR") { 
+					returnActions.push(action);
+					return returnActions;
+				}
 				
 				returnActions = returnActions.concat(processCommands(action, next) );
-				return; 
-			} 
-			
-			if (isWritingNewCommand) {
-				if (startOfCustomWordIndex + 1 === index) {
-					let constant = customWords[customWords.length - 1];
-					constant.name = command.toUpperCase();
-					if (isNewConstant) {
-
-						isNewConstant = false;
-						isWritingNewCommand = false;
-						
-						command = Object.assign({}, [...returnActions].pop()).type;
-						if (isNaN(command * 1) === false) {
-							returnActions.pop();
-						} else {
-							command = [...store.getState().numberStack].pop();
-							if (isNaN(command) ) { 
-								wasErrorThrown = true;
-								return next({...action, type: "ERROR", payload: new StackUnderFlowError() });
-							}
-
-							returnActions.push({...action, type: "DROP" });
-						}
-						
-						constant.command = command + "";
-						constant.comment = "( -- " + command + ")";
-						return next({...action, type: "CREATE_NEW_COMMAND", payload: customWords.pop() });
-					}
-				} else if (isWritingNewComment)  {
-					customWords[customWords.length - 1].comment += " " + command;
-				} else {
-					customWords[customWords.length - 1].command += " " + command;
-				}
-			}
 		}
-	});
+	}
 
 	return returnActions;
 };
