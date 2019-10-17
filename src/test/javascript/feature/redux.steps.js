@@ -10,10 +10,6 @@ Given('User has entered {int}', function (int) {
 	return true; 
 });
 
-When(/User runs ([^\s]+)$/i, function (command) {
-	store.dispatch({type: command});
-});
-
 When("User runs {string}", function (command) {
 	store.dispatch({type: command});
 });
@@ -70,8 +66,8 @@ Then('Both stacks are {string}', function (doBothStacksMatch) {
 Then('{string} should be added to the dictionary', function (command) {
 	let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
 	if (command) {
-		expect(dictionary[command]).to.exist;
-		expect(dictionary.stack[dictionary[command].indexes.pop()]).to.exist;
+		expect(dictionary[command.toUpperCase()]).to.exist;
+		expect(dictionary.stack[dictionary[command.toUpperCase()].indexes.pop()]).to.exist;
 	}
 });
 

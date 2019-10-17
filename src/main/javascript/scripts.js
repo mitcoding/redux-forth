@@ -377,8 +377,21 @@ const dictionaryReducer = function(state={stack: []}, action) {
 		case "CLEAR_DICTIONARY" :
 			return { stack: [] };
 
-		case "FORGET" :
-			
+		case "REMOVE_COMMAND" :
+			command = state[action.payload];
+
+			let index = command.indexes[command.indexes.length - 1];
+			let stack = state.stack.slice(0, index);
+			let wordsToRemove = state.stack.slice(index);
+			wordsToRemove.forEach(function(word, index) {
+				state[word.name].indexes.pop();
+
+				if (state[word.name].indexes.length === 0) {
+					delete state[word.name];
+				}					
+			});
+
+			state.stack = stack;			
 	}
 
 	return state;
@@ -496,6 +509,9 @@ const processCommands = function(action, next) {
 				index = commands.indexOf(")");
 				continue;
 
+			case "FORGET" :
+				next({...action, type: "REMOVE_COMMAND", payload: commands[++index].toUpperCase() });
+				continue;
 			default :
 				action = searchDictionary(action, command, {...store.getState().dictionary});
 			
@@ -506,6 +522,7 @@ const processCommands = function(action, next) {
 				
 				returnActions = returnActions.concat(processCommands(action, next) );
 		}
+		
 	}
 
 	return returnActions;
@@ -524,7 +541,20 @@ const processInput = store => next => action => {
 		return next(action);
 	});
 };
+const validateCommand = store => next => action => {
+	var testAction;
+	switch(action.type) {
+		case "REMOVE_COMMAND" :
+			testAction = searchDictionary(action, action.payload, {...store.getState().dictionary});
+			if (testAction.type === "ERROR") {
+				action = testAction;
+			}
 
+			break;
+	}
+
+	return next(action);
+};
 const printCommands = store => next => action => {
 	switch((action.type + "").toUpperCase() ) {
 		case "." :
@@ -539,5 +569,5 @@ const printCommands = store => next => action => {
 	return next(action);
 };
 
-const middleware = applyMiddleware(createLogger(), processInput, printCommands);
+const middleware = applyMiddleware(createLogger(), processInput, validateCommand, printCommands);
 const store = window.store = createStore(reducers, middleware);
