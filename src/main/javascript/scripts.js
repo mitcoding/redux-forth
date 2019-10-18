@@ -518,6 +518,41 @@ const processCommands = function(action, next) {
 				
 				next(action);
 				continue;
+			case "IF" :
+				command = commands[index - 1];
+				if (isNaN(command * 1) === false) {
+					returnActions.pop();
+				} else {
+					command = [...store.getState().numberStack].pop();
+					if (isNaN(command) ) { 
+						returnActions.push({...action, type: "ERROR", payload: new StackUnderFlowError() });
+						return returnActions;
+					}
+
+					returnActions.push({...action, type: "DROP" });
+				}
+
+				let _upperCaseCommands = commands.map(function(x) { return x.toUpperCase() });
+				let else_index = _upperCaseCommands.indexOf("ELSE");
+				let then_index = _upperCaseCommands.indexOf("THEN");
+				let else_commands; 
+				let if_commands;
+				if (else_index === -1 && then_index > -1) {
+					if_commands = commands.slice(index + 1, then_index);
+				} else if (else_index > -1 && then_index > -1) {
+					if_commands = commands.slice(index + 1, else_index);
+					else_commands = commands.slice(else_index + 1, then_index);
+				}
+
+				if (command != 0) {
+					returnActions = returnActions.concat(processCommands({...action, type: if_commands.join(" ") }) );
+				} else {
+					returnActions = returnActions.concat(processCommands({...action, type: else_commands.join(" ") }) );
+				}
+
+				index = then_index;
+				continue;
+				
 			default :
 				action = searchDictionary(action, command, {...store.getState().dictionary});
 				returnActions.push(action);

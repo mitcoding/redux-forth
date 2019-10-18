@@ -193,13 +193,16 @@ Scenario Outline: User inputs several forth commands
 	And Both stacks are '<doStacksMatch>'
 
 Examples: 
-	| command 		| stackName1	| totalValues1	| valueOnTop1	| stackName2 	| totalValues2 	| valueOnTop2			| doStacksMatch |
-	| 20 30 + 2 * 100 = .s  | NumberStack	| 1		| TRUE		| DisplayStack	| 1		| TRUE				| same		|
-	| 5 9 + 3 *  5/ 8 = .	| NumberStack	| 0		| undefined	| DisplayStack	| 1		| TRUE				| different	| 
-	| 2 3 4 */MOD		| NumberStack	| 2		| 1		| DisplayStack	| 0		| undefined			| different	|
-	| foo *			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| foo ?				| different	|
-	| forget		| NumberStack	| 0		| undefined	| DisplayStack	| 1		| Unexpected end-of-line	| different	|
-	| forget t1		| NumberStack	| 0		| undefined	| DisplayStack	| 1		| t1 ?				| different	|
+	| command 			| stackName1	| totalValues1	| valueOnTop1	| stackName2 	| totalValues2 	| valueOnTop2			| doStacksMatch |
+	| 20 30 + 2 * 100 = .s  	| NumberStack	| 1		| TRUE		| DisplayStack	| 1		| TRUE				| same		|
+	| 5 9 + 3 *  5/ 8 = .		| NumberStack	| 0		| undefined	| DisplayStack	| 1		| TRUE				| different	| 
+	| 2 3 4 */MOD			| NumberStack	| 2		| 1		| DisplayStack	| 0		| undefined			| different	|
+	| foo *				| NumberStack	| 0		| undefined	| DisplayStack	| 1		| foo ?				| different	|
+	| forget			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| Unexpected end-of-line	| different	|
+	| forget t1			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| t1 ?				| different	|
+	| if .s then			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| Stack Underflow 		| different	|
+	| 2 -1 if .s then		| NumberStack	| 1		| 2		| DisplayStack	| 1		| 2 				| same		|
+	| 2 0 if .s else dup * then	| NumberStack	| 1		| 4		| DisplayStack	| 0		| undefined 			| different	|
 	
 
 Scenario Outline: User creates a new custom command. Which they use.
@@ -232,4 +235,8 @@ Scenario: User wants to forget a custom command
 	And 'dozen' should not be added to the dictionary
 	And 'gross' should not be added to the dictionary
 
-
+Scenario: User conditionally wants datastack printed console
+	Given User has entered 2
+	And User has entered -1
+	When User runs 'if .s then'
+	Then '2' should be on top of DisplayStack

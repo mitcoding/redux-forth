@@ -1,4 +1,3 @@
-import React from "react"
 Before(function() {
 	store.dispatch({type: "CLEAR_INTEGER_STACK"});
 	store.dispatch({type: "CLEAR_DISPLAY_STACK"});
