@@ -20,6 +20,12 @@ class StackUnderFlowError extends ForthCommandError {
 	}
 }
 
+class UnexpectedEndOfLineError extends ForthCommandError {
+	constructor(command) {
+		super(command, "Unexpected end-of-line");
+	}
+}
+
 class Word {
 	constructor(name, comment, command) {
 		this.name = name;
@@ -378,7 +384,7 @@ const dictionaryReducer = function(state={stack: []}, action) {
 			return { stack: [] };
 
 		case "REMOVE_COMMAND" :
-			command = state[action.payload];
+			command = state[action.payload.toUpperCase()];
 
 			let index = command.indexes[command.indexes.length - 1];
 			let stack = state.stack.slice(0, index);
@@ -456,23 +462,14 @@ const searchDictionary = function(action, command, dictionary) {
 
 const processCommands = function(action, next) {
 	action = {...action, type: ((action.type + "") ).trim() };
+
 	let searchForWhiteSpace = /\s+/gi;
 	let returnActions = [];
-
-	if (action.type.match(searchForWhiteSpace) === null) {
-
-		action = searchDictionary(action, action.type, {...store.getState().dictionary});
-		if (action.type.match(searchForWhiteSpace) === null) {
-			returnActions.push(action);
-			return returnActions;
-		}
-	}
-
 	let commands = action.type.split(searchForWhiteSpace);
 	let totalCommands = commands.length;
-	for (let index = 0; index < totalCommands; index++) {
 
-		let command = commands[index];
+	for (let index = 0; index < totalCommands; index++) {
+		let command = commands[index].trim();
 		switch(command.toUpperCase() ) {
 			case "CONSTANT" :
 				command = commands[index - 1];
@@ -510,17 +507,29 @@ const processCommands = function(action, next) {
 				continue;
 
 			case "FORGET" :
-				next({...action, type: "REMOVE_COMMAND", payload: commands[++index].toUpperCase() });
+				command = commands[++index];
+				if (command === undefined) {					
+					next({...action, type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") });
+					continue;
+				}
+
+				let testWordToBeDeleted = searchDictionary(action, command, {...store.getState().dictionary});
+				action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : {...action, type: "REMOVE_COMMAND", payload: command };
+				
+				next(action);
 				continue;
 			default :
 				action = searchDictionary(action, command, {...store.getState().dictionary});
-			
+				returnActions.push(action);
+
 				if (action.type === "ERROR") { 
-					returnActions.push(action);
 					return returnActions;
 				}
+
+				if (action.type.match(searchForWhiteSpace) !== null) {
+					returnActions = returnActions.concat(processCommands(action, next) );
+				}
 				
-				returnActions = returnActions.concat(processCommands(action, next) );
 		}
 		
 	}
@@ -541,20 +550,7 @@ const processInput = store => next => action => {
 		return next(action);
 	});
 };
-const validateCommand = store => next => action => {
-	var testAction;
-	switch(action.type) {
-		case "REMOVE_COMMAND" :
-			testAction = searchDictionary(action, action.payload, {...store.getState().dictionary});
-			if (testAction.type === "ERROR") {
-				action = testAction;
-			}
 
-			break;
-	}
-
-	return next(action);
-};
 const printCommands = store => next => action => {
 	switch((action.type + "").toUpperCase() ) {
 		case "." :
@@ -569,5 +565,5 @@ const printCommands = store => next => action => {
 	return next(action);
 };
 
-const middleware = applyMiddleware(createLogger(), processInput, validateCommand, printCommands);
+const middleware = applyMiddleware(createLogger(), processInput, printCommands);
 const store = window.store = createStore(reducers, middleware);

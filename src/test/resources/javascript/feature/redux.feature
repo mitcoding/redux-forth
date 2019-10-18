@@ -193,11 +193,14 @@ Scenario Outline: User inputs several forth commands
 	And Both stacks are '<doStacksMatch>'
 
 Examples: 
-	| command 		| stackName1	| totalValues1	| valueOnTop1	| stackName2 	| totalValues2 	| valueOnTop2	| doStacksMatch |
-	| 20 30 + 2 * 100 = .s  | NumberStack	| 1		| TRUE		| DisplayStack	| 1		| TRUE		| same		|
-	| 5 9 + 3 *  5/ 8 = .	| NumberStack	| 0		| undefined	| DisplayStack	| 1		| TRUE		| different	| 
-	| 2 3 4 */MOD		| NumberStack	| 2		| 1		| DisplayStack	| 0		| undefined	| different	|
-	| foo *			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| foo ?		| different	|
+	| command 		| stackName1	| totalValues1	| valueOnTop1	| stackName2 	| totalValues2 	| valueOnTop2			| doStacksMatch |
+	| 20 30 + 2 * 100 = .s  | NumberStack	| 1		| TRUE		| DisplayStack	| 1		| TRUE				| same		|
+	| 5 9 + 3 *  5/ 8 = .	| NumberStack	| 0		| undefined	| DisplayStack	| 1		| TRUE				| different	| 
+	| 2 3 4 */MOD		| NumberStack	| 2		| 1		| DisplayStack	| 0		| undefined			| different	|
+	| foo *			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| foo ?				| different	|
+	| forget		| NumberStack	| 0		| undefined	| DisplayStack	| 1		| Unexpected end-of-line	| different	|
+	| forget t1		| NumberStack	| 0		| undefined	| DisplayStack	| 1		| t1 ?				| different	|
+	
 
 Scenario Outline: User creates a new custom command. Which they use.
 	When User runs '<command>' 
