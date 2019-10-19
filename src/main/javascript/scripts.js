@@ -160,7 +160,7 @@ const defaultDictionary = {
 				nextInt = state[removeIndex]
 			;
 			
-			state = state.filter(function(value, index, arr) { return index !== removeIndex });
+			state = state.filter(function(value, index, arr) { return index !== removeIndex; });
 			state.push(nextInt);
 			return state;
 		}
@@ -275,7 +275,7 @@ const defaultDictionary = {
 			state = defaultDictionary["*"].command(state);
 			state.push(topInt);
 			divState = defaultDictionary["/"].command([...state]);
-			state = defaultDictionary["MOD"].command(state);
+			state = defaultDictionary.MOD.command(state);
 			state.push(divState.pop());
 			return state;
 		}
@@ -348,12 +348,13 @@ const numberStackReducer = function(state=[], action) {
 	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 3) {
 		command = specialDigitCommandMatch[2];
 		state.push(specialDigitCommandMatch[1] * 1);
-		return numberStackReducer(state, {...action, type: command});
+		return numberStackReducer(state, {...action, type: command });
 	}
 
 	let word = defaultDictionary[command];
 	if (word instanceof Word && word.command instanceof Function) {
-		return word.command(state);
+		state = word.command(state);
+		return isNaN(state[state.length - 1]) ? (state.pop(), state) : state;
 	}
 
 	if (command === "CLEAR_INTEGER_STACK") {
@@ -448,7 +449,7 @@ const searchDictionary = function(action, command, dictionary) {
 		isInCustomDictionary = index >= 0 && dictionary.stack[index] ? true : false,
 		isInDictionary = isInDefaultDictionary(command) ? true : false;
 	;
-	
+
 	if (isInCustomDictionary === true) {
 		return {...action, type: dictionary.stack[index].command + "" };
 	}
@@ -460,111 +461,75 @@ const searchDictionary = function(action, command, dictionary) {
 	return {...action, type: "ERROR", payload: new WordNotFoundError(command) };	
 };
 
-const processCommands = function(action, next) {
+const processCommands = function(action, next) { 
 	action = {...action, type: ((action.type + "") ).trim() };
 
 	let searchForWhiteSpace = /\s+/gi;
 	let returnActions = [];
-	let commands = action.type.split(searchForWhiteSpace);
+	let commands = action.payload;
 	let totalCommands = commands.length;
 
 	for (let index = 0; index < totalCommands; index++) {
-		let command = commands[index].trim();
+		let command = commands[index].type.trim();
 		switch(command.toUpperCase() ) {
-			case "CONSTANT" :
-				command = commands[index - 1];
-
-				if (isNaN(command * 1) === false) {
-					returnActions.pop();
-				} else {
-					command = [...store.getState().numberStack].pop();
-					if (isNaN(command) ) { 
-						returnActions.push({...action, type: "ERROR", payload: new StackUnderFlowError() });
-						return returnActions;
-					}
-
-					returnActions.push({...action, type: "DROP" });
-				}
-				
-				next({...action, type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") });
-				continue;
-
 			case ":" :
-				let words = commands.slice(index + 2, commands.indexOf(";") );
-				let comment = [];
+				command = commands[index];
+				let customWordName = command.payload[0].type.toUpperCase();
+				let words = command.payload.slice(1);
+				let comment = "";
 
-				if (words[0] === "(") {
-					comment = words.slice(0, words.indexOf(")") + 1);
-					words = words.slice(words.indexOf(")") + 1);
+				if ((words[0] || {}).type === "(") {
+					comment = "( " + words[0].payload.map(x => x.type).join(" ") + " )"
+					words = words.slice(1);
 				}
 
-				next({...action, type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), comment.join(" "), words.join(" ").toUpperCase() ) });
-				index = commands.indexOf(";");
+				next({...action, type: "CREATE_NEW_COMMAND", payload: new Word(customWordName, comment, words.map(x => x.type).join(" ").toUpperCase() ) });
 				continue;
 
 			case "(" :
-				index = commands.indexOf(")");
 				continue;
 
-			case "FORGET" :
-				command = commands[++index];
-				if (command === undefined) {					
-					next({...action, type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") });
-					continue;
-				}
-
-				let testWordToBeDeleted = searchDictionary(action, command, {...store.getState().dictionary});
-				action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : {...action, type: "REMOVE_COMMAND", payload: command };
-				
-				next(action);
-				continue;
 			case "IF" :
-				command = commands[index - 1];
-				if (isNaN(command * 1) === false) {
-					returnActions.pop();
-				} else {
-					command = [...store.getState().numberStack].pop();
-					if (isNaN(command) ) { 
-						returnActions.push({...action, type: "ERROR", payload: new StackUnderFlowError() });
-						return returnActions;
-					}
-
-					returnActions.push({...action, type: "DROP" });
-				}
-
-				let _upperCaseCommands = commands.map(function(x) { return x.toUpperCase() });
-				let else_index = _upperCaseCommands.indexOf("ELSE");
-				let then_index = _upperCaseCommands.indexOf("THEN");
-				let else_commands; 
-				let if_commands;
-				if (else_index === -1 && then_index > -1) {
-					if_commands = commands.slice(index + 1, then_index);
-				} else if (else_index > -1 && then_index > -1) {
-					if_commands = commands.slice(index + 1, else_index);
-					else_commands = commands.slice(else_index + 1, then_index);
-				}
-
-				if (command != 0) {
-					returnActions = returnActions.concat(processCommands({...action, type: if_commands.join(" ") }) );
-				} else {
-					returnActions = returnActions.concat(processCommands({...action, type: else_commands.join(" ") }) );
-				}
-
-				index = then_index;
-				continue;
-				
-			default :
-				action = searchDictionary(action, command, {...store.getState().dictionary});
-				returnActions.push(action);
-
-				if (action.type === "ERROR") { 
+				let flag = [...store.getState().numberStack].pop();
+				if (isNaN(flag) ) { 
+					returnActions.push({...action, type: "ERROR", payload: new StackUnderFlowError() });
 					return returnActions;
 				}
 
-				if (action.type.match(searchForWhiteSpace) !== null) {
-					returnActions = returnActions.concat(processCommands(action, next) );
-				}
+				returnActions.push({...action, type: "DROP" });
 				
+				command = commands[index];				
+				let else_commands = command.else; 
+				let if_commands = command.payload;
+				let hasPickedIfCondition = (flag != 0);
+				
+				if (hasPickedIfCondition) {
+					returnActions = returnActions.concat(processCommands({...action, type: "EXECUTE_TREE", payload: if_commands }, next) );
+				} else if (else_commands !== undefined) {
+					returnActions = returnActions.concat(processCommands({...action, type: "EXECUTE_TREE", payload: else_commands }, next) );
+				}
+
+				continue;
+
+			case "CREATE_NEW_COMMAND" :
+			case "ERROR" :
+			case "REMOVE_COMMAND" :
+				next(commands[index]);
+				continue;
+			default :
+				action = searchDictionary(action, command, {...store.getState().dictionary});
+				
+				if (action.type === "ERROR") { 
+					next(action);
+					return [];
+				}
+
+				if (action.type.match(searchForWhiteSpace) === null) {
+					returnActions.push(action);
+					continue;
+				}
+
+				returnActions = returnActions.concat(processCommands({...action, type: "EXECUTE_TREE", payload: action.type.split(searchForWhiteSpace).map(x => ({ type: x }) ) }, next) );
 		}
 		
 	}
@@ -572,14 +537,118 @@ const processCommands = function(action, next) {
 	return returnActions;
 };
 
-const processInput = store => next => action => {
+const createTree = function(action, next) {
+	var 
+		searchForWhiteSpace = /\s+/gi,
+		commands = (action.type + "").split(searchForWhiteSpace),
+		command,
+		currentCondition = {...action, type: "root", root: true, payload: [] },		
+		rootCondition = currentCondition,
+		stack = [],
+		totalCommands = commands.length
+	;
+
+	stack.push(rootCondition);	
+	for (let index = 0; index < totalCommands; index++) {
+		command = commands[index];
+		action = {};
+		switch(command.toUpperCase() ) {
+			case "CONSTANT" :
+				if (currentCondition.root) {
+					command = [...store.getState().numberStack].pop();
+					if (isNaN(command) ) {
+						next({...action, type: "EXECUTE_TREE", payload: [{...action, type: "ERROR", payload: new StackUnderFlowError() }] } );
+						return [];
+					}
+
+					next({...action, type: "EXECUTE_TREE", payload: [
+						{...action, type: "DROP" },
+						{...action, type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") }
+					]});
+				
+					continue;
+				}
+			case "FORGET" :
+				if (currentCondition.root) {
+					command = commands[++index];
+					if (command === undefined) {					
+						next({...action, type: "EXECUTE_TREE", payload: [{...action, type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") }] } );
+						return [];
+					}
+
+					let testWordToBeDeleted = searchDictionary(action, command, {...store.getState().dictionary});
+					action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : {...action, type: "REMOVE_COMMAND", payload: command };
+					
+					next({...action, type: "EXECUTE_TREE", payload: [action]});
+					continue;
+				}
+			case "DO" :
+			case "IF" :
+			case ":" :
+			case "(" :
+				if (currentCondition.else) {
+					currentCondition.else.push({...action, type: command, payload: [] });
+					currentCondition = currentCondition.else[currentCondition.else.length - 1];
+				} else {
+					currentCondition.payload.push({...action, type: command, payload: [] });
+					currentCondition = currentCondition.payload[currentCondition.payload.length - 1];
+				}
+				stack.push(currentCondition);
+				continue;
+			case "ELSE" :
+				currentCondition = stack.pop();
+				currentCondition["else"] = [];
+				stack.push(currentCondition);
+				continue;
+
+			case "LOOP" : 
+			case "THEN" :
+			case ";" :
+			case ")" :
+				stack.pop();
+				currentCondition = stack[stack.length - 1];
+				break;
+			default :
+				action = {...action, type: command };
+				
+		}
+
+		if (action.type) {
+			if (currentCondition.else) {
+				currentCondition.else.push(action);
+			} else {
+				currentCondition.payload.push(action);
+			}
+		}
+
+		if (currentCondition.root && currentCondition.payload.length > 0) {
+			next({...action, type: "EXECUTE_TREE", payload: [currentCondition.payload.pop()] });
+			continue;
+		}
+	}
+
+	return rootCondition.payload;
+}
+
+const createExecutionTree = store => next => action => {
 	switch(action.type) {
 		case "CLEAR_DISPLAY_STACK" :
 		case "CLEAR_INTEGER_STACK" :
 		case "CLEAR_DICTIONARY" :
 			return next(action);
 	}
+	
+	return next({...action, type: "EXECUTE_TREE", payload: createTree(action, next) });
+};
 
+const processTree = store => next => action => {
+	switch(action.type) {
+		case "CLEAR_DISPLAY_STACK" :
+		case "CLEAR_INTEGER_STACK" :
+		case "CLEAR_DICTIONARY" :
+			return next(action);
+	}	
+	
 	let actions = processCommands(action, next);
 	actions.forEach(function(action, index) {
 		return next(action);
@@ -596,9 +665,9 @@ const printCommands = store => next => action => {
 			let numberStack = [...store.getState().numberStack];
 			return next({...action, type: "PRINT", payload: numberStack });
 	}
-
+	
 	return next(action);
 };
 
-const middleware = applyMiddleware(createLogger(), processInput, printCommands);
+const middleware = applyMiddleware(createLogger(), createExecutionTree, processTree, printCommands);
 const store = window.store = createStore(reducers, middleware);

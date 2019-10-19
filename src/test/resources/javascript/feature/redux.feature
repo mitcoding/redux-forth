@@ -203,6 +203,7 @@ Examples:
 	| if .s then			| NumberStack	| 0		| undefined	| DisplayStack	| 1		| Stack Underflow 		| different	|
 	| 2 -1 if .s then		| NumberStack	| 1		| 2		| DisplayStack	| 1		| 2 				| same		|
 	| 2 0 if .s else dup * then	| NumberStack	| 1		| 4		| DisplayStack	| 0		| undefined 			| different	|
+	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup *	| NumberStack	| 0		| undefined		| DisplayStack	| 0		| undefined 			| different	|
 	
 
 Scenario Outline: User creates a new custom command. Which they use.

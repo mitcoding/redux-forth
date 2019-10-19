@@ -25,7 +25,6 @@ Then(/^([^\s]*) should only have (\d+) (number|value)s?$/i, function(stackName, 
 });
 
 Then('{int} should be under {int}', function(expectedUnderInt1, expectedInt1) {
-	console.log(store.getState());
 	let temp = [...store.getState().numberStack];
 	let int1 = temp.pop();
 	let intUnderInt1 = temp.pop();

@@ -23,6 +23,12 @@ module.exports = {
 							presets: ['@babel/preset-react', '@babel/preset-env'],
 							plugins: ['react-html-attrs',  'transform-class-properties', ["@babel/plugin-proposal-decorators", { "legacy": true }], '@babel/plugin-proposal-function-bind']
 						}
+					},
+					{
+						loader: 'eslint-loader',
+						options: {
+							// eslint options (if necessary)
+						}
 					}
 				]
 			}
