@@ -204,6 +204,7 @@ Examples:
 	| 2 -1 if .s then		| NumberStack	| 1		| 2		| DisplayStack	| 1		| 2 				| same		|
 	| 2 0 if .s else dup * then	| NumberStack	| 1		| 4		| DisplayStack	| 0		| undefined 			| different	|
 	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup *	| NumberStack	| 0		| undefined		| DisplayStack	| 0		| undefined 			| different	|
+	| 8 -1 dup if if 2 0 do * .s if  then loop else min then else if dup then mod then dup *	| NumberStack	| 0		| undefined		| DisplayStack	| 1		| Stack Underflow 			| different	|
 	
 
 Scenario Outline: User creates a new custom command. Which they use.
@@ -241,3 +242,9 @@ Scenario: User conditionally wants datastack printed console
 	And User has entered -1
 	When User runs 'if .s then'
 	Then '2' should be on top of DisplayStack
+
+Scenario: User prints to console the index of a loop squared
+	When User runs ': squared dup * ; 5 0 do i squared . loop'
+	Then NumberStack should only have 0 numbers 
+	And DisplayStack should only have 5 values 
+	And 'DisplayStack' should equal '[0, 1, 4, 9, 16]'

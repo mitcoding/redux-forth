@@ -83,3 +83,11 @@ Then('{string} should have a comment of {string}', function (command, comment) {
 		expect(customCommand.comment, "customCommand.comment to equal '" + comment + "' but got '" + customCommand.comment + "' instead").to.equal(comment);
 	}
 });
+
+Then('{string} should equal {string}', function (stackName, arrayJson) {
+	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
+	let expectedArray = JSON.parse(arrayJson);
+        let stack = store.getState()[stackName].slice();
+	expect(stack).to.eql(expectedArray);
+});
+

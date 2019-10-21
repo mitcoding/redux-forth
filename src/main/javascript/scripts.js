@@ -348,7 +348,7 @@ const numberStackReducer = function(state=[], action) {
 	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 3) {
 		command = specialDigitCommandMatch[2];
 		state.push(specialDigitCommandMatch[1] * 1);
-		return numberStackReducer(state, {...action, type: command });
+		return numberStackReducer(state, { type: command });
 	}
 
 	let word = defaultDictionary[command];
@@ -451,14 +451,14 @@ const searchDictionary = function(action, command, dictionary) {
 	;
 
 	if (isInCustomDictionary === true) {
-		return {...action, type: dictionary.stack[index].command + "" };
+		return { type: dictionary.stack[index].command + "" };
 	}
 
 	if (isInDictionary === true) {
-		return {...action, type: command + "" };
+		return { type: command + "" };
 	}
 	
-	return {...action, type: "ERROR", payload: new WordNotFoundError(command) };	
+	return { type: "ERROR", payload: new WordNotFoundError(command) };	
 };
 
 const processCommands = function(action, next) { 
@@ -483,20 +483,44 @@ const processCommands = function(action, next) {
 					words = words.slice(1);
 				}
 
-				next({...action, type: "CREATE_NEW_COMMAND", payload: new Word(customWordName, comment, words.map(x => x.type).join(" ").toUpperCase() ) });
+				next({ type: "CREATE_NEW_COMMAND", payload: new Word(customWordName, comment, words.map(x => x.type).join(" ").toUpperCase() ) });
 				continue;
 
 			case "(" :
 				continue;
 
+			case "DO" :
+				command = commands[index];
+				let state = [...store.getState().numberStack];
+				let startingValue = state.pop();
+				let limit  = state.pop();
+				let showIndex = (command.payload[0].type.toUpperCase() === "I");
+				let loopCommands = showIndex ? command.payload.slice(1) : command.payload;
+				next({ type: "DROP" });
+				next({ type: "DROP" });
+
+				do {
+					if (showIndex) {
+						next({type: startingValue + ""});
+					}
+					
+
+					let loopActions = processCommands({ type: "EXECUTE_TREE", payload: loopCommands }, next);
+					loopActions.forEach(function(loop_action) {
+						next(loop_action);
+					});
+				
+				} while (++startingValue < limit);
+
+				continue;
 			case "IF" :
 				let flag = [...store.getState().numberStack].pop();
 				if (isNaN(flag) ) { 
-					returnActions.push({...action, type: "ERROR", payload: new StackUnderFlowError() });
-					return returnActions;
+					next({ type: "ERROR", payload: new StackUnderFlowError() });
+					return [];
 				}
 
-				returnActions.push({...action, type: "DROP" });
+				next({ type: "DROP" });
 				
 				command = commands[index];				
 				let else_commands = command.else; 
@@ -504,9 +528,9 @@ const processCommands = function(action, next) {
 				let hasPickedIfCondition = (flag != 0);
 				
 				if (hasPickedIfCondition) {
-					returnActions = returnActions.concat(processCommands({...action, type: "EXECUTE_TREE", payload: if_commands }, next) );
+					returnActions = returnActions.concat(processCommands({ type: "EXECUTE_TREE", payload: if_commands }, next) );
 				} else if (else_commands !== undefined) {
-					returnActions = returnActions.concat(processCommands({...action, type: "EXECUTE_TREE", payload: else_commands }, next) );
+					returnActions = returnActions.concat(processCommands({ type: "EXECUTE_TREE", payload: else_commands }, next) );
 				}
 
 				continue;
@@ -519,6 +543,11 @@ const processCommands = function(action, next) {
 			default :
 				action = searchDictionary(action, command, {...store.getState().dictionary});
 				
+				if (action.type.match(/\d+/) !== null) {
+					next(action);
+					continue;
+				}
+
 				if (action.type === "ERROR") { 
 					next(action);
 					return [];
@@ -529,7 +558,7 @@ const processCommands = function(action, next) {
 					continue;
 				}
 
-				returnActions = returnActions.concat(processCommands({...action, type: "EXECUTE_TREE", payload: action.type.split(searchForWhiteSpace).map(x => ({ type: x }) ) }, next) );
+				returnActions = returnActions.concat(processCommands({ type: "EXECUTE_TREE", payload: action.type.split(searchForWhiteSpace).map(x => ({ type: x }) ) }, next) );
 		}
 		
 	}
@@ -542,7 +571,7 @@ const createTree = function(action, next) {
 		searchForWhiteSpace = /\s+/gi,
 		commands = (action.type + "").split(searchForWhiteSpace),
 		command,
-		currentCondition = {...action, type: "root", root: true, payload: [] },		
+		currentCondition = { type: "root", root: true, payload: [] },		
 		rootCondition = currentCondition,
 		stack = [],
 		totalCommands = commands.length
@@ -557,13 +586,13 @@ const createTree = function(action, next) {
 				if (currentCondition.root) {
 					command = [...store.getState().numberStack].pop();
 					if (isNaN(command) ) {
-						next({...action, type: "EXECUTE_TREE", payload: [{...action, type: "ERROR", payload: new StackUnderFlowError() }] } );
+						next({ type: "EXECUTE_TREE", payload: [{ type: "ERROR", payload: new StackUnderFlowError() }] } );
 						return [];
 					}
 
-					next({...action, type: "EXECUTE_TREE", payload: [
-						{...action, type: "DROP" },
-						{...action, type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") }
+					next({ type: "EXECUTE_TREE", payload: [
+						{ type: "DROP" },
+						{ type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") }
 					]});
 				
 					continue;
@@ -572,14 +601,14 @@ const createTree = function(action, next) {
 				if (currentCondition.root) {
 					command = commands[++index];
 					if (command === undefined) {					
-						next({...action, type: "EXECUTE_TREE", payload: [{...action, type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") }] } );
+						next({ type: "EXECUTE_TREE", payload: [{ type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") }] } );
 						return [];
 					}
 
 					let testWordToBeDeleted = searchDictionary(action, command, {...store.getState().dictionary});
-					action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : {...action, type: "REMOVE_COMMAND", payload: command };
+					action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
 					
-					next({...action, type: "EXECUTE_TREE", payload: [action]});
+					next({ type: "EXECUTE_TREE", payload: [action]});
 					continue;
 				}
 			case "DO" :
@@ -587,10 +616,10 @@ const createTree = function(action, next) {
 			case ":" :
 			case "(" :
 				if (currentCondition.else) {
-					currentCondition.else.push({...action, type: command, payload: [] });
+					currentCondition.else.push({ type: command, payload: [] });
 					currentCondition = currentCondition.else[currentCondition.else.length - 1];
 				} else {
-					currentCondition.payload.push({...action, type: command, payload: [] });
+					currentCondition.payload.push({ type: command, payload: [] });
 					currentCondition = currentCondition.payload[currentCondition.payload.length - 1];
 				}
 				stack.push(currentCondition);
@@ -609,7 +638,7 @@ const createTree = function(action, next) {
 				currentCondition = stack[stack.length - 1];
 				break;
 			default :
-				action = {...action, type: command };
+				action = { type: command };
 				
 		}
 
@@ -622,7 +651,7 @@ const createTree = function(action, next) {
 		}
 
 		if (currentCondition.root && currentCondition.payload.length > 0) {
-			next({...action, type: "EXECUTE_TREE", payload: [currentCondition.payload.pop()] });
+			next({ type: "EXECUTE_TREE", payload: [currentCondition.payload.pop()] });
 			continue;
 		}
 	}
@@ -638,7 +667,7 @@ const createExecutionTree = store => next => action => {
 			return next(action);
 	}
 	
-	return next({...action, type: "EXECUTE_TREE", payload: createTree(action, next) });
+	return next({ type: "EXECUTE_TREE", payload: createTree(action, next) });
 };
 
 const processTree = store => next => action => {
@@ -660,10 +689,10 @@ const printCommands = store => next => action => {
 		case "." :
 			let topInt = [...store.getState().numberStack].pop();
 			next(action);
-			return next({...action, type: "PRINT", payload: [topInt]});
+			return next({ type: "PRINT", payload: [topInt]});
 		case ".S" :
 			let numberStack = [...store.getState().numberStack];
-			return next({...action, type: "PRINT", payload: numberStack });
+			return next({ type: "PRINT", payload: numberStack });
 	}
 	
 	return next(action);
