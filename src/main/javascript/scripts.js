@@ -34,6 +34,8 @@ class Word {
 	}
 }
 
+const WHITE_SPACE_REGEX = /\s+/gi;
+
 const defaultDictionary = {
 	"ABS" : new Word(
 		"ABS",
@@ -442,7 +444,7 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
-const searchDictionary = function(action, command, dictionary) {
+const searchDictionary = function(command, dictionary) {
 	var 
 		indexes = [...Object.assign({ indexes: [] }, dictionary[command.toUpperCase()]).indexes],
 		index = indexes.pop(),
@@ -461,14 +463,9 @@ const searchDictionary = function(action, command, dictionary) {
 	return { type: "ERROR", payload: new WordNotFoundError(command) };	
 };
 
-const processCommands = function(action, next) { 
-	action = {...action, type: ((action.type + "") ).trim() };
+const processTree = function(commands, next) { 
 
-	let searchForWhiteSpace = /\s+/gi;
-	let returnActions = [];
-	let commands = action.payload;
 	let totalCommands = commands.length;
-
 	for (let index = 0; index < totalCommands; index++) {
 		let command = commands[index].type.trim();
 		switch(command.toUpperCase() ) {
@@ -503,12 +500,8 @@ const processCommands = function(action, next) {
 					if (showIndex) {
 						next({type: startingValue + ""});
 					}
-					
 
-					let loopActions = processCommands({ type: "EXECUTE_TREE", payload: loopCommands }, next);
-					loopActions.forEach(function(loop_action) {
-						next(loop_action);
-					});
+					processTree(loopCommands, next);
 				
 				} while (++startingValue < limit);
 
@@ -525,51 +518,38 @@ const processCommands = function(action, next) {
 				command = commands[index];				
 				let else_commands = command.else; 
 				let if_commands = command.payload;
-				let hasPickedIfCondition = (flag != 0);
+				let isIfConditionTrue = (flag != 0);
 				
-				if (hasPickedIfCondition) {
-					returnActions = returnActions.concat(processCommands({ type: "EXECUTE_TREE", payload: if_commands }, next) );
+				if (isIfConditionTrue) {
+					processTree(if_commands, next)
 				} else if (else_commands !== undefined) {
-					returnActions = returnActions.concat(processCommands({ type: "EXECUTE_TREE", payload: else_commands }, next) );
+					processTree(else_commands, next);
 				}
 
 				continue;
 
-			case "CREATE_NEW_COMMAND" :
-			case "ERROR" :
-			case "REMOVE_COMMAND" :
-				next(commands[index]);
-				continue;
 			default :
-				action = searchDictionary(action, command, {...store.getState().dictionary});
+				let action = searchDictionary(command, {...store.getState().dictionary});
 				
-				if (action.type.match(/\d+/) !== null) {
-					next(action);
-					continue;
-				}
-
 				if (action.type === "ERROR") { 
 					next(action);
-					return [];
+					return;
 				}
 
-				if (action.type.match(searchForWhiteSpace) === null) {
-					returnActions.push(action);
+				if (action.type.match(WHITE_SPACE_REGEX) === null) {
+					next(action);
 					continue;
 				}
 
-				returnActions = returnActions.concat(processCommands({ type: "EXECUTE_TREE", payload: action.type.split(searchForWhiteSpace).map(x => ({ type: x }) ) }, next) );
+				processTree(action.type.split(WHITE_SPACE_REGEX).map(x => ({ type: x }) ), next);
 		}
 		
 	}
-
-	return returnActions;
 };
 
 const createTree = function(action, next) {
 	var 
-		searchForWhiteSpace = /\s+/gi,
-		commands = (action.type + "").split(searchForWhiteSpace),
+		commands = (action.type + "").split(WHITE_SPACE_REGEX),
 		command,
 		currentCondition = { type: "root", root: true, payload: [] },		
 		rootCondition = currentCondition,
@@ -586,14 +566,12 @@ const createTree = function(action, next) {
 				if (currentCondition.root) {
 					command = [...store.getState().numberStack].pop();
 					if (isNaN(command) ) {
-						next({ type: "EXECUTE_TREE", payload: [{ type: "ERROR", payload: new StackUnderFlowError() }] } );
+						next({ type: "ERROR", payload: new StackUnderFlowError() });
 						return [];
 					}
 
-					next({ type: "EXECUTE_TREE", payload: [
-						{ type: "DROP" },
-						{ type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") }
-					]});
+					next({ type: "DROP" });
+					next({ type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") });
 				
 					continue;
 				}
@@ -601,14 +579,14 @@ const createTree = function(action, next) {
 				if (currentCondition.root) {
 					command = commands[++index];
 					if (command === undefined) {					
-						next({ type: "EXECUTE_TREE", payload: [{ type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") }] } );
+						next({ type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") });
 						return [];
 					}
 
-					let testWordToBeDeleted = searchDictionary(action, command, {...store.getState().dictionary});
+					let testWordToBeDeleted = searchDictionary(command, {...store.getState().dictionary});
 					action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
 					
-					next({ type: "EXECUTE_TREE", payload: [action]});
+					next(action);
 					continue;
 				}
 			case "DO" :
@@ -651,7 +629,7 @@ const createTree = function(action, next) {
 		}
 
 		if (currentCondition.root && currentCondition.payload.length > 0) {
-			next({ type: "EXECUTE_TREE", payload: [currentCondition.payload.pop()] });
+			processTree([currentCondition.payload.pop()], next);
 			continue;
 		}
 	}
@@ -666,22 +644,8 @@ const createExecutionTree = store => next => action => {
 		case "CLEAR_DICTIONARY" :
 			return next(action);
 	}
-	
-	return next({ type: "EXECUTE_TREE", payload: createTree(action, next) });
-};
 
-const processTree = store => next => action => {
-	switch(action.type) {
-		case "CLEAR_DISPLAY_STACK" :
-		case "CLEAR_INTEGER_STACK" :
-		case "CLEAR_DICTIONARY" :
-			return next(action);
-	}	
-	
-	let actions = processCommands(action, next);
-	actions.forEach(function(action, index) {
-		return next(action);
-	});
+	processTree(createTree(action, next), next);
 };
 
 const printCommands = store => next => action => {
@@ -698,5 +662,5 @@ const printCommands = store => next => action => {
 	return next(action);
 };
 
-const middleware = applyMiddleware(createLogger(), createExecutionTree, processTree, printCommands);
+const middleware = applyMiddleware(createLogger(), createExecutionTree, printCommands);
 const store = window.store = createStore(reducers, middleware);
