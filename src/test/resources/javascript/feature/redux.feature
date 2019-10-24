@@ -167,7 +167,7 @@ Scenario: User creates Constant quatro
 	And 'DisplayStack' should equal '[]'
 	And 'quatro' should have a comment of '( -- 4)'
 
-Scenario: User tries to create when no numbers are on stack
+Scenario: User tries to create a constant when no numbers are on the NumberStack
 	When User runs 'constant uhOh'
 	Then 'NumberStack' should equal '[]'
 	And 'DisplayStack' should equal '["Stack Underflow"]'

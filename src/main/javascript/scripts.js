@@ -347,7 +347,7 @@ const numberStackReducer = function(state=[], action) {
 	}
 
 	let specialDigitCommandMatch = isSpecialDigitCommand(command);
-	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 3) {
+	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 4) {
 		command = specialDigitCommandMatch[2];
 		state.push(specialDigitCommandMatch[1] * 1);
 		return numberStackReducer(state, { type: command });
@@ -408,7 +408,7 @@ const dictionaryReducer = function(state={stack: []}, action) {
 
 const isSpecialDigitCommand = function (command) {
 	var 
-		specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]{1,2})$/gi,
+		specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]|(<>))$/gi,
 		specialDigitCommandMatch = specialDigitCommandRegex.exec(command)
 	;
 
@@ -630,11 +630,8 @@ const createTree = function(action, next) {
 
 		if (currentCondition.root && currentCondition.payload.length > 0) {
 			processTree([currentCondition.payload.pop()], next);
-			continue;
 		}
 	}
-
-	return rootCondition.payload;
 }
 
 const createExecutionTree = store => next => action => {
@@ -645,7 +642,7 @@ const createExecutionTree = store => next => action => {
 			return next(action);
 	}
 
-	processTree(createTree(action, next), next);
+	createTree(action, next);
 };
 
 const printCommands = store => next => action => {
