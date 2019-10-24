@@ -49,12 +49,8 @@ const deepCopy = (object) => {
 	}
 
 	return Object.keys(object).reduce(function (output, key) {
-		if (object[key] instanceof Word) {
-			output[key] = Word.copy(object[key]);
-		} else {
-			output[key] = deepCopy.call(this, object[key]);
-		}
-		
+		output[key] = deepCopy.call(this, object[key]);
+
 		return output;
 	}, Array.isArray(object) ? [] : {});
 }
