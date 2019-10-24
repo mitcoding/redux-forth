@@ -179,17 +179,21 @@ Scenario Outline: User inputs several forth commands
 	And '<stackName2>' should equal <expectedValues2>
 
 Examples: 
-	| command 			| stackName1	| expectedValues1 | stackName2	 | expectedValues2		|
-	| 20 30 + 2 * 100 = .s  	| NumberStack	| [-1]		  | DisplayStack | [TRUE]			|
-	| 5 9 + 3 *  5/ 8 = .		| NumberStack	| []		  | DisplayStack | [TRUE]			|
-	| 2 3 4 */MOD			| NumberStack	| [2, 1]	  | DisplayStack | []				|
-	| foo *				| NumberStack	| []		  | DisplayStack | ["foo ?"]			|
-	| forget			| NumberStack	| []		  | DisplayStack | ["Unexpected end-of-line"]	|
-	| forget t1			| NumberStack	| []		  | DisplayStack | ["t1 ?"]			|
-	| if .s then			| NumberStack	| []		  | DisplayStack | ["Stack Underflow"]		|
-	| 2 -1 if .s then		| NumberStack	| [2]		  | DisplayStack | [2]				|
-	| 2 0 if .s else dup * then	| NumberStack	| [4]		  | DisplayStack | []				|
-	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup *	| NumberStack	| []		  | DisplayStack | []				|
+	| command 				   | stackName1		| expectedValues1 | stackName2	 | expectedValues2		|
+	| 20 30 + 2 * 100 = .s  		   | NumberStack	| [-1]		  | DisplayStack | [TRUE]			|
+	| 5 9 + 3 *  5/ 8 = .			   | NumberStack	| []		  | DisplayStack | [TRUE]			|
+	| 2 3 4 */MOD				   | NumberStack	| [2, 1]	  | DisplayStack | []				|
+	| foo *					   | NumberStack	| []		  | DisplayStack | ["foo ?"]			|
+	| forget				   | NumberStack	| []		  | DisplayStack | ["Unexpected end-of-line"]	|
+	| forget t1				   | NumberStack	| []		  | DisplayStack | ["t1 ?"]			|
+	| if .s then				   | NumberStack	| []		  | DisplayStack | ["Stack Underflow"]		|
+	| -1 2 constant two if forget two then two | NumberStack	| []		  | DisplayStack | ["two ?"]			|
+	| 0 2 constant two if forget two then two  | NumberStack	| [2]		  | DisplayStack | []				|
+	| 2 -1 if constant two then two		   | NumberStack	| [2]		  | DisplayStack | []				|
+	| 2 0 if constant two then two		   | NumberStack	| [2]		  | DisplayStack | ["two ?"]			|
+	| 2 -1 if .s then			   | NumberStack	| [2]		  | DisplayStack | [2]				|
+	| 2 0 if .s else dup * then		   | NumberStack	| [4]		  | DisplayStack | []				|
+	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup *  	| NumberStack	| []		  | DisplayStack | []				|
 	| 8 -1 dup if if 2 0 do * .s if  then loop else min then else if dup then mod then dup *  	| NumberStack	| []		  | DisplayStack	| ["Stack Underflow", "Stack Underflow"]				|
 	
 

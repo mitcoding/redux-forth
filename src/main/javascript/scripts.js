@@ -44,7 +44,18 @@ const defaultDictionary = {
 			return state;
 		}
 	),
-	"CONSTANT" : new Word("CONSTANT", "( -- w)"),
+	"CONSTANT" : new Word(
+		"CONSTANT",
+		"( -- w)",
+		function(name, command, next) {
+			if (isNaN(command) ) {
+				return next({ type: "ERROR", payload: new StackUnderFlowError() });
+			}
+
+			next({ type: "DROP" });
+			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", command + "") });
+		}
+	),
 	"DO" : new Word("(limit starting_value -- )"),
 	"DUP" : new Word(
 		"DUP",
@@ -70,7 +81,25 @@ const defaultDictionary = {
 			return state;
 		}
 	),
-	"FORGET" : new  Word("FORGET", "(w -- )"),
+	"FORGET" : new  Word(
+		"FORGET",
+		"(w -- )",
+		function(command, next) {
+			if (command === undefined) {
+				return next({ type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") });
+			}
+			
+			/* disabling eslint's "no-use-before-define" rule
+			 * because there is a circular reference with
+			 * searchDictionary and defaultDictionary
+			 */
+			// eslint-disable-next-line no-use-before-define
+			let testWordToBeDeleted = searchDictionary(command, {...store.getState().dictionary});
+			let action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
+			
+			return next(action);
+		}
+	),
 	"IF" : new Word("IF", "(flag -- )"),
 	"LOOP" : new Word("LOOP", "( -- )"),
 	"MAX" : new Word(
@@ -352,6 +381,25 @@ const isInDefaultDictionary = function(command) {
 	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
 };
 
+const searchDictionary = function(command, dictionary) {
+	var
+		indexes = [...Object.assign({ indexes: [] }, dictionary[command.toUpperCase()]).indexes],
+		index = indexes.pop(),
+		isInCustomDictionary = index >= 0 && dictionary.stack[index] ? true : false,
+		isInDictionary = isInDefaultDictionary(command) ? true : false;
+	;
+
+	if (isInCustomDictionary === true) {
+		return { type: dictionary.stack[index].command + "" };
+	}
+
+	if (isInDictionary === true) {
+		return { type: command + "" };
+	}
+	
+	return { type: "ERROR", payload: new WordNotFoundError(command) };
+};
+
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
 	action = {...action};
@@ -443,31 +491,27 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
-const searchDictionary = function(command, dictionary) {
-	var 
-		indexes = [...Object.assign({ indexes: [] }, dictionary[command.toUpperCase()]).indexes],
-		index = indexes.pop(),
-		isInCustomDictionary = index >= 0 && dictionary.stack[index] ? true : false,
-		isInDictionary = isInDefaultDictionary(command) ? true : false;
-	;
-
-	if (isInCustomDictionary === true) {
-		return { type: dictionary.stack[index].command + "" };
-	}
-
-	if (isInDictionary === true) {
-		return { type: command + "" };
-	}
-	
-	return { type: "ERROR", payload: new WordNotFoundError(command) };	
-};
-
 const processTree = function(commands, next, store) { 
 
 	let totalCommands = commands.length;
 	for (let index = 0; index < totalCommands; index++) {
-		let command = commands[index].type.trim();
+		let
+			action = {},
+			command = commands[index].type.trim()
+		;
 		switch(command.toUpperCase() ) {
+			case "CONSTANT" :
+
+				let word = defaultDictionary[command.toUpperCase()];
+				action = word.command(commands[++index].type, [...store.getState().numberStack].pop(), next);
+				
+				continue;
+			case "FORGET" :
+
+				word = defaultDictionary[command.toUpperCase()];
+				action = word.command(commands[++index].type, next);
+				
+				continue;
 			case ":" :
 				command = commands[index];
 				let customWordName = command.payload[0].type.toUpperCase();
@@ -528,7 +572,7 @@ const processTree = function(commands, next, store) {
 				continue;
 
 			default :
-				let action = searchDictionary(command, {...store.getState().dictionary});
+				action = searchDictionary(command, {...store.getState().dictionary});
 				
 				if (action.type === "ERROR") { 
 					next(action);
@@ -563,31 +607,28 @@ const createTree = function(action, next, store) {
 		switch(command.toUpperCase() ) {
 			case "CONSTANT" :
 				if (currentCondition.root) {
-					command = [...store.getState().numberStack].pop();
-					if (isNaN(command) ) {
-						next({ type: "ERROR", payload: new StackUnderFlowError() });
-						return [];
-					}
 
-					next({ type: "DROP" });
-					next({ type: "CREATE_NEW_COMMAND", payload: new Word(commands[++index].toUpperCase(), "( -- " + command + ")", command + "") });
-				
+					let word = defaultDictionary[command.toUpperCase()];
+					action = word.command(commands[++index].toUpperCase(), [...store.getState().numberStack].pop(), next);
+
 					continue;
 				}
+
+				action = { type: command };
+				break;
+				
 			case "FORGET" :
 				if (currentCondition.root) {
-					command = commands[++index];
-					if (command === undefined) {					
-						next({ type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") });
-						return [];
-					}
 
-					let testWordToBeDeleted = searchDictionary(command, {...store.getState().dictionary});
-					action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
-					
-					next(action);
+					let word = defaultDictionary[command.toUpperCase()];
+					action = word.command(commands[++index], next);
+
 					continue;
 				}
+
+				action = { type: command };
+				break;
+				
 			case "DO" :
 			case "IF" :
 			case ":" :
@@ -615,8 +656,7 @@ const createTree = function(action, next, store) {
 				currentCondition = stack[stack.length - 1];
 				break;
 			default :
-				action = { type: command };
-				
+				action = { type: command + "" };
 		}
 
 		if (action.type) {
