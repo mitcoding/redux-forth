@@ -1,5 +1,4 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import {createLogger} from "redux-logger";
 
 class ForthCommandError extends Error {
 	constructor(command, message) {
@@ -659,5 +658,5 @@ const printCommands = store => next => action => {
 	return next(action);
 };
 
-const middleware = applyMiddleware(createLogger(), createExecutionTree, printCommands);
+const middleware = applyMiddleware(createExecutionTree, printCommands);
 const store = window.store = createStore(reducers, middleware);
