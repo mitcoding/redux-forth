@@ -161,7 +161,7 @@ const defaultDictionary = {
 				nextInt = state[removeIndex]
 			;
 			
-			state = state.filter(function(value, index, arr) { return index !== removeIndex; });
+			state = state.filter(function(value, index) { return index !== removeIndex; });
 			state.push(nextInt);
 			return state;
 		}
@@ -193,7 +193,7 @@ const defaultDictionary = {
 		".",
 		"(n -- )",
 		function remove_top_number(state) {
-			var topInt = state.pop();
+			state.pop();
 			return state;
 		}
 	),
@@ -335,6 +335,23 @@ const defaultDictionary = {
 	)
 };
 
+const isSpecialDigitCommand = function (command) {
+	var 
+		specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]|(<>))$/gi,
+		specialDigitCommandMatch = specialDigitCommandRegex.exec(command)
+	;
+
+	return specialDigitCommandMatch;
+};
+
+const isNumber = function(command) {
+	return /^-?\d+$/.exec(command);
+};
+
+const isInDefaultDictionary = function(command) {
+	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
+};
+
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
 	action = {...action};
@@ -391,7 +408,7 @@ const dictionaryReducer = function(state={stack: []}, action) {
 			let index = command.indexes[command.indexes.length - 1];
 			let stack = state.stack.slice(0, index);
 			let wordsToRemove = state.stack.slice(index);
-			wordsToRemove.forEach(function(word, index) {
+			wordsToRemove.forEach(function(word) {
 				state[word.name].indexes.pop();
 
 				if (state[word.name].indexes.length === 0) {
@@ -403,23 +420,6 @@ const dictionaryReducer = function(state={stack: []}, action) {
 	}
 
 	return state;
-};
-
-const isSpecialDigitCommand = function (command) {
-	var 
-		specialDigitCommandRegex = /^([\d]+)([\+\*\/\-<>=]|(<>))$/gi,
-		specialDigitCommandMatch = specialDigitCommandRegex.exec(command)
-	;
-
-	return specialDigitCommandMatch;
-};
-
-const isNumber = function(command) {
-	return /^-?\d+$/.exec(command);
-};
-
-const isInDefaultDictionary = function(command) {
-	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
 };
 
 const displayStackReducer = function(state=[], action) {
@@ -462,7 +462,7 @@ const searchDictionary = function(command, dictionary) {
 	return { type: "ERROR", payload: new WordNotFoundError(command) };	
 };
 
-const processTree = function(commands, next) { 
+const processTree = function(commands, next, store) { 
 
 	let totalCommands = commands.length;
 	for (let index = 0; index < totalCommands; index++) {
@@ -500,7 +500,7 @@ const processTree = function(commands, next) {
 						next({type: startingValue + ""});
 					}
 
-					processTree(loopCommands, next);
+					processTree(loopCommands, next, store);
 				
 				} while (++startingValue < limit);
 
@@ -517,12 +517,12 @@ const processTree = function(commands, next) {
 				command = commands[index];				
 				let else_commands = command.else; 
 				let if_commands = command.payload;
-				let isIfConditionTrue = (flag != 0);
+				let isIfConditionTrue = (flag !== 0);
 				
 				if (isIfConditionTrue) {
-					processTree(if_commands, next)
+					processTree(if_commands, next, store)
 				} else if (else_commands !== undefined) {
-					processTree(else_commands, next);
+					processTree(else_commands, next, store);
 				}
 
 				continue;
@@ -540,13 +540,13 @@ const processTree = function(commands, next) {
 					continue;
 				}
 
-				processTree(action.type.split(WHITE_SPACE_REGEX).map(x => ({ type: x }) ), next);
+				processTree(action.type.split(WHITE_SPACE_REGEX).map(x => ({ type: x }) ), next, store);
 		}
 		
 	}
 };
 
-const createTree = function(action, next) {
+const createTree = function(action, next, store) {
 	var 
 		commands = (action.type + "").split(WHITE_SPACE_REGEX),
 		command,
@@ -628,10 +628,11 @@ const createTree = function(action, next) {
 		}
 
 		if (currentCondition.root && currentCondition.payload.length > 0) {
-			processTree([currentCondition.payload.pop()], next);
+			processTree([currentCondition.payload.pop()], next, store);
 		}
 	}
 }
+
 
 const createExecutionTree = store => next => action => {
 	switch(action.type) {
@@ -641,7 +642,7 @@ const createExecutionTree = store => next => action => {
 			return next(action);
 	}
 
-	createTree(action, next);
+	createTree(action, next, store);
 };
 
 const printCommands = store => next => action => {
@@ -659,4 +660,4 @@ const printCommands = store => next => action => {
 };
 
 const middleware = applyMiddleware(createExecutionTree, printCommands);
-const store = window.store = createStore(reducers, middleware);
+window.store = createStore(reducers, middleware);
