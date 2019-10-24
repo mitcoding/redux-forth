@@ -7,9 +7,9 @@ class ForthCommandError extends Error {
 	}
 }
 
-class WordNotFoundError extends ForthCommandError {
+class ControlStructureMismatchError extends ForthCommandError {
 	constructor(command) {
-		super(command, command + " ?");
+		super(command, "Control structure mismatch");
 	}
 }
 
@@ -25,9 +25,9 @@ class UnexpectedEndOfLineError extends ForthCommandError {
 	}
 }
 
-class ControlStructureMismatchError extends ForthCommandError {
+class WordNotFoundError extends ForthCommandError {
 	constructor(command) {
-		super(command, "Control structure mismatch");
+		super(command, command + " ?");
 	}
 }
 
@@ -725,7 +725,6 @@ const createTree = function(action, next, store) {
 		}
 	}
 }
-
 
 const createExecutionTree = store => next => action => {
 	switch(action.type) {
