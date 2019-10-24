@@ -4,8 +4,8 @@ Scenario Outline: <action> <int1> by <int2> leaving only the <resultName>
 	Given User has entered <int1>
 	And User has entered <int2>
 	When User runs '<command>'
-	Then 'NumberStack' should equal '<expectedResults>'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal <expectedResults>
+	And 'DisplayStack' should equal []
 
 Examples:
 	| action	| command    | int1 | int2 | resultName | expectedResults |
@@ -25,8 +25,8 @@ Examples:
 Scenario Outline: <action> <int1> by <command> leaving only the <resultName>
 	Given User has entered <int1>
 	When User runs '<command>'
-	Then 'NumberStack' should equal '<expectedResults>'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal <expectedResults>
+	And 'DisplayStack' should equal []
 
 Examples:
 	| action	 | command | int1 | resultName	| expectedResults |
@@ -46,86 +46,86 @@ Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by i
 	And User has entered 9
 	And User has entered 10
 	When User runs '*/'
-	Then 'NumberStack' should equal '[1]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [1]
+	And 'DisplayStack' should equal []
 
 Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by integer 3, and leaving the remainder 8 and integer 1
 	Given User has entered 3
 	And User has entered 6
 	And User has entered 10
 	When User runs '*/MOD'
-	Then 'NumberStack' should equal '[8, 1]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [8, 1]
+	And 'DisplayStack' should equal []
 
 Scenario: Give me the absolute value of integer 1, leaving integer 2
 	Given User has entered -80
 	When User runs 'ABS'
-	Then 'NumberStack' should equal '[80]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [80]
+	And 'DisplayStack' should equal []
 
 Scenario: Find if integer 1 or integer 2 is greater
 	Given User has entered 30
 	And User has entered 20
 	When User runs 'MAX'
-	Then 'NumberStack' should equal '[30]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [30]
+	And 'DisplayStack' should equal []
 
 Scenario: Find if integer 1 or integer 2 is lesser
 	Given User has entered 100
 	And User has entered 300
 	When User runs 'MIN'
-	Then 'NumberStack' should equal '[100]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [100]
+	And 'DisplayStack' should equal []
 
 Scenario: Negate the top integer, leaving the changed integer
 	Given User has entered -10
 	When User runs 'NEGATE'
-	Then 'NumberStack' should equal '[10]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [10]
+	And 'DisplayStack' should equal []
 
 Scenario: User prints integer 1
 	Given User has entered 10
 	When User runs '.'
-	Then 'NumberStack' should equal '[]'
-	And 'DisplayStack' should equal '[10]'
+	Then 'NumberStack' should equal []
+	And 'DisplayStack' should equal [10]
 
 Scenario: User prints NumberStack
 	Given User has entered 38
 	And User has entered 46
 	When User runs '.S'
-	Then 'NumberStack' should equal '[38, 46]'
-	And 'DisplayStack' should equal '[38, 46]'
+	Then 'NumberStack' should equal [38, 46]
+	And 'DisplayStack' should equal [38, 46]
 
 Scenario: User wishes to duplicate the top number on the NumberStack 
 	Given User has entered 91
 	And User has entered 60
 	When User runs 'DUP'
-	Then 'NumberStack' should equal '[91, 60, 60]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [91, 60, 60]
+	And 'DisplayStack' should equal []
 
 Scenario: User wishes to delete the top item on the NumberStack
 	Given User has entered 37
 	And User has entered 110
 	And User has entered 16
 	When User runs 'DROP'
-	Then 'NumberStack' should equal '[37, 110]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [37, 110]
+	And 'DisplayStack' should equal []
 
 Scenario: User exchanges the top two numbers on the stack
 	Given User has entered 1
 	And User has entered 2
 	And User has entered 3
 	When User runs 'SWAP'
-	Then 'NumberStack' should equal '[1, 3, 2]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [1, 3, 2]
+	And 'DisplayStack' should equal []
 
 Scenario: User copies the second number to the top of the stack
 	Given User has entered 4
 	And User has entered 5
 	And User has entered 6
 	When User runs 'OVER'
-	Then 'NumberStack' should equal '[4, 5, 6, 5]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [4, 5, 6, 5]
+	And 'DisplayStack' should equal []
 
 Scenario: User wants to move 3 number number to the top of the stack
 	Given User has entered 1
@@ -133,8 +133,8 @@ Scenario: User wants to move 3 number number to the top of the stack
 	And User has entered 3
 	And User has entered 4
 	When User runs 'ROT'
-	Then 'NumberStack' should equal '[1, 3, 4, 2]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [1, 3, 4, 2]
+	And 'DisplayStack' should equal []
 
 Scenario: User wants to use the top number to determine which number to copy to the top of the stack, not counting n itself. (i.e. the sequence 2 PICK is equivlent to OVER).
 	Given User has entered 4
@@ -143,40 +143,40 @@ Scenario: User wants to use the top number to determine which number to copy to 
 	And User has entered 7
 	And User has entered 2
 	When User runs 'PICK'
-	Then 'NumberStack' should equal '[4, 5, 6, 7, 2, 6]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [4, 5, 6, 7, 2, 6]
+	And 'DisplayStack' should equal []
 
 Scenario: User adds a TRUE flag and FALSE flag to the stack then NOTs the FALSE flag
 	Given User runs 'TRUE'
 	And User runs 'FALSE'
 	When User runs 'NOT'
-	Then 'NumberStack' should equal '[TRUE, TRUE]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [TRUE, TRUE]
+	And 'DisplayStack' should equal []
 	
 Scenario: User adds a FALSE flag and TRUE flag to the stack then NOTs the TRUE flag
 	Given User runs 'FALSE'
 	And User runs 'TRUE'
 	When User runs 'NOT'
-	Then 'NumberStack' should equal '[FALSE, FALSE]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal [FALSE, FALSE]
+	And 'DisplayStack' should equal []
 
 Scenario: User creates Constant quatro
 	Given User runs '4'
 	When User runs 'constant quatro'
-	Then 'NumberStack' should equal '[]'
-	And 'DisplayStack' should equal '[]'
+	Then 'NumberStack' should equal []
+	And 'DisplayStack' should equal []
 	And 'quatro' should have a comment of '( -- 4)'
 
 Scenario: User tries to create a constant when no numbers are on the NumberStack
 	When User runs 'constant uhOh'
-	Then 'NumberStack' should equal '[]'
-	And 'DisplayStack' should equal '["Stack Underflow"]'
+	Then 'NumberStack' should equal []
+	And 'DisplayStack' should equal ["Stack Underflow"]
 	And 'UhOh' should not be added to the dictionary
 
 Scenario Outline: User inputs several forth commands
 	When User runs '<command>'
-	Then '<stackName1>' should equal '<expectedValues1>'
-	And '<stackName2>' should equal '<expectedValues2>'
+	Then '<stackName1>' should equal <expectedValues1>
+	And '<stackName2>' should equal <expectedValues2>
 
 Examples: 
 	| command 			| stackName1	| expectedValues1 | stackName2	 | expectedValues2		|
@@ -196,18 +196,22 @@ Examples:
 Scenario Outline: User creates a new custom command. Which they use.
 	When User runs '<command>' 
 	Then '<customCommandNames>' should be added to the dictionary
-	Then '<stackName>' should equal '<expectedValues>'
+	Then '<stackName>' should equal <expectedValues>
 	And '<customCommandNames>' should have a comment of '<comments>'
 
 Examples:
 	| command				   | customCommandNames | stackName	| expectedValues | comments	|
 	| : SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED | SQUARED		| NumberStack	| [36]		 | ( n1 -- n2 )	|
 	| : DOZEN 12 ; DOZEN			   | DOZEN		| NumberStack	| [12]		 | 		|
-	| ( : ignore words ; )			   | 			| NumberStack	| []		 | 		|
 	| : 5 DUP * ; 4 5			   | 5			| NumberStack	| [16]		 |		|
 	| 12 constant dozen dozen		   | DOZEN		| NumberStack	| [12]		 | ( -- 12)	|
 	| 12 constant dozen			   | DOZEN		| NumberStack	| []		 | ( -- 12)	|
 
+Scenario: User comments out a custom word defintion
+	When User runs '( : ignore words ; )'
+	Then 'ignore' should not be added to the dictionary
+	And 'NumberStack' should equal []
+	And 'DisplayStack' should equal []
 
 Scenario: User wants to forget a custom command
 	When User runs ': SQUARED DUP * ;'
@@ -216,8 +220,8 @@ Scenario: User wants to forget a custom command
 	And User runs ': gross dozen squared ;'
 	And User runs 'gross'
 	When User runs 'forget t1 squared gross'
-	Then 'NumberStack' should equal '[20736]'
-	And 'DisplayStack' should equal '["gross ?"]'
+	Then 'NumberStack' should equal [20736]
+	And 'DisplayStack' should equal ["gross ?"]
 	And 'squared' should be added to the dictionary
 	And 'dozen' should not be added to the dictionary
 	And 'gross' should not be added to the dictionary
@@ -226,10 +230,10 @@ Scenario: User conditionally wants datastack printed console
 	Given User has entered 2
 	And User has entered -1
 	When User runs 'if .s then'
-	Then 'NumberStack' should equal '[2]'
-	And 'DisplayStack' should equal '[2]'
+	Then 'NumberStack' should equal [2]
+	And 'DisplayStack' should equal [2]
 
 Scenario: User prints to console the index of a loop squared
 	When User runs ': squared dup * ; 5 0 do i squared . loop'
-	Then 'NumberStack' should equal '[]'
-	And 'DisplayStack' should equal '[0, 1, 4, 9, 16]'
+	Then 'NumberStack' should equal []
+	And 'DisplayStack' should equal [0, 1, 4, 9, 16]
