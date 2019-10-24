@@ -39,10 +39,6 @@ class Word {
 	}
 }
 
-Word.copy = function (word) {
-	return new Word(word.name, word.comment, word.command);
-};
-
 const deepCopy = (object) => {
 	if (["string", "number"].indexOf((typeof object).toLowerCase() ) > -1) {
 		return object;
@@ -116,7 +112,7 @@ const defaultDictionary = {
 			 * searchDictionary and defaultDictionary
 			 */
 			// eslint-disable-next-line no-use-before-define
-			let testWordToBeDeleted = searchDictionary(command, {...store.getState().dictionary}, true);
+			let testWordToBeDeleted = searchDictionary(command, store.getState().dictionary, true);
 			let action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
 			
 			return next(action);
@@ -531,7 +527,7 @@ const processTree = function(commands, next, store, searchedDictionary) {
 	for (let index = 0; index < totalCommands; index++) {
 		let
 			command = commands[index].type.trim(),
-			action = !searchedDictionary ? searchDictionary(command, {...store.getState().dictionary}) : { type: command };
+			action = !searchedDictionary ? searchDictionary(command, store.getState().dictionary) : { type: command };
 		;
 				
 		if (Array.isArray(action) ) {
@@ -637,7 +633,7 @@ const createTree = function(action, next, store) {
 		command = commands[index];
 		
 		if (currentCondition.root) {
-			action = searchDictionary(command, {...store.getState().dictionary});
+			action = searchDictionary(command, store.getState().dictionary);
 			if (Array.isArray(action) ) {
 				processTree(action, next, store, true);
 				continue;
