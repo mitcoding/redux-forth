@@ -25,12 +25,38 @@ class UnexpectedEndOfLineError extends ForthCommandError {
 	}
 }
 
+class ControlStructureMismatchError extends ForthCommandError {
+	constructor(command) {
+		super(command, "Control structure mismatch");
+	}
+}
+
 class Word {
 	constructor(name, comment, command) {
 		this.name = name;
 		this.comment = comment;
 		this.command = command;
 	}
+}
+
+Word.copy = function (word) {
+	return new Word(word.name, word.comment, word.command);
+};
+
+const deepCopy = (object) => {
+	if (["string", "number"].indexOf((typeof object).toLowerCase() ) > -1) {
+		return object;
+	}
+
+	return Object.keys(object).reduce(function (output, key) {
+		if (object[key] instanceof Word) {
+			output[key] = Word.copy(object[key]);
+		} else {
+			output[key] = deepCopy.call(this, object[key]);
+		}
+		
+		return output;
+	}, Array.isArray(object) ? [] : {});
 }
 
 const WHITE_SPACE_REGEX = /\s+/gi;
@@ -94,7 +120,7 @@ const defaultDictionary = {
 			 * searchDictionary and defaultDictionary
 			 */
 			// eslint-disable-next-line no-use-before-define
-			let testWordToBeDeleted = searchDictionary(command, {...store.getState().dictionary});
+			let testWordToBeDeleted = searchDictionary(command, {...store.getState().dictionary}, true);
 			let action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
 			
 			return next(action);
@@ -381,20 +407,32 @@ const isInDefaultDictionary = function(command) {
 	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
 };
 
-const searchDictionary = function(command, dictionary) {
+const searchDictionary = function(command, dictionary, findCommandOnly) {
 	var
-		indexes = [...Object.assign({ indexes: [] }, dictionary[command.toUpperCase()]).indexes],
+		_dictionary = deepCopy(dictionary),
+		indexes = (_dictionary[command.toUpperCase()] || { indexes: [] } ).indexes,
 		index = indexes.pop(),
-		isInCustomDictionary = index >= 0 && dictionary.stack[index] ? true : false,
+		isInCustomDictionary = index >= 0 && _dictionary.stack[index] ? true : false,
 		isInDictionary = isInDefaultDictionary(command) ? true : false;
 	;
 
+	if (command.trim() === "") { return { type: '' }; }
+
 	if (isInCustomDictionary === true) {
-		return { type: dictionary.stack[index].command + "" };
+		if (findCommandOnly) {
+			return { type: command };
+		}
+
+		let customDefinitionTree = [];
+		(dictionary.stack[index].command + "").split(WHITE_SPACE_REGEX).forEach(function(word) {
+			customDefinitionTree = customDefinitionTree.concat(searchDictionary(word, _dictionary) );
+		});
+		
+		return customDefinitionTree;
 	}
 
 	if (isInDictionary === true) {
-		return { type: command + "" };
+		return { type: command };
 	}
 	
 	return { type: "ERROR", payload: new WordNotFoundError(command) };
@@ -491,14 +529,20 @@ const reducers = combineReducers({
 	displayStack: displayStackReducer
 });
 
-const processTree = function(commands, next, store) { 
+const processTree = function(commands, next, store, searchedDictionary) { 
 
 	let totalCommands = commands.length;
 	for (let index = 0; index < totalCommands; index++) {
 		let
-			action = {},
-			command = commands[index].type.trim()
+			command = commands[index].type.trim(),
+			action = !searchedDictionary ? searchDictionary(command, {...store.getState().dictionary}) : { type: command };
 		;
+				
+		if (Array.isArray(action) ) {
+			processTree(action, next, store, true);
+			continue;
+		}
+
 		switch(command.toUpperCase() ) {
 			case "CONSTANT" :
 
@@ -572,21 +616,13 @@ const processTree = function(commands, next, store) {
 				continue;
 
 			default :
-				action = searchDictionary(command, {...store.getState().dictionary});
 				
+				next(action);
+
 				if (action.type === "ERROR") { 
-					next(action);
 					return;
 				}
-
-				if (action.type.match(WHITE_SPACE_REGEX) === null) {
-					next(action);
-					continue;
-				}
-
-				processTree(action.type.split(WHITE_SPACE_REGEX).map(x => ({ type: x }) ), next, store);
 		}
-		
 	}
 };
 
@@ -603,6 +639,15 @@ const createTree = function(action, next, store) {
 	stack.push(rootCondition);	
 	for (let index = 0; index < totalCommands; index++) {
 		command = commands[index];
+		
+		if (currentCondition.root) {
+			action = searchDictionary(command, {...store.getState().dictionary});
+			if (Array.isArray(action) ) {
+				processTree(action, next, store, true);
+				continue;
+			}
+		}
+
 		action = {};
 		switch(command.toUpperCase() ) {
 			case "CONSTANT" :
@@ -633,6 +678,11 @@ const createTree = function(action, next, store) {
 			case "IF" :
 			case ":" :
 			case "(" :
+				if ((currentCondition.type === ":" && commands[index - 1] === ":") || store.getState().dictionary[command.toUpperCase()]) {
+					action = { type: command + "" };
+					break;
+				}
+
 				if (currentCondition.else) {
 					currentCondition.else.push({ type: command, payload: [] });
 					currentCondition = currentCondition.else[currentCondition.else.length - 1];
@@ -643,6 +693,11 @@ const createTree = function(action, next, store) {
 				stack.push(currentCondition);
 				continue;
 			case "ELSE" :
+				if (currentCondition.root) {
+					next({ type: "ERROR", payload: new ControlStructureMismatchError(command) });
+					return;
+				}
+
 				currentCondition = stack.pop();
 				currentCondition["else"] = [];
 				stack.push(currentCondition);
@@ -652,9 +707,15 @@ const createTree = function(action, next, store) {
 			case "THEN" :
 			case ";" :
 			case ")" :
+				if (currentCondition.root) {
+					next({ type: "ERROR", payload: new ControlStructureMismatchError(command) });
+					return;
+				}
+
 				stack.pop();
 				currentCondition = stack[stack.length - 1];
 				break;
+				
 			default :
 				action = { type: command + "" };
 		}
