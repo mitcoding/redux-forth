@@ -430,6 +430,10 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 	return { type: "ERROR", payload: new WordNotFoundError(command) };
 };
 
+const compileStackReducer = function(state = [{ type: "root", root: true, payload: [] }]) {
+	return state;
+};
+
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
 	action = {...action};
@@ -516,9 +520,10 @@ const displayStackReducer = function(state=[], action) {
 };
 
 const reducers = combineReducers({
-	numberStack: numberStackReducer,
+	compileStack: compileStackReducer,
 	dictionary: dictionaryReducer,
-	displayStack: displayStackReducer
+	displayStack: displayStackReducer,
+	numberStack: numberStackReducer
 });
 
 const processTree = function(commands, next, store, searchedDictionary) { 
@@ -622,13 +627,11 @@ const createTree = function(action, next, store) {
 	var 
 		commands = (action.type + "").split(WHITE_SPACE_REGEX),
 		command,
-		currentCondition = { type: "root", root: true, payload: [] },		
-		rootCondition = currentCondition,
-		stack = [],
+		stack = store.getState().compileStack,
+		currentCondition = stack[stack.length - 1],
 		totalCommands = commands.length
 	;
-
-	stack.push(rootCondition);	
+	
 	for (let index = 0; index < totalCommands; index++) {
 		command = commands[index];
 		
@@ -682,6 +685,7 @@ const createTree = function(action, next, store) {
 					currentCondition.payload.push({ type: command, payload: [] });
 					currentCondition = currentCondition.payload[currentCondition.payload.length - 1];
 				}
+
 				stack.push(currentCondition);
 				continue;
 			case "ELSE" :
@@ -706,6 +710,7 @@ const createTree = function(action, next, store) {
 
 				stack.pop();
 				currentCondition = stack[stack.length - 1];
+				
 				break;
 				
 			default :
