@@ -526,13 +526,13 @@ const reducers = combineReducers({
 	numberStack: numberStackReducer
 });
 
-const processTree = function(commands, next, store, searchedDictionary) { 
+const processTree = function(commands, next, store, hasSearchedDictionary = false) { 
 
 	let totalCommands = commands.length;
 	for (let index = 0; index < totalCommands; index++) {
 		let
 			command = commands[index].type.trim(),
-			action = !searchedDictionary ? searchDictionary(command, store.getState().dictionary) : { type: command };
+			action = hasSearchedDictionary === false ? searchDictionary(command, store.getState().dictionary) : commands[index];
 		;
 				
 		if (Array.isArray(action) ) {
@@ -697,6 +697,7 @@ const createTree = function(action, next, store) {
 				currentCondition = stack.pop();
 				currentCondition["else"] = [];
 				stack.push(currentCondition);
+
 				continue;
 
 			case "LOOP" : 
