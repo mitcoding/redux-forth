@@ -204,10 +204,10 @@ Examples:
 Scenario: User creates command to print a message
 	When User runs ': GIFT ." bookends " ;' 
 	And User runs ': GIVER ." Amanda " ;' 
-	And User runs ': THANKS ." Dear  " GIVER ."  , thanks for the  " GIFT ." . " ;'
+	And User runs ': THANKS ." Dear  " GIVER ." , " CR ." thanks for the  " GIFT ." . " ;'
 	And User runs ': GIVER ." Eliana " ;'
 	And User runs 'THANKS'
-	Then 'DisplayStack' should equal ["Dear", "Amanda", ", thanks for the", "bookends", "."]
+	Then 'DisplayStack' should equal ["Dear", "Amanda", ",", "\r", "thanks for the", "bookends", "."]
 	And 'NumberStack' should equal []
 
 Scenario Outline: User creates a new custom command. Which they use.
@@ -255,3 +255,61 @@ Scenario: User prints to console the index of a loop squared
 	Then 'NumberStack' should equal []
 	And 'DisplayStack' should equal [0, 1, 4, 9, 16]
 
+Scenario Outline: User wants to know if egg size is large enough
+	Given User runs ': eggsize'
+	And User runs 'dup 18 < if ." reject " else'
+	And User runs 'dup 21 < if ." small " else'
+	And User runs 'dup 24 < if ." medium " else'
+	And User runs 'dup 27 < if ." large " else'
+	And User runs 'dup 30 < if ." extra large " else'
+	And User runs '." error "'
+	And User runs 'then then then then then drop ;'
+	When User runs '<command>'
+	Then 'NumberStack' should equal []
+	And 'DisplayStack' should equal <expectedValue>
+
+Examples:
+	| command	| expectedValue	  |
+	| 17 eggsize	| ["reject"]	  |
+	| 20 eggsize	| ["small"]	  |
+	| 23 eggsize	| ["medium"]	  |
+	| 26 eggsize	| ["large"]	  |
+	| 29 eggsize	| ["extra large"] |
+	| 30 eggsize	| ["error"]	  |
+
+
+Scenario Outline: User wants to know if box size is large enough
+	Given User runs ': boxtest 6 >  ROT 22 >  ROT 19 >  AND AND IF ." Big enough " THEN ;'
+	When User runs '<command>'
+	Then 'NumberStack' should equal []
+	And 'DisplayStack' should equal <expectedResults>
+
+Examples:
+	| command	   | expectedResults |
+	| 23 20 7 BOXTEST  | ["Big enough"]  |
+	| 23 20 6 BOXTEST  | []		     |
+	| 23 19 7 BOXTEST  | []		     |
+	| 22 20 7 BOXTEST  | []		     |
+	| 22 19 6 BOXTEST  | []		     |
+	| 25 21 10 BOXTEST | ["Big enough"]  |
+
+Scenario Outline: User wants ability to do boolean logic
+	When User runs '<command>'
+	Then 'NumberStack' should equal <expectedValue>
+
+Examples:
+	| command	| expectedValue |
+	| -1 -1 and	| [-1]		|
+	| 0 -1 and	| [0]		|
+	| 0 0 and	| [0]		|
+	| -1 0 and	| [0]		|
+	| -1 -1 or	| [-1]		|
+	| 0 -1 or	| [-1]		|
+	| 0 0 or	| [0]		|
+	| -1 0 or	| [-1]		|
+
+Scenario: User wants ability to clear the display
+	Given User runs '20 30 40 .s'
+	When User runs 'page'
+	Then 'NumberStack' should equal [20, 30, 40]
+	And 'DisplayStack' should equal []

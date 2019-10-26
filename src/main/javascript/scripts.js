@@ -82,6 +82,19 @@ const defaultDictionary = {
 			return state;
 		}
 	),
+	"AND" : new Word(
+		"AND",
+		"(flag flag -- flag)",
+		function and(state) {
+			var 
+				topFlag = state.pop() !== 0 ? true : false,
+				nextFlag = state.pop() !== 0 ? true : false
+			;
+
+			state.push((topFlag & nextFlag) ? -1 : 0);
+			return state;
+		}
+	),
 	"CONSTANT" : new Word(
 		"CONSTANT",
 		"( -- w)",
@@ -94,7 +107,8 @@ const defaultDictionary = {
 			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", [{ type: command + "" }]) });
 		}
 	),
-	"DO" : new Word("(limit starting_value -- )"),
+	"CR" : new Word("CR", "( -- )"),
+	"DO" : new Word("DO", "(limit starting_value -- )"),
 	"DUP" : new Word(
 		"DUP",
 		"(n -- n n)",
@@ -197,6 +211,19 @@ const defaultDictionary = {
 			return state;
 		}
 	),
+	"OR" : new Word(
+		"OR",
+		"(flag flag -- flag)",
+		function(state) {
+			var 
+				topFlag = state.pop() !== 0 ? true : false,
+				nextFlag = state.pop() !== 0 ? true : false
+			;
+
+			state.push((topFlag | nextFlag) ? -1 : 0);
+			return state;
+		}
+	),
 	"OVER" : new Word(
 		"OVER",
 		"(n1 n2 -- n1 n2 n1)",
@@ -205,6 +232,10 @@ const defaultDictionary = {
 			state.push(nextInt);
 			return state;
 		}
+	),
+	"PAGE" : new Word(
+		"PAGE",
+		"( -- )"
 	),
 	"PICK" : new Word(
 		"PICK",
@@ -529,9 +560,13 @@ const dictionaryReducer = function(state={stack: []}, action) {
 
 const displayStackReducer = function(state=[], action) {
 	state = [...state];
-	switch(action.type) {
+	switch(action.type.toUpperCase() ) {
+		case "PAGE" :
 		case "CLEAR_DISPLAY_STACK" :
 			return [];
+		case "CR" :
+			state.push("\r");
+			return state;
 		case "PRINT" :
 			return state.concat(action.payload);
 		case "ERROR" :
