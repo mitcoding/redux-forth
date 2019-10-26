@@ -201,6 +201,14 @@ Examples:
 	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup * 	 | NumberStack	| [] | DisplayStack | []	  |
 	| 8 -1 dup if if 2 0 do * .s if  then loop else min then else if dup then mod then dup * | NumberStack	| [] | DisplayStack | ["Stack Underflow", "Stack Underflow"] |		
 	
+Scenario: User creates command to print a message
+	When User runs ': GIFT ." bookends " ;' 
+	And User runs ': GIVER ." Amanda " ;' 
+	And User runs ': THANKS ." Dear  " GIVER ."  , thanks for the  " GIFT ." . " ;'
+	And User runs ': GIVER ." Eliana " ;'
+	And User runs 'THANKS'
+	Then 'DisplayStack' should equal ["Dear", "Amanda", ", thanks for the", "bookends", "."]
+	And 'NumberStack' should equal []
 
 Scenario Outline: User creates a new custom command. Which they use.
 	When User runs '<command>' 
@@ -246,3 +254,4 @@ Scenario: User prints to console the index of a loop squared
 	When User runs ': squared dup * ; 5 0 do i squared . loop'
 	Then 'NumberStack' should equal []
 	And 'DisplayStack' should equal [0, 1, 4, 9, 16]
+

@@ -39,6 +39,26 @@ class Word {
 	}
 }
 
+const addCustomDefinitionStackIndex = (word, customDictionaryStack) => {
+	let 
+		customWord = { name: "" },
+		index = customDictionaryStack.length - 1
+	
+	;
+
+	while(index > -1) {
+		customWord = customDictionaryStack[index];
+		if (customWord.name.toUpperCase() === word.type.toUpperCase() ) {
+			word.index = index;
+			break;
+		}
+
+		index--;
+	}
+
+	return word;
+};
+
 const deepCopy = (object) => {
 	if (["string", "number"].indexOf((typeof object).toLowerCase() ) > -1) {
 		return object;
@@ -71,7 +91,7 @@ const defaultDictionary = {
 			}
 
 			next({ type: "DROP" });
-			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", command + "") });
+			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", [{ type: command + "" }]) });
 		}
 	),
 	"DO" : new Word("(limit starting_value -- )"),
@@ -244,6 +264,8 @@ const defaultDictionary = {
 			return state;
 		}
 	),
+	'."' : new Word('."', "( -- )"),
+	'"' : new Word('"', "( -- )"),
 	".S" : new Word(".S", "( -- )"),
 	";" : new Word(";", "( -- w)"),
 	":" : new Word(":", "( -- )"),
@@ -396,7 +418,7 @@ const isNumber = function(command) {
 };
 
 const isInDefaultDictionary = function(command) {
-	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
+	return (isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()]) ? true : false;
 };
 
 const searchDictionary = function(command, dictionary, findCommandOnly) {
@@ -405,10 +427,8 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		indexes = (_dictionary[command.toUpperCase()] || { indexes: [] } ).indexes,
 		index = indexes.pop(),
 		isInCustomDictionary = index >= 0 && _dictionary.stack[index] ? true : false,
-		isInDictionary = isInDefaultDictionary(command) ? true : false;
+		isInDictionary = isInDefaultDictionary(command);
 	;
-
-	if (command.trim() === "") { return { type: '' }; }
 
 	if (isInCustomDictionary === true) {
 		if (findCommandOnly) {
@@ -416,10 +436,14 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		}
 
 		let customDefinitionTree = [];
-		(dictionary.stack[index].command + "").split(WHITE_SPACE_REGEX).forEach(function(word) {
-			customDefinitionTree = customDefinitionTree.concat(searchDictionary(word, _dictionary) );
+		dictionary.stack[index].command.forEach(function search(word) {
+			if (word.index > -1) {
+				dictionary.stack[word.index].command.forEach(search);
+			} else {
+				customDefinitionTree.push(word);
+			}
 		});
-		
+
 		return customDefinitionTree;
 	}
 
@@ -471,7 +495,6 @@ const dictionaryReducer = function(state={stack: []}, action) {
 
 	switch(action.type.toUpperCase() ) {
 		case "CREATE_NEW_COMMAND" :
-			action.payload.command = action.payload.command.trim();
 			action.payload.comment = action.payload.comment.trim();
 			state.stack.push(action.payload);
 
@@ -563,8 +586,13 @@ const processTree = function(commands, next, store, hasSearchedDictionary = fals
 					comment = "( " + words[0].payload.map(x => x.type).join(" ") + " )"
 					words = words.slice(1);
 				}
-
-				next({ type: "CREATE_NEW_COMMAND", payload: new Word(customWordName, comment, words.map(x => x.type).join(" ").toUpperCase() ) });
+				
+				next({ type: "CREATE_NEW_COMMAND", payload: new Word(customWordName, comment, words) });
+				continue;
+			case '."' :
+				command = commands[index];
+				let message = command.payload.map((x) => x.type).join(" ");
+				next({ type: "PRINT", payload: message });
 				continue;
 
 			case "(" :
@@ -633,48 +661,50 @@ const createTree = function(action, next, store) {
 	;
 	
 	for (let index = 0; index < totalCommands; index++) {
+		let returnAction;
 		command = commands[index];
-		
+	
 		if (currentCondition.root) {
-			action = searchDictionary(command, store.getState().dictionary);
-			if (Array.isArray(action) ) {
-				processTree(action, next, store, true);
+			returnAction = searchDictionary(command, store.getState().dictionary);
+			if (Array.isArray(returnAction) ) {
+				processTree(returnAction, next, store, true);
 				continue;
 			}
 		}
 
-		action = {};
+		returnAction = {};
 		switch(command.toUpperCase() ) {
 			case "CONSTANT" :
 				if (currentCondition.root) {
 
 					let word = defaultDictionary[command.toUpperCase()];
-					action = word.command(commands[++index].toUpperCase(), [...store.getState().numberStack].pop(), next);
+					returnAction = word.command(commands[++index].toUpperCase(), [...store.getState().numberStack].pop(), next);
 
 					continue;
 				}
 
-				action = { type: command };
+				returnAction = { type: command };
 				break;
 				
 			case "FORGET" :
 				if (currentCondition.root) {
 
 					let word = defaultDictionary[command.toUpperCase()];
-					action = word.command(commands[++index], next);
+					returnAction = word.command(commands[++index], next);
 
 					continue;
 				}
 
-				action = { type: command };
+				returnAction = { type: command };
 				break;
 				
 			case "DO" :
 			case "IF" :
 			case ":" :
 			case "(" :
+			case '."' :
 				if ((currentCondition.type === ":" && commands[index - 1] === ":") || store.getState().dictionary[command.toUpperCase()]) {
-					action = { type: command + "" };
+					returnAction = { type: command + "" };
 					break;
 				}
 
@@ -704,6 +734,7 @@ const createTree = function(action, next, store) {
 			case "THEN" :
 			case ";" :
 			case ")" :
+			case '"' :
 				if (currentCondition.root) {
 					next({ type: "ERROR", payload: new ControlStructureMismatchError(command) });
 					return;
@@ -715,14 +746,14 @@ const createTree = function(action, next, store) {
 				break;
 				
 			default :
-				action = { type: command + "" };
+				returnAction = addCustomDefinitionStackIndex({ type: command + "" }, store.getState().dictionary.stack);
 		}
 
-		if (action.type) {
+		if (returnAction.type) {
 			if (currentCondition.else) {
-				currentCondition.else.push(action);
+				currentCondition.else.push(returnAction);
 			} else {
-				currentCondition.payload.push(action);
+				currentCondition.payload.push(returnAction);
 			}
 		}
 
