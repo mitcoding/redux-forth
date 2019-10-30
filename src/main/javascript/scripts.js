@@ -1,14 +1,10 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 
 const addCustomDefinitionStackIndex = (word, customDictionaryStack) => {
-	let 
-		customWord = { name: "" },
-		index = customDictionaryStack.length - 1
-	
-	;
+	let index = customDictionaryStack.length - 1;
 
 	while(index > -1) {
-		customWord = customDictionaryStack[index];
+		let customWord = customDictionaryStack[index];
 		if (customWord.type.toUpperCase() === word.type.toUpperCase() ) {
 			word.index = index;
 			break;
@@ -20,8 +16,16 @@ const addCustomDefinitionStackIndex = (word, customDictionaryStack) => {
 	return word;
 };
 
+const isPrimativeType = function (object) {
+	return object === null || ({"bigint":1, "boolean":1, "number":1, "string":1, "symbol":1, "undefined":1})[(typeof object).toLowerCase()] ? true : false;
+};
+
+const isPrimativeWrapper = function(object) {
+	return (object instanceof Number || object instanceof String || object instanceof Boolean) ? true : false;
+}
+
 const deepCopy = (object) => {
-	if (["string", "number"].indexOf((typeof object).toLowerCase() ) > -1) {
+	if (isPrimativeType(object) ) {
 		return object;
 	}
 
@@ -29,7 +33,7 @@ const deepCopy = (object) => {
 		output[key] = deepCopy.call(this, object[key]);
 
 		return output;
-	}, Array.isArray(object) ? [] : {});
+	}, isPrimativeWrapper(object) ? new object.constructor(object.valueOf() ) : new object.constructor() );
 }
 
 class ForthCommandError extends Error {
@@ -225,12 +229,12 @@ const defaultDictionary = {
 			next({ type: "DROP" });
 			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", [{ type: command + "" }]) });
 		},
-		function(buildTree) {
+		function(buildTree, command) {
 			if (buildTree.currentCondition.root) {
 				return this.command(buildTree.commands[++buildTree.index].toUpperCase(), [...buildTree.store.getState().numberStack].pop(), buildTree.next);
 			}
 
-			return buildTree.currentCondition.addChildNode({ type: buildTree.commands[buildTree.index] });
+			return buildTree.currentCondition.addChildNode(new this.constructor(command) );
 		}
 			
 	),
@@ -262,9 +266,9 @@ const defaultDictionary = {
 		"ELSE",
 		"( -- )",
 		null,
-		function(buildTree) {
+		function(buildTree, command) {
 			if (buildTree.currentCondition.root) {
-				return buildTree.next({ type: "ERROR", payload: new ControlStructureMismatchError(buildTree.commands[buildTree.index]) });
+				return buildTree.next({ type: "ERROR", payload: new ControlStructureMismatchError(command) });
 			}
 
 			buildTree.currentCondition = buildTree.stack.pop();
