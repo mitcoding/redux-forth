@@ -68,10 +68,10 @@ class WordNotFoundError extends ForthCommandError {
 }
 
 class Word {
-	constructor(type, comment = "( -- )", modifyNumberStack, buildCommand) {
+	constructor(type, comment = "( -- )", modifyIntegerStack, buildCommand) {
 		this.type = type === undefined ? undefined : type + "";
 		this.comment = comment;
-		if (modifyNumberStack !== undefined) { this.modifyNumberStack = modifyNumberStack; }
+		if (modifyIntegerStack !== undefined) { this.modifyIntegerStack = modifyIntegerStack; }
 		if (buildCommand !== undefined) { this.build = buildCommand; }
 	}
 
@@ -96,7 +96,7 @@ class Word {
 }
 
 class IntegerWord extends Word {
-	modifyNumberStack(state) {
+	modifyIntegerStack(state) {
 		state.push(this.type * 1);
 		return state;
 	}
@@ -108,11 +108,11 @@ class SpecialIntegerWord extends Word {
 		this.specialDigitCommandMatch = specialDigitCommandMatch;
 	}
 
-	modifyNumberStack(state) {
+	modifyIntegerStack(state) {
 		let command = this.specialDigitCommandMatch[2];
 		state.push(this.specialDigitCommandMatch[1] * 1);
 		// eslint-disable-next-line no-use-before-define
-		return numberStackReducer(state, { type: "EXECUTE_WORD", word: defaultDictionary[command.toUpperCase()] });
+		return integerStackReducer(state, { type: "EXECUTE_WORD", word: defaultDictionary[command.toUpperCase()] });
 	}
 }
 
@@ -220,7 +220,7 @@ class If extends TreeWord {
 	}
 
 	process(commands, index, store, next) {
-		let flag = [...store.getState().numberStack].pop();
+		let flag = [...store.getState().integerStack].pop();
 		if (isNaN(flag) ) { 
 			next({ type: "ERROR", payload: new StackUnderFlowError() });
 			return this;
@@ -305,7 +305,7 @@ class Constant extends TreeWord {
 	process(commands, index, store, next) {
 		let 
 			name = commands[index].payload[0].type,
-			command = [...store.getState().numberStack].pop()
+			command = [...store.getState().integerStack].pop()
 		;
 
 		if (isNaN(command) ) {
@@ -331,7 +331,7 @@ class Do extends TreeWord {
 	process(commands, index, store, next) {
 		let 
 			command = commands[index],
-			state = [...store.getState().numberStack],
+			state = [...store.getState().integerStack],
 			startingValue = state.pop(),
 			limit  = state.pop(),
 			showIndex = (command.payload[0].type.toUpperCase() === "I"),
@@ -685,9 +685,9 @@ const defaultDictionary = {
 		"(n1 n2 n3 -- (n1*n2)/n3)",
 		function multiply_divide(state) {
 			var topInt = state.pop();
-			state = defaultDictionary["*"].modifyNumberStack(state);
+			state = defaultDictionary["*"].modifyIntegerStack(state);
 			state.push(topInt);
-			return defaultDictionary["/"].modifyNumberStack(state);
+			return defaultDictionary["/"].modifyIntegerStack(state);
 		}
 	),
 	"*/MOD" : new Word(
@@ -699,10 +699,10 @@ const defaultDictionary = {
 				divState
 			;
 
-			state = defaultDictionary["*"].modifyNumberStack(state);
+			state = defaultDictionary["*"].modifyIntegerStack(state);
 			state.push(topInt);
-			divState = defaultDictionary["/"].modifyNumberStack([...state]);
-			state = defaultDictionary.MOD.modifyNumberStack(state);
+			divState = defaultDictionary["/"].modifyIntegerStack([...state]);
+			state = defaultDictionary.MOD.modifyIntegerStack(state);
 			state.push(divState.pop());
 			return state;
 		}
@@ -803,9 +803,9 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		}
 
 		let customDefinitionTree = [];
-		dictionary.stack[index].modifyNumberStack.forEach(function search(word) {
+		dictionary.stack[index].modifyIntegerStack.forEach(function search(word) {
 			if (word.index > -1) {
-				dictionary.stack[word.index].modifyNumberStack.forEach(search);
+				dictionary.stack[word.index].modifyIntegerStack.forEach(search);
 			} else {
 				customDefinitionTree.push(word);
 			}
@@ -825,11 +825,11 @@ const compileStackReducer = function(state = [new Root("ROOT")]) {
 	return state;
 };
 
-const numberStackReducer = function(state=[], action) {
+const integerStackReducer = function(state=[], action) {
 	state = [...state];
 
-	if (action.word instanceof Word && action.word.modifyNumberStack instanceof Function) {
-		state = action.word.modifyNumberStack(state);
+	if (action.word instanceof Word && action.word.modifyIntegerStack instanceof Function) {
+		state = action.word.modifyIntegerStack(state);
 		return isNaN(state[state.length - 1]) ? (state.pop(), state) : state;
 	}
 
@@ -904,7 +904,7 @@ const reducers = combineReducers({
 	compileStack: compileStackReducer,
 	dictionary: dictionaryReducer,
 	displayStack: displayStackReducer,
-	numberStack: numberStackReducer
+	integerStack: integerStackReducer
 });
 
 const processTree = function(commands, next, store, hasSearchedDictionary = false) { 
@@ -972,12 +972,12 @@ const createExecutionTree = store => next => action => {
 const printCommands = store => next => action => {
 	switch((action.type).toUpperCase() ) {
 		case "." :
-			let topInt = [...store.getState().numberStack].pop();
+			let topInt = [...store.getState().integerStack].pop();
 			next(action);
 			return next({ type: "PRINT", payload: [topInt]});
 		case ".S" :
-			let numberStack = [...store.getState().numberStack];
-			return next({ type: "PRINT", payload: numberStack });
+			let integerStack = [...store.getState().integerStack];
+			return next({ type: "PRINT", payload: integerStack });
 	}
 	
 	return next(action);
@@ -985,7 +985,7 @@ const printCommands = store => next => action => {
 
 
 const convertWordClassToAction = store => next => action => {
-	[...store.getState().numberStack];
+	[...store.getState().integerStack];
 	switch(action.type) {
 		case "ERROR" :
 		case "CLEAR_DICTIONARY" :

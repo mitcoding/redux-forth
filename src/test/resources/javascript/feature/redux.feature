@@ -4,7 +4,7 @@ Scenario Outline: <action> <int1> by <int2> leaving only the <resultName>
 	Given User has entered <int1>
 	And User has entered <int2>
 	When User runs '<command>'
-	Then 'NumberStack' should equal <expectedResults>
+	Then 'IntegerStack' should equal <expectedResults>
 	And 'DisplayStack' should equal []
 
 Examples:
@@ -25,7 +25,7 @@ Examples:
 Scenario Outline: <action> <int1> by <command> leaving only the <resultName>
 	Given User has entered <int1>
 	When User runs '<command>'
-	Then 'NumberStack' should equal <expectedResults>
+	Then 'IntegerStack' should equal <expectedResults>
 	And 'DisplayStack' should equal []
 
 Examples:
@@ -46,7 +46,7 @@ Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by i
 	And User has entered 9
 	And User has entered 10
 	When User runs '*/'
-	Then 'NumberStack' should equal [1]
+	Then 'IntegerStack' should equal [1]
 	And 'DisplayStack' should equal []
 
 Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by integer 3, and leaving the remainder 8 and integer 1
@@ -54,61 +54,61 @@ Scenario: Multiply integer 1 by integer 2, creating result d. Then divide d by i
 	And User has entered 6
 	And User has entered 10
 	When User runs '*/MOD'
-	Then 'NumberStack' should equal [8, 1]
+	Then 'IntegerStack' should equal [8, 1]
 	And 'DisplayStack' should equal []
 
 Scenario: Give me the absolute value of integer 1, leaving integer 2
 	Given User has entered -80
 	When User runs 'ABS'
-	Then 'NumberStack' should equal [80]
+	Then 'IntegerStack' should equal [80]
 	And 'DisplayStack' should equal []
 
 Scenario: Find if integer 1 or integer 2 is greater
 	Given User has entered 30
 	And User has entered 20
 	When User runs 'MAX'
-	Then 'NumberStack' should equal [30]
+	Then 'IntegerStack' should equal [30]
 	And 'DisplayStack' should equal []
 
 Scenario: Find if integer 1 or integer 2 is lesser
 	Given User has entered 100
 	And User has entered 300
 	When User runs 'MIN'
-	Then 'NumberStack' should equal [100]
+	Then 'IntegerStack' should equal [100]
 	And 'DisplayStack' should equal []
 
 Scenario: Negate the top integer, leaving the changed integer
 	Given User has entered -10
 	When User runs 'NEGATE'
-	Then 'NumberStack' should equal [10]
+	Then 'IntegerStack' should equal [10]
 	And 'DisplayStack' should equal []
 
 Scenario: User prints integer 1
 	Given User has entered 10
 	When User runs '.'
-	Then 'NumberStack' should equal []
+	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal [10]
 
-Scenario: User prints NumberStack
+Scenario: User prints IntegerStack
 	Given User has entered 38
 	And User has entered 46
 	When User runs '.S'
-	Then 'NumberStack' should equal [38, 46]
+	Then 'IntegerStack' should equal [38, 46]
 	And 'DisplayStack' should equal [38, 46]
 
-Scenario: User wishes to duplicate the top number on the NumberStack 
+Scenario: User wishes to duplicate the top number on the IntegerStack 
 	Given User has entered 91
 	And User has entered 60
 	When User runs 'DUP'
-	Then 'NumberStack' should equal [91, 60, 60]
+	Then 'IntegerStack' should equal [91, 60, 60]
 	And 'DisplayStack' should equal []
 
-Scenario: User wishes to delete the top item on the NumberStack
+Scenario: User wishes to delete the top item on the IntegerStack
 	Given User has entered 37
 	And User has entered 110
 	And User has entered 16
 	When User runs 'DROP'
-	Then 'NumberStack' should equal [37, 110]
+	Then 'IntegerStack' should equal [37, 110]
 	And 'DisplayStack' should equal []
 
 Scenario: User exchanges the top two numbers on the stack
@@ -116,7 +116,7 @@ Scenario: User exchanges the top two numbers on the stack
 	And User has entered 2
 	And User has entered 3
 	When User runs 'SWAP'
-	Then 'NumberStack' should equal [1, 3, 2]
+	Then 'IntegerStack' should equal [1, 3, 2]
 	And 'DisplayStack' should equal []
 
 Scenario: User copies the second number to the top of the stack
@@ -124,7 +124,7 @@ Scenario: User copies the second number to the top of the stack
 	And User has entered 5
 	And User has entered 6
 	When User runs 'OVER'
-	Then 'NumberStack' should equal [4, 5, 6, 5]
+	Then 'IntegerStack' should equal [4, 5, 6, 5]
 	And 'DisplayStack' should equal []
 
 Scenario: User wants to move 3 number number to the top of the stack
@@ -133,7 +133,7 @@ Scenario: User wants to move 3 number number to the top of the stack
 	And User has entered 3
 	And User has entered 4
 	When User runs 'ROT'
-	Then 'NumberStack' should equal [1, 3, 4, 2]
+	Then 'IntegerStack' should equal [1, 3, 4, 2]
 	And 'DisplayStack' should equal []
 
 Scenario: User wants to use the top number to determine which number to copy to the top of the stack, not counting n itself. (i.e. the sequence 2 PICK is equivlent to OVER).
@@ -143,33 +143,33 @@ Scenario: User wants to use the top number to determine which number to copy to 
 	And User has entered 7
 	And User has entered 2
 	When User runs 'PICK'
-	Then 'NumberStack' should equal [4, 5, 6, 7, 2, 6]
+	Then 'IntegerStack' should equal [4, 5, 6, 7, 2, 6]
 	And 'DisplayStack' should equal []
 
 Scenario: User adds a TRUE flag and FALSE flag to the stack then NOTs the FALSE flag
 	Given User runs 'TRUE'
 	And User runs 'FALSE'
 	When User runs 'NOT'
-	Then 'NumberStack' should equal [TRUE, TRUE]
+	Then 'IntegerStack' should equal [TRUE, TRUE]
 	And 'DisplayStack' should equal []
 	
 Scenario: User adds a FALSE flag and TRUE flag to the stack then NOTs the TRUE flag
 	Given User runs 'FALSE'
 	And User runs 'TRUE'
 	When User runs 'NOT'
-	Then 'NumberStack' should equal [FALSE, FALSE]
+	Then 'IntegerStack' should equal [FALSE, FALSE]
 	And 'DisplayStack' should equal []
 
 Scenario: User creates Constant quatro
 	Given User runs '4'
 	When User runs 'constant quatro'
-	Then 'NumberStack' should equal []
+	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal []
 	And 'quatro' should have a comment of '( -- 4)'
 
-Scenario: User tries to create a constant when no numbers are on the NumberStack
+Scenario: User tries to create a constant when no numbers are on the IntegerStack
 	When User runs 'constant uhOh'
-	Then 'NumberStack' should equal []
+	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal ["Stack Underflow"]
 	And 'UhOh' should not be added to the dictionary
 
@@ -180,26 +180,26 @@ Scenario Outline: User inputs several forth commands
 
 Examples: 
 	| command						| stackName1	| expectedValues1 | stackName2	 | expectedValues2		  |
-	| 20 30 + 2 * 100 = .s					| NumberStack	| [-1]		  | DisplayStack | [TRUE]			  |
-	| 5 9 + 3 *  5/ 8 = .					| NumberStack	| []		  | DisplayStack | [TRUE]			  |
-	| 2 3 4 */MOD						| NumberStack	| [2, 1]	  | DisplayStack | []				  |
-	| foo *							| NumberStack	| []		  | DisplayStack | ["foo ?"]			  |
-	| forget						| NumberStack	| []		  | DisplayStack | ["Unexpected end-of-line"]	  |
-	| forget t1						| NumberStack	| []		  | DisplayStack | ["t1 ?"]			  |
-	| if .s then						| NumberStack	| []		  | DisplayStack | ["Stack Underflow"]		  |
-	| : if ; if 12 then					| NumberStack	| [12]		  | DisplayStack | ["Control structure mismatch"] |
-	| : if ; if else 144 then				| NumberStack	| []		  | DisplayStack | ["Control structure mismatch"] |
-	| : do ; -1 if do 12 loop then				| NumberStack	| [12]		  | DisplayStack | ["Control structure mismatch"] |
-	| -1 2 constant two if forget two then two 		| NumberStack	| []		  | DisplayStack | ["two ?"]			  |
-	| 0 2 constant two if forget two then two  		| NumberStack	| [2]		  | DisplayStack | []				  |
-	| 2 -1 if constant two then two		   		| NumberStack	| [2]		  | DisplayStack | []				  |
-	| 2 0 if constant two then two		   		| NumberStack	| [2]		  | DisplayStack | ["two ?"]			  |
-	| 2 -1 if .s then			   		| NumberStack	| [2]		  | DisplayStack | [2]				  |
-	| 2 0 if .s else dup * then		   		| NumberStack	| [4]		  | DisplayStack | []				  |
-	| 10 : t1 ; : dup 122 ; : dup dup * ; dup forget t1 dup	| NumberStack	| [1220, 1220]	  | DisplayStack | []				  |
-	| 2 : t1 ; : dup 122 ; : dup dup * ; dup forget dup dup	| NumberStack	| [244, 122]	  | DisplayStack | []				  |
-	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup * 	 | NumberStack	| [] | DisplayStack | []	  |
-	| 8 -1 dup if if 2 0 do * .s if  then loop else min then else if dup then mod then dup * | NumberStack	| [] | DisplayStack | ["Stack Underflow", "Stack Underflow"] |		
+	| 20 30 + 2 * 100 = .s					| IntegerStack	| [-1]		  | DisplayStack | [TRUE]			  |
+	| 5 9 + 3 *  5/ 8 = .					| IntegerStack	| []		  | DisplayStack | [TRUE]			  |
+	| 2 3 4 */MOD						| IntegerStack	| [2, 1]	  | DisplayStack | []				  |
+	| foo *							| IntegerStack	| []		  | DisplayStack | ["foo ?"]			  |
+	| forget						| IntegerStack	| []		  | DisplayStack | ["Unexpected end-of-line"]	  |
+	| forget t1						| IntegerStack	| []		  | DisplayStack | ["t1 ?"]			  |
+	| if .s then						| IntegerStack	| []		  | DisplayStack | ["Stack Underflow"]		  |
+	| : if ; if 12 then					| IntegerStack	| [12]		  | DisplayStack | ["Control structure mismatch"] |
+	| : if ; if else 144 then				| IntegerStack	| []		  | DisplayStack | ["Control structure mismatch"] |
+	| : do ; -1 if do 12 loop then				| IntegerStack	| [12]		  | DisplayStack | ["Control structure mismatch"] |
+	| -1 2 constant two if forget two then two 		| IntegerStack	| []		  | DisplayStack | ["two ?"]			  |
+	| 0 2 constant two if forget two then two  		| IntegerStack	| [2]		  | DisplayStack | []				  |
+	| 2 -1 if constant two then two		   		| IntegerStack	| [2]		  | DisplayStack | []				  |
+	| 2 0 if constant two then two		   		| IntegerStack	| [2]		  | DisplayStack | ["two ?"]			  |
+	| 2 -1 if .s then			   		| IntegerStack	| [2]		  | DisplayStack | [2]				  |
+	| 2 0 if .s else dup * then		   		| IntegerStack	| [4]		  | DisplayStack | []				  |
+	| 10 : t1 ; : dup 122 ; : dup dup * ; dup forget t1 dup	| IntegerStack	| [1220, 1220]	  | DisplayStack | []				  |
+	| 2 : t1 ; : dup 122 ; : dup dup * ; dup forget dup dup	| IntegerStack	| [244, 122]	  | DisplayStack | []				  |
+	| 8 0 dup if if do * .s if  then loop else min then else if dup then mod then dup * 	 | IntegerStack	| [] | DisplayStack | []	  |
+	| 8 -1 dup if if 2 0 do * .s if  then loop else min then else if dup then mod then dup * | IntegerStack	| [] | DisplayStack | ["Stack Underflow", "Stack Underflow"] |		
 	
 Scenario: User creates command to print a message
 	When User runs ': GIFT ." bookends " ;' 
@@ -208,7 +208,7 @@ Scenario: User creates command to print a message
 	And User runs ': GIVER ." Eliana " ;'
 	And User runs 'THANKS'
 	Then 'DisplayStack' should equal ["Dear", "Amanda", ",", "\r", "thanks for the", "bookends", "."]
-	And 'NumberStack' should equal []
+	And 'IntegerStack' should equal []
 
 Scenario Outline: User creates a new custom command. Which they use.
 	When User runs '<command>' 
@@ -218,16 +218,16 @@ Scenario Outline: User creates a new custom command. Which they use.
 
 Examples:
 	| command				   | customCommandNames | stackName	| expectedValues | comments	|
-	| : SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED | SQUARED		| NumberStack	| [36]		 | ( n1 -- n2 )	|
-	| : DOZEN 12 ; DOZEN			   | DOZEN		| NumberStack	| [12]		 | 		|
-	| : 5 DUP * ; 4 5			   | 5			| NumberStack	| [16]		 |		|
-	| 12 constant dozen dozen		   | DOZEN		| NumberStack	| [12]		 | ( -- 12)	|
-	| 12 constant dozen			   | DOZEN		| NumberStack	| []		 | ( -- 12)	|
+	| : SQUARED ( n1 -- n2 ) DUP * ; 6 SQUARED | SQUARED		| IntegerStack	| [36]		 | ( n1 -- n2 )	|
+	| : DOZEN 12 ; DOZEN			   | DOZEN		| IntegerStack	| [12]		 | 		|
+	| : 5 DUP * ; 4 5			   | 5			| IntegerStack	| [16]		 |		|
+	| 12 constant dozen dozen		   | DOZEN		| IntegerStack	| [12]		 | ( -- 12)	|
+	| 12 constant dozen			   | DOZEN		| IntegerStack	| []		 | ( -- 12)	|
 
 Scenario: User comments out a custom word defintion
 	When User runs '( : ignore words ; )'
 	Then 'ignore' should not be added to the dictionary
-	And 'NumberStack' should equal []
+	And 'IntegerStack' should equal []
 	And 'DisplayStack' should equal []
 
 Scenario: User wants to forget a custom command
@@ -237,7 +237,7 @@ Scenario: User wants to forget a custom command
 	And User runs ': gross dozen squared ;'
 	And User runs 'gross'
 	When User runs 'forget t1 squared gross'
-	Then 'NumberStack' should equal [20736]
+	Then 'IntegerStack' should equal [20736]
 	And 'DisplayStack' should equal ["gross ?"]
 	And 'squared' should be added to the dictionary
 	And 'dozen' should not be added to the dictionary
@@ -247,12 +247,12 @@ Scenario: User conditionally wants datastack printed console
 	Given User has entered 2
 	And User has entered -1
 	When User runs 'if .s then'
-	Then 'NumberStack' should equal [2]
+	Then 'IntegerStack' should equal [2]
 	And 'DisplayStack' should equal [2]
 
 Scenario: User prints to console the index of a loop squared
 	When User runs ': squared dup * ; 5 0 do i squared . loop'
-	Then 'NumberStack' should equal []
+	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal [0, 1, 4, 9, 16]
 
 Scenario Outline: User wants to know if egg size is large enough
@@ -265,7 +265,7 @@ Scenario Outline: User wants to know if egg size is large enough
 	And User runs '." error "'
 	And User runs 'then then then then then drop ;'
 	When User runs '<command>'
-	Then 'NumberStack' should equal []
+	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal <expectedValue>
 
 Examples:
@@ -281,7 +281,7 @@ Examples:
 Scenario Outline: User wants to know if box size is large enough
 	Given User runs ': boxtest 6 >  ROT 22 >  ROT 19 >  AND AND IF ." Big enough " THEN ;'
 	When User runs '<command>'
-	Then 'NumberStack' should equal []
+	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal <expectedResults>
 
 Examples:
@@ -295,7 +295,7 @@ Examples:
 
 Scenario Outline: User wants ability to do boolean logic
 	When User runs '<command>'
-	Then 'NumberStack' should equal <expectedValue>
+	Then 'IntegerStack' should equal <expectedValue>
 
 Examples:
 	| command	| expectedValue |
@@ -311,5 +311,5 @@ Examples:
 Scenario: User wants ability to clear the display
 	Given User runs '20 30 40 .s'
 	When User runs 'page'
-	Then 'NumberStack' should equal [20, 30, 40]
+	Then 'IntegerStack' should equal [20, 30, 40]
 	And 'DisplayStack' should equal []
