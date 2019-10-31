@@ -10,8 +10,11 @@ defineParameterType({
 
 Before(function() {
 	store.dispatch({type: "CLEAR_INTEGER_STACK"});
-	store.dispatch({type: "CLEAR_DISPLAY_STACK"});
+	store.dispatch({type: "PAGE"});
 	store.dispatch({type: "CLEAR_DICTIONARY"});
+	[...store.getState().numberStack].should.be.empty;
+	[...store.getState().dictionary.stack].should.be.empty;
+	[...store.getState().displayStack].should.be.empty;
 });
 
 Given('User has entered {int}', function (int) {

@@ -68,24 +68,51 @@ class WordNotFoundError extends ForthCommandError {
 }
 
 class Word {
-	constructor(name, comment, command, buildCommand) {
-		this.type = name;
+	constructor(type, comment, command, buildCommand) {
+		this.type = type + "";
 		if (comment !== undefined) { this.comment = comment; }
 		if (command !== undefined) { this.command = command; }
 		if (buildCommand !== undefined) { this.build = buildCommand; }
 	}
 	build(buildTree, command) {
+		// eslint-disable-next-line no-use-before-define
+		let word = searchDictionary(command, buildTree.store.getState().dictionary, true);
+		if (word.type === "ERROR") {
+			word = new Word(command);
+		}
+
 		buildTree.currentCondition.addChildNode(
-			addCustomDefinitionStackIndex({ type: command }, buildTree.store.getState().dictionary.stack),
+			addCustomDefinitionStackIndex(word, buildTree.store.getState().dictionary.stack),
 			buildTree.next,
 			buildTree.store
 		);
 	}
 }
 
+class DigitWord extends Word {
+	command(state) {
+		state.push(this.type * 1);
+		return state;
+	}
+}
+
+class SpecialDigitWord extends Word {
+	constructor(type, specialDigitCommandMatch) {
+		super(type);
+		this.specialDigitCommandMatch = specialDigitCommandMatch;
+	}
+
+	command(state) {
+		let command = this.specialDigitCommandMatch[2];
+		state.push(this.specialDigitCommandMatch[1] * 1);
+		// eslint-disable-next-line no-use-before-define
+		return numberStackReducer(state, { type: "EXECUTE_WORD", word: defaultDictionary[command.toUpperCase()] });
+	}
+}
+
 class TreeWord extends Word {
-	constructor(name, comment, command, buildCommand) {
-		super(name, comment, command, buildCommand);
+	constructor(type, comment, command, buildCommand) {
+		super(type, comment, command, buildCommand);
 		this.payload = [];
 	}
 
@@ -127,8 +154,8 @@ class TreeWord extends Word {
 }
 
 class Root extends TreeWord {
-	constructor(name, comment, command, buildCommand) {
-		super(name, comment, command, buildCommand);
+	constructor(type, comment, command, buildCommand) {
+		super(type, comment, command, buildCommand);
 		this.root = true;
 	}
 
@@ -226,8 +253,8 @@ const defaultDictionary = {
 				return next({ type: "ERROR", payload: new StackUnderFlowError() });
 			}
 
-			next({ type: "DROP" });
-			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", [{ type: command + "" }]) });
+			next(defaultDictionary["DROP"]);
+			next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", [new DigitWord(command)]) });
 		},
 		function(buildTree, command) {
 			if (buildTree.currentCondition.root) {
@@ -666,15 +693,15 @@ const isSpecialDigitCommand = function (command) {
 		specialDigitCommandMatch = specialDigitCommandRegex.exec(command)
 	;
 
-	return specialDigitCommandMatch;
+	return specialDigitCommandMatch ? new SpecialDigitWord(command, specialDigitCommandMatch) : false;
 };
 
 const isNumber = function(command) {
-	return /^-?\d+$/.exec(command);
+	return /^-?\d+$/.exec(command) ? new DigitWord(command) : false;
 };
 
 const isInDefaultDictionary = function(command) {
-	return (isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()]) ? true : false;
+	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
 };
 
 const isInCustomDictionary = function(command, dictionary) {
@@ -692,13 +719,13 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		_dictionary = deepCopy(dictionary),
 		indexes = (_dictionary[command.toUpperCase()] || { indexes: [] } ).indexes,
 		index = indexes.pop(),
-		isInCustDictionary = isInCustomDictionary(command, dictionary),
-		isInDictionary = isInDefaultDictionary(command);
+		customDictionaryWord = isInCustomDictionary(command, dictionary),
+		defaultDictionaryWord = isInDefaultDictionary(command);
 	;
 
-	if (isInCustDictionary === true) {
+	if (customDictionaryWord) {
 		if (findCommandOnly) {
-			return { type: command };
+			return dictionary.stack[index];
 		}
 
 		let customDefinitionTree = [];
@@ -713,8 +740,8 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		return customDefinitionTree;
 	}
 
-	if (isInDictionary === true) {
-		return { type: command };
+	if (defaultDictionaryWord) { 
+		return defaultDictionaryWord;
 	}
 	
 	return { type: "ERROR", payload: new WordNotFoundError(command) };
@@ -726,29 +753,13 @@ const compileStackReducer = function(state = [new Root("ROOT")]) {
 
 const numberStackReducer = function(state=[], action) {
 	state = [...state];
-	action = {...action};
-
-	let command = action.type.toUpperCase();
-	if (isNumber(command)) {
-		state.push(action.type * 1);
-		return state;
-	}
-
-	let specialDigitCommandMatch = isSpecialDigitCommand(command);
-	if (specialDigitCommandMatch && specialDigitCommandMatch.length === 4) {
-		command = specialDigitCommandMatch[2];
-		state.push(specialDigitCommandMatch[1] * 1);
-		return numberStackReducer(state, { type: command });
-	}
-
-	let word = defaultDictionary[command];
-	if (word instanceof Word && word.command instanceof Function) {
-		state = word.command(state);
-		return isNaN(state[state.length - 1]) ? (state.pop(), state) : state;
-	}
-
-	if (command === "CLEAR_INTEGER_STACK") {
+	if (action.type.toUpperCase() === "CLEAR_INTEGER_STACK") {
 		return [];
+	}
+
+	if (action.word instanceof Word && action.word.command instanceof Function) {
+		state = action.word.command(state);
+		return isNaN(state[state.length - 1]) ? (state.pop(), state) : state;
 	}
 
 	return state;
@@ -757,8 +768,13 @@ const numberStackReducer = function(state=[], action) {
 
 const dictionaryReducer = function(state={stack: []}, action) {
 	state = {...state, stack: [...state.stack] };
-	action = {...action};
 
+
+	if (action.type.toUpperCase() === "CLEAR_DICTIONARY") {
+			return { stack: [] };	
+	}
+
+	action = action.word || { type: "" };
 	switch(action.type.toUpperCase() ) {
 		case "CREATE_NEW_COMMAND" :
 			action.payload.comment = action.payload.comment.trim();
@@ -770,9 +786,7 @@ const dictionaryReducer = function(state={stack: []}, action) {
 			command.indexes.push(state.stack.length - 1);
 
 			return state;
-		case "CLEAR_DICTIONARY" :
-			return { stack: [] };
-
+		
 		case "REMOVE_COMMAND" :
 			command = state[action.payload.toUpperCase()];
 
@@ -795,18 +809,21 @@ const dictionaryReducer = function(state={stack: []}, action) {
 
 const displayStackReducer = function(state=[], action) {
 	state = [...state];
+
+	if (action.type.toUpperCase() === "ERROR") {
+		state.push(action.payload.getMessage() );
+		return state;
+	}
+
+	action = action.word || { type: "" };
 	switch(action.type.toUpperCase() ) {
 		case "PAGE" :
-		case "CLEAR_DISPLAY_STACK" :
 			return [];
 		case "CR" :
 			state.push("\r");
 			return state;
 		case "PRINT" :
 			return state.concat(action.payload);
-		case "ERROR" :
-			state.push(action.payload.getMessage() );
-			return state;
 	}
 
 	return state;
@@ -875,12 +892,12 @@ const processTree = function(commands, next, store, hasSearchedDictionary = fals
 				let limit  = state.pop();
 				let showIndex = (command.payload[0].type.toUpperCase() === "I");
 				let loopCommands = showIndex ? command.payload.slice(1) : command.payload;
-				next({ type: "DROP" });
-				next({ type: "DROP" });
+				next(defaultDictionary["DROP"]);
+				next(defaultDictionary["DROP"]);
 
 				do {
 					if (showIndex) {
-						next({type: startingValue + ""});
+						next(new DigitWord(startingValue));
 					}
 					
 					processTree(loopCommands, next, store);
@@ -895,7 +912,7 @@ const processTree = function(commands, next, store, hasSearchedDictionary = fals
 					return [];
 				}
 
-				next({ type: "DROP" });
+				next(defaultDictionary["DROP"]);
 				
 				command = commands[index];				
 				let else_commands = command.else; 
@@ -937,7 +954,7 @@ class BuildTree {
 		let buildTree = this;
 		for (buildTree.index = 0; buildTree.index < buildTree.totalCommands; buildTree.index++) {
 			let 
-				command = this.commands[this.index] + "",
+				command = this.commands[this.index],
 				returnAction = {}
 			;
 
@@ -954,7 +971,6 @@ const createTree = function(action, next, store) {
 
 const createExecutionTree = store => next => action => {
 	switch(action.type) {
-		case "CLEAR_DISPLAY_STACK" :
 		case "CLEAR_INTEGER_STACK" :
 		case "CLEAR_DICTIONARY" :
 			return next(action);
@@ -964,7 +980,7 @@ const createExecutionTree = store => next => action => {
 };
 
 const printCommands = store => next => action => {
-	switch((action.type + "").toUpperCase() ) {
+	switch((action.type).toUpperCase() ) {
 		case "." :
 			let topInt = [...store.getState().numberStack].pop();
 			next(action);
@@ -977,5 +993,18 @@ const printCommands = store => next => action => {
 	return next(action);
 };
 
-const middleware = applyMiddleware(createExecutionTree, printCommands);
+
+const convertWordClassToAction = store => next => action => {
+	[...store.getState().numberStack];
+	switch(action.type) {
+		case "ERROR" :
+		case "CLEAR_INTEGER_STACK" :
+		case "CLEAR_DICTIONARY" :
+			return next(action);
+	}
+	
+	return next({type: "EXECTUE_WORD", word: action });
+};
+
+const middleware = applyMiddleware(createExecutionTree, printCommands, convertWordClassToAction);
 window.store = createStore(reducers, middleware);
