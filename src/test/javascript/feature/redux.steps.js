@@ -9,7 +9,7 @@ defineParameterType({
 });
 
 Before(function() {
-	store.dispatch({type: "CLEAR_INTEGER_STACK"});
+	store.dispatch({type: "CLEARSTACK"});
 	store.dispatch({type: "PAGE"});
 	store.dispatch({type: "CLEAR_DICTIONARY"});
 	[...store.getState().numberStack].should.be.empty;
