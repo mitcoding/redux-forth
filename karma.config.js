@@ -19,7 +19,7 @@ module.exports = function(config) {
 		],
 		// list of files / patterns to load in the browser
 		files: [
-			"src/main/javascript/**/*.js",
+			"src/main/javascript/com/mitProductions/forth/kernel.js",
 			{ pattern: "src/test/resources/javascript/feature/**/*.feature", included: false },
 			{ pattern: "src/test/javascript/feature/**/*.js", included: false }
 		],

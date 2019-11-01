@@ -3,12 +3,13 @@ const path = require('path');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const webpack = require('webpack');
 
+
 module.exports = {
 	context: path.join(__dirname, "src"),
 	devtool: false,
 	mode: "production",
 	entry: {
-		main: "./main/javascript/scripts.js"
+		main: "./main/javascript/com/mitProductions/forth/kernel.js"
 	},
 	module: {
 		rules: [
