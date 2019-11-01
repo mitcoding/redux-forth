@@ -11,7 +11,7 @@ defineParameterType({
 Before(function() {
 	store.dispatch({type: "CLEARSTACK"});
 	store.dispatch({type: "PAGE"});
-	store.dispatch({type: "CLEAR_DICTIONARY"});
+	store.dispatch({type: "FORGETALL"});
 	[...store.getState().integerStack].should.be.empty;
 	[...store.getState().dictionary.stack].should.be.empty;
 	[...store.getState().displayStack].should.be.empty;

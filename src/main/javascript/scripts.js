@@ -39,8 +39,16 @@ const deepCopy = (object) => {
 class ForthCommandError extends Error {
 	constructor(command, message) {
 		super(command + " " + message);
+		this.type = "ERROR";
 		this.getMessage = function() { return message; };
 	}
+
+	modifyDisplayStack(state) {
+		state.push(this.getMessage() );
+		return state;
+	}
+
+	modifyIntegerStack(state) { return state; }
 }
 
 class ControlStructureMismatchError extends ForthCommandError {
@@ -68,26 +76,25 @@ class WordNotFoundError extends ForthCommandError {
 }
 
 class Word {
-	constructor(type, comment = "( -- )", modifyIntegerStack, buildCommand) {
+	constructor(type, comment = "( -- )", modifyIntegerStack) {
 		this.type = type === undefined ? undefined : type + "";
-		this.comment = comment;
+		this.comment = comment.trim();
 		if (modifyIntegerStack !== undefined) { this.modifyIntegerStack = modifyIntegerStack; }
-		if (buildCommand !== undefined) { this.build = buildCommand; }
 	}
 
 	build(buildTree, command) {
 		// eslint-disable-next-line no-use-before-define
 		let word = searchDictionary(command, buildTree.store.getState().dictionary, true);
-		if (word.type === "ERROR") {
-			word = new Word(command);
-		}
 
 		buildTree.currentCondition.addChildNode(
 			addCustomDefinitionStackIndex(word, buildTree.store.getState().dictionary.stack),
 			buildTree.next,
 			buildTree.store
 		);
+		
 	}
+
+	modifyIntegerStack(state) { return state; }
 
 	process(commands, index, store, next) {
 		next(this);
@@ -95,10 +102,99 @@ class Word {
 	}
 }
 
+class CarriageReturn extends Word {
+	modifyDisplayStack(state) {
+		state.push("\r");
+		return state;
+	}
+}
+
+class CustomWord extends Word {
+	constructor(type, comment, payload) {
+		super(type, comment);
+		this.payload = payload;
+	}
+}
+
+class AddCustomWord extends CustomWord {
+	modifyDictionary(state) {
+		state.stack.push(new CustomWord(this.type, this.comment, this.payload) );
+		let command = state[this.type] = Object.assign({ indexes: [] }, {...state[this.type]});
+		
+		command.indexes = [...command.indexes];
+		command.indexes.push(state.stack.length - 1);
+		
+		return state;
+	}
+}
+
+class RemoveCustomWord extends CustomWord {
+	modifyDictionary(state) { 
+		let 
+			command = state[this.type],
+			index = command.indexes[command.indexes.length - 1],
+			stack = state.stack.slice(0, index),
+			wordsToRemove = state.stack.slice(index)
+		;
+
+		wordsToRemove.forEach(function(word) {
+			state[word.type].indexes.pop();
+
+			if (state[word.type].indexes.length === 0) {
+				delete state[word.type];
+			}					
+		});
+
+		state.stack = stack;
+		return state; 
+	}
+}
+
+class ForgetAll extends CustomWord {
+	modifyDictionary() {
+		return { stack: [] };
+	}	
+}
+
 class IntegerWord extends Word {
 	modifyIntegerStack(state) {
 		state.push(this.type * 1);
 		return state;
+	}
+}
+
+class Print extends Word {
+	constructor(type = "PRINT", comment) {
+		super(type, comment);
+		this.payload = [];
+	}
+
+	modifyDisplayStack(state) {
+		return state.concat(this.payload);
+	}
+}
+
+class EchoCopyOfIntegerStack extends Print {
+	process(command, index, store, next) {
+		let integerStack = [...store.getState().integerStack];
+		this.payload = integerStack;
+		next(this);
+		return this;
+	}
+}
+
+class MoveTopIntegerToDisplayStack extends Print {
+	modifyIntegerStack(state) {
+		state.pop();
+		return state;
+	}
+
+	process(command, index, store, next) {
+		let integerStack = [...store.getState().integerStack];
+		this.payload.push(integerStack.pop() );
+
+		next(this);
+		return this;
 	}
 }
 
@@ -117,8 +213,8 @@ class SpecialIntegerWord extends Word {
 }
 
 class TreeWord extends Word {
-	constructor(type, comment, command, buildCommand) {
-		super(type, comment, command, buildCommand);
+	constructor(type, comment, command) {
+		super(type, comment, command);
 		this.payload = [];
 	}
 
@@ -130,17 +226,7 @@ class TreeWord extends Word {
 		return returnAction;
 	}
 
-	openNode(buildTree, command) {
-		
-		/* disabling eslint's "no-use-before-define" rule
-		 * because there is a circular reference with
-		 * isInCustomDictionary and TreeWord class
-		 */
-		// eslint-disable-next-line no-use-before-define
-		if (isInCustomDictionary(command, buildTree.store.getState().dictionary) ) {
-			return this.addChildNode(new Word(command), buildTree.next, buildTree.store);				
-		}
-		
+	openNode(buildTree, command) {	
 		/* disabling eslint's "no-use-before-define" rule
 		 * because there is a circular reference with
 		 * defaultDictionary and TreeWord class
@@ -159,9 +245,16 @@ class TreeWord extends Word {
 	}
 }
 
+class UnknownWord extends Word {
+	process(commands, index, store, next) {
+		next(new WordNotFoundError(commands[index].type) );
+		return this;
+	}
+}
+
 class Root extends TreeWord {
-	constructor(type, comment, command, buildCommand) {
-		super(type, comment, command, buildCommand);
+	constructor(type, comment, command) {
+		super(type, comment, command);
 		this.root = true;
 	}
 
@@ -178,7 +271,8 @@ class Root extends TreeWord {
 	}
 
 	closeNode(buildTree) {
-		return buildTree.next({ type: "ERROR", payload: new ControlStructureMismatchError(buildTree.commands[buildTree.index]) });
+		buildTree.index = buildTree.commands.length;
+		return buildTree.next(new ControlStructureMismatchError(buildTree.commands[buildTree.index]) );
 	}	
 }
 
@@ -203,15 +297,6 @@ class If extends TreeWord {
 		
 		/* disabling eslint's "no-use-before-define" rule
 		 * because there is a circular reference with
-		 * isInCustomDictionary and If class
-		 */
-		// eslint-disable-next-line no-use-before-define
-		if (isInCustomDictionary(command, buildTree.store.getState().dictionary) ) {
-			return this.addChildNode(new Word(command), buildTree.next, buildTree.store);				
-		}
-
-		/* disabling eslint's "no-use-before-define" rule
-		 * because there is a circular reference with
 		 * defaultDictionary and If class
 		 */
 		// eslint-disable-next-line no-use-before-define
@@ -222,7 +307,7 @@ class If extends TreeWord {
 	process(commands, index, store, next) {
 		let flag = [...store.getState().integerStack].pop();
 		if (isNaN(flag) ) { 
-			next({ type: "ERROR", payload: new StackUnderFlowError() });
+			next( new StackUnderFlowError() );
 			return this;
 		}
 
@@ -262,7 +347,7 @@ class Colon extends TreeWord {
 	openNode(buildTree, command) {
 		
 		if (buildTree.commands[buildTree.index - 1] === ":") {
-			return this.addChildNode(new Word(command), buildTree.next, buildTree.store);				
+			return this.addChildNode(new CustomWord(command), buildTree.next, buildTree.store);				
 		}
 
 		TreeWord.prototype.openNode.apply(this, arguments);
@@ -281,7 +366,7 @@ class Colon extends TreeWord {
 			words = words.slice(1);
 		}
 		
-		next({ type: "CREATE_NEW_COMMAND", payload: new Word(customWordName, comment, words) });
+		next(new AddCustomWord(customWordName, comment, words) );
 
 		return this;
 	}
@@ -298,7 +383,16 @@ class Comment extends TreeWord {
 class Constant extends TreeWord {
 	build(buildTree, command) {
 		buildTree.currentCondition.openNode(buildTree, command);
-		buildTree.currentCondition.addChildNode(new Word(buildTree.commands[++buildTree.index]), buildTree.next, buildTree.store);
+		
+		let newConstant = buildTree.commands[++buildTree.index] || "";
+
+		buildTree.currentCondition.addChildNode(
+			// eslint-disable-next-line no-use-before-define
+			searchDictionary(newConstant, buildTree.store.getState().dictionary, true),
+			buildTree.next,
+			buildTree.store
+		);
+
 		buildTree.currentCondition.closeNode(buildTree);
 	}
 
@@ -309,7 +403,7 @@ class Constant extends TreeWord {
 		;
 
 		if (isNaN(command) ) {
-			return next({ type: "ERROR", payload: new StackUnderFlowError() });
+			return next(new StackUnderFlowError() );
 		}
 
 		/* disabling eslint's "no-use-before-define" rule
@@ -318,7 +412,7 @@ class Constant extends TreeWord {
 		 */
 		// eslint-disable-next-line no-use-before-define
 		next(defaultDictionary["DROP"]);
-		next({ type: "CREATE_NEW_COMMAND", payload: new Word(name.toUpperCase(), "( -- " + command + ")", [new IntegerWord(command)]) });
+		next(new AddCustomWord(name.toUpperCase(), "( -- " + command + ")", [new IntegerWord(command)]) );
 		return this;
 	}
 }
@@ -366,10 +460,27 @@ class Echo extends TreeWord {
 	process(commands, index, store, next) {
 		let
 			command = commands[index],
-			message = command.payload.map((x) => x.type).join(" ")
+			message = command.payload.map((x) => x.type).join(" "),
+			print = new Print();
 		;
 
-		next({ type: "PRINT", payload: message });
+		print.payload.push(message);
+		next(print);
+		return this;
+	}
+}
+
+class Else extends TreeWord {
+	build(buildTree, command) {
+		
+		if (buildTree.currentCondition.root) {
+			buildTree.index = buildTree.commands.length;
+			return buildTree.next(new ControlStructureMismatchError(command) );
+		}
+
+		buildTree.currentCondition = buildTree.stack.pop();
+		buildTree.currentCondition["else"] = [];
+		buildTree.stack.push(buildTree.currentCondition);
 
 		return this;
 	}
@@ -380,20 +491,23 @@ class Forget extends Constant {
 
 		let command = (commands[index].payload[0] || {}).type;
 		if (command === undefined) {
-			return next({ type: "ERROR", payload: new UnexpectedEndOfLineError("FORGET") });
+			return next(new UnexpectedEndOfLineError("FORGET") );
 		}
 		
-		/* disabling eslint's "no-use-before-define" rule
-		 * because there is a circular reference with
-		 * searchDictionary and defaultDictionary
-		 */
-		// eslint-disable-next-line no-use-before-define
-		let testWordToBeDeleted = searchDictionary(command, store.getState().dictionary, true);
-		let action = testWordToBeDeleted.type === "ERROR" ? testWordToBeDeleted : { type: "REMOVE_COMMAND", payload: command };
+		let 
+			word = commands[index].payload[0],
+			action = word instanceof UnknownWord ? new WordNotFoundError(command) : new RemoveCustomWord(command)
+		;
 		
 		next(action);
 
 		return this;
+	}
+}
+
+class Page extends Word {
+	modifyDisplayStack() {
+		return [];
 	}
 }
 
@@ -432,7 +546,7 @@ const defaultDictionary = {
 		"CONSTANT",
 		"( -- w)"
 	),
-	"CR" : new Word("CR"),
+	"CR" : new CarriageReturn("CR"),
 	"DO" : new Do(
 		"DO",
 		"(limit starting_value -- )",
@@ -453,22 +567,7 @@ const defaultDictionary = {
 			return state.slice(0, state.length - 1);
 		}
 	),
-	"ELSE" : new TreeWord(
-		"ELSE",
-		null,
-		null,
-		function(buildTree, command) {
-			if (buildTree.currentCondition.root) {
-				return buildTree.next({ type: "ERROR", payload: new ControlStructureMismatchError(command) });
-			}
-
-			buildTree.currentCondition = buildTree.stack.pop();
-			buildTree.currentCondition["else"] = [];
-			buildTree.stack.push(buildTree.currentCondition);
-
-			return {};
-		}
-	),
+	"ELSE" : new Else("ELSE"),
 	"FALSE" : new Word(
 		"FALSE",
 		"( -- flag)",	
@@ -478,6 +577,7 @@ const defaultDictionary = {
 		}
 	),
 	"FORGET" : new  Forget("FORGET"),
+	"FORGETALL" : new ForgetAll("FORGETALL"),
 	"IF" : new If(
 		"IF",
 		"(flag -- )"
@@ -562,7 +662,7 @@ const defaultDictionary = {
 			return state;
 		}
 	),
-	"PAGE" : new Word("PAGE"),
+	"PAGE" : new Page("PAGE"),
 	"PICK" : new Word(
 		"PICK",
 		"(n -- nth_number)",
@@ -613,17 +713,13 @@ const defaultDictionary = {
 			return state;
 		}
 	),
-	"." : new Word(
+	"." : new MoveTopIntegerToDisplayStack(
 		".",
-		"(n -- )",
-		function remove_top_number(state) {
-			state.pop();
-			return state;
-		}
+		"(n -- )"
 	),
 	'."' : new Echo('."'),
 	'"' : new CloseTreeWord('"'),
-	".S" : new Word(".S"),
+	".S" : new EchoCopyOfIntegerStack(".S"),
 	";" : new CloseTreeWord(";"),
 	":" : new Colon(":"),
 	"(" : new Comment("("),
@@ -775,7 +871,8 @@ const isNumber = function(command) {
 };
 
 const isInDefaultDictionary = function(command) {
-	return isNumber(command) || isSpecialDigitCommand(command) || defaultDictionary[command.toUpperCase()];
+	let defaultWord = defaultDictionary[command.toUpperCase()];
+	return isNumber(command) || isSpecialDigitCommand(command) || (defaultWord ? new defaultWord.constructor(command.toUpperCase(), defaultWord.comment, defaultWord.modifyIntegerStack) : undefined);
 };
 
 const isInCustomDictionary = function(command, dictionary) {
@@ -803,9 +900,9 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		}
 
 		let customDefinitionTree = [];
-		dictionary.stack[index].modifyIntegerStack.forEach(function search(word) {
+		dictionary.stack[index].payload.forEach(function search(word) {
 			if (word.index > -1) {
-				dictionary.stack[word.index].modifyIntegerStack.forEach(search);
+				dictionary.stack[word.index].payload.forEach(search);
 			} else {
 				customDefinitionTree.push(word);
 			}
@@ -818,7 +915,7 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 		return defaultDictionaryWord;
 	}
 	
-	return { type: "ERROR", payload: new WordNotFoundError(command) };
+	return new UnknownWord(command);
 };
 
 const compileStackReducer = function(state = [new Root("ROOT")]) {
@@ -827,8 +924,8 @@ const compileStackReducer = function(state = [new Root("ROOT")]) {
 
 const integerStackReducer = function(state=[], action) {
 	state = [...state];
-
-	if (action.word instanceof Word && action.word.modifyIntegerStack instanceof Function) {
+	
+	if (action.word && action.word.modifyIntegerStack) {
 		state = action.word.modifyIntegerStack(state);
 		return isNaN(state[state.length - 1]) ? (state.pop(), state) : state;
 	}
@@ -840,39 +937,9 @@ const integerStackReducer = function(state=[], action) {
 const dictionaryReducer = function(state={stack: []}, action) {
 	state = {...state, stack: [...state.stack] };
 
-
-	if (action.type.toUpperCase() === "CLEAR_DICTIONARY") {
-			return { stack: [] };	
-	}
-
-	action = action.word || { type: "" };
-	switch(action.type.toUpperCase() ) {
-		case "CREATE_NEW_COMMAND" :
-			action.payload.comment = action.payload.comment.trim();
-			state.stack.push(action.payload);
-
-			let command = state[action.payload.type] = Object.assign({ indexes: [] }, {...state[action.payload.type]});
-			
-			command.indexes = [...command.indexes];
-			command.indexes.push(state.stack.length - 1);
-
-			return state;
-		
-		case "REMOVE_COMMAND" :
-			command = state[action.payload.toUpperCase()];
-
-			let index = command.indexes[command.indexes.length - 1];
-			let stack = state.stack.slice(0, index);
-			let wordsToRemove = state.stack.slice(index);
-			wordsToRemove.forEach(function(word) {
-				state[word.type].indexes.pop();
-
-				if (state[word.type].indexes.length === 0) {
-					delete state[word.type];
-				}					
-			});
-
-			state.stack = stack;		
+	action = action.word || action;
+	if (action.modifyDictionary) {
+		return action.modifyDictionary(state);
 	}
 
 	return state;
@@ -880,21 +947,10 @@ const dictionaryReducer = function(state={stack: []}, action) {
 
 const displayStackReducer = function(state=[], action) {
 	state = [...state];
+	action = action.word || {};
 
-	if (action.type.toUpperCase() === "ERROR") {
-		state.push(action.payload.getMessage() );
-		return state;
-	}
-
-	action = action.word || { type: "" };
-	switch(action.type.toUpperCase() ) {
-		case "PAGE" :
-			return [];
-		case "CR" :
-			state.push("\r");
-			return state;
-		case "PRINT" :
-			return state.concat(action.payload);
+	if (action.modifyDisplayStack) {
+		return action.modifyDisplayStack(state);
 	}
 
 	return state;
@@ -915,11 +971,7 @@ const processTree = function(commands, next, store, hasSearchedDictionary = fals
 			command = commands[index].type.trim(),
 			action = hasSearchedDictionary === false ? searchDictionary(command, store.getState().dictionary) : commands[index];
 		;
-
-		if (action.type === "ERROR") {
-			return next(action);
-		}
-				
+			
 		if (Array.isArray(action) ) {
 			processTree(action, next, store, true);
 			continue;
@@ -946,54 +998,23 @@ class BuildTree {
 		for (buildTree.index = 0; buildTree.index < buildTree.totalCommands; buildTree.index++) {
 			let 
 				command = this.commands[this.index],
-				returnAction = {}
+				action = searchDictionary(command, buildTree.store.getState().dictionary, true)
 			;
 
-			returnAction = (defaultDictionary[command.toUpperCase()] || new Word(command)).build(buildTree, command);
-			if ((returnAction || {}).type === "ERROR") { return; }	
+			action.build(buildTree, command);
 		}
 	}
 }
 
-const createTree = function(action, next, store) {
+const createExecutionTree = store => next => action => {
 	var buildTree = new BuildTree(action, next, store); 
 	return buildTree.run();
-}
-
-const createExecutionTree = store => next => action => {
-	switch(action.type) {
-		case "CLEAR_DICTIONARY" :
-			return next(action);
-	}
-
-	createTree(action, next, store);
 };
-
-const printCommands = store => next => action => {
-	switch((action.type).toUpperCase() ) {
-		case "." :
-			let topInt = [...store.getState().integerStack].pop();
-			next(action);
-			return next({ type: "PRINT", payload: [topInt]});
-		case ".S" :
-			let integerStack = [...store.getState().integerStack];
-			return next({ type: "PRINT", payload: integerStack });
-	}
-	
-	return next(action);
-};
-
 
 const convertWordClassToAction = store => next => action => {
 	[...store.getState().integerStack];
-	switch(action.type) {
-		case "ERROR" :
-		case "CLEAR_DICTIONARY" :
-			return next(action);
-	}
-	
 	return next({type: "EXECTUE_WORD", word: action });
 };
 
-const middleware = applyMiddleware(createExecutionTree, printCommands, convertWordClassToAction);
+const middleware = applyMiddleware(createExecutionTree, convertWordClassToAction);
 window.store = createStore(reducers, middleware);
