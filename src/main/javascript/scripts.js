@@ -276,6 +276,12 @@ class Root extends TreeWord {
 	}	
 }
 
+class AbortCompile extends Word {
+	modifyCompileStack() {
+		return [new Root("ROOT")];
+	}
+}
+
 class If extends TreeWord {
 	addChildNode(returnAction) {
 		if (returnAction.type) {
@@ -291,6 +297,15 @@ class If extends TreeWord {
 
 	build(buildTree, command) {
 		return buildTree.currentCondition.openNode(buildTree, command);
+	}
+
+	closeNode(buildTree, command) {
+		if (command.toUpperCase() !== "THEN") {
+			buildTree.stack[0].closeNode.call(this, buildTree, command);
+			return buildTree.next(new AbortCompile() );
+		}
+
+		return TreeWord.prototype.closeNode.call(this, buildTree, command);
 	}
 
 	openNode(buildTree, command) {
@@ -342,6 +357,15 @@ class CloseTreeWord extends TreeWord {
 class Colon extends TreeWord {
 	build(buildTree, command) {
 		return buildTree.currentCondition.openNode(buildTree, command);
+	}
+
+	closeNode(buildTree, command) {
+		if (command.toUpperCase() !== ";") {
+			buildTree.stack[0].closeNode.call(this, buildTree, command);
+			return buildTree.next(new AbortCompile() );
+		}
+
+		return TreeWord.prototype.closeNode.call(this, buildTree, command);
 	}
 
 	openNode(buildTree, command) {
@@ -422,6 +446,15 @@ class Do extends TreeWord {
 		return buildTree.currentCondition.openNode(buildTree, command);
 	}
 
+	closeNode(buildTree, command) {
+		if (command.toUpperCase() !== "LOOP") {
+			buildTree.stack[0].closeNode.call(this, buildTree, command);
+			return buildTree.next(new AbortCompile() );
+		}
+
+		return TreeWord.prototype.closeNode.call(this, buildTree, command);
+	}
+
 	process(commands, index, store, next) {
 		let 
 			command = commands[index],
@@ -472,10 +505,10 @@ class Echo extends TreeWord {
 
 class Else extends TreeWord {
 	build(buildTree, command) {
-		
-		if (buildTree.currentCondition.root) {
-			buildTree.index = buildTree.commands.length;
-			return buildTree.next(new ControlStructureMismatchError(command) );
+
+		if (buildTree.currentCondition.type.toUpperCase() !== "IF") {
+			buildTree.currentCondition.closeNode.call(this, buildTree, command);
+			return buildTree.next(new AbortCompile() );
 		}
 
 		buildTree.currentCondition = buildTree.stack.pop();
@@ -514,6 +547,7 @@ class Page extends Word {
 const WHITE_SPACE_REGEX = /\s+/gi;
 
 const defaultDictionary = {
+	"ABORTCOMPILE" : new AbortCompile("ABORTCOMPILE"),
 	"ABS" : new Word(
 		"ABS",
 		"(n -- -n)",
@@ -918,15 +952,23 @@ const searchDictionary = function(command, dictionary, findCommandOnly) {
 	return new UnknownWord(command);
 };
 
-const compileStackReducer = function(state = [new Root("ROOT")]) {
+const compileStackReducer = function(state = [new Root("ROOT")], action) {
+	state = [...state];
+
+	action = action.word || action;
+	if (action.modifyCompileStack) {
+		return action.modifyCompileStack(state);
+	}
+
 	return state;
 };
 
 const integerStackReducer = function(state=[], action) {
 	state = [...state];
 	
-	if (action.word && action.word.modifyIntegerStack) {
-		state = action.word.modifyIntegerStack(state);
+	action = action.word || action;
+	if (action.modifyIntegerStack) {
+		state = action.modifyIntegerStack(state);
 		return isNaN(state[state.length - 1]) ? (state.pop(), state) : state;
 	}
 

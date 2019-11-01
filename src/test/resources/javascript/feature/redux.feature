@@ -189,7 +189,9 @@ Examples:
 	| if .s then						| IntegerStack	| []		  | DisplayStack | ["Stack Underflow"]		  |
 	| : if ; if 12 then					| IntegerStack	| [12]		  | DisplayStack | ["Control structure mismatch"] |
 	| : if ; if else 144 then				| IntegerStack	| []		  | DisplayStack | ["Control structure mismatch"] |
-	| : do ; -1 if do 12 loop then				| IntegerStack	| [12]		  | DisplayStack | ["Control structure mismatch"] |
+	| : do ; -1 if do 12 loop then				| IntegerStack	| [-1]		  | DisplayStack | ["Control structure mismatch"] |
+	| : foo .s then						| IntegerStack	| []		  | DisplayStack | ["Control structure mismatch"] |
+	| 5 0 do .s ;						| IntegerStack	| [5, 0]	  | DisplayStack | ["Control structure mismatch"] |
 	| -1 2 constant two if forget two then two 		| IntegerStack	| []		  | DisplayStack | ["two ?"]			  |
 	| 0 2 constant two if forget two then two  		| IntegerStack	| [2]		  | DisplayStack | []				  |
 	| 2 -1 if constant two then two		   		| IntegerStack	| [2]		  | DisplayStack | []				  |
