@@ -1,3 +1,5 @@
+import { store } from "../../../main/javascript/com/mitProductions/forth/kernel.js"
+
 defineParameterType({
 	name: "array", 
 	regexp: /(\[[^\]]*\])/,
