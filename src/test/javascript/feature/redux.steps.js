@@ -30,15 +30,17 @@ When("User runs {string}", function (command) {
 Then('{string} should equal {array}', function (stackName, expectedArray) {
 	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
 
-        let stack = store.getState()[stackName].slice();
+    let stack = store.getState()[stackName].slice();
 
 	stack.should.eql(expectedArray);
 });
 
 Then('{string} should be added to the dictionary', function (command) {
-	let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
-	let customWord = dictionary[command.toUpperCase()];
-	let customDefinition = dictionary.stack[customWord.indexes.pop()];
+	let
+		dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) ),
+		customWord = dictionary[command.toUpperCase()],
+		customDefinition = dictionary.stack[customWord.indexes.pop()]
+	;
 
 	if (command) {
 		should.exist(customWord);
@@ -47,17 +49,21 @@ Then('{string} should be added to the dictionary', function (command) {
 });
 
 Then('{string} should not be added to the dictionary', function (command) {
-	let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
-	let customWord = dictionary[command];
+	let 
+		dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) ),
+		customWord = dictionary[command]
+	;
 	
 	should.not.exist(customWord);
 });
 
 
 Then('{string} should have a comment of {string}', function (command, comment) {
-	let dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) );
-	let customWord = (dictionary[command.toUpperCase()] || { indexes: [] });
-	let customDefinition = dictionary.stack[customWord.indexes.pop()] || { comment: '' };
+	let 
+		dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) ),
+		customWord = (dictionary[command.toUpperCase()] || { indexes: [] }),
+		customDefinition = dictionary.stack[customWord.indexes.pop()] || { comment: '' }
+	;
 	
 	customDefinition.comment.should.equal(comment);
 });

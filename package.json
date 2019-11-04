@@ -2,7 +2,7 @@
   "name": "redux-forth",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/main/javascript/com/mitProductions/forth/kernel.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --devtool 'inline-sourcemap' --content-base target --inline --hot",
     "test": "cross-env NODE_ENV=test karma start karma.config.js"

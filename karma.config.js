@@ -9,17 +9,9 @@ module.exports = function(config) {
 		// frameworks to use
 		// available frameworks: https://npmjs.org/browse/keyword/karma-adapter
 		frameworks: ['cucumber-js', 'sinon-chai'],
-		plugins: [
-			require("karma-coverage"),
-			require("karma-cucumber-js-latest"),
-			require("karma-chrome-launcher"),
-			require("karma-sinon-chai"),
-			require("karma-sourcemap-loader"),
-			require("karma-webpack")
-		],
+		
 		// list of files / patterns to load in the browser
 		files: [
-			"src/main/javascript/com/mitProductions/forth/kernel.js",
 			{ pattern: "src/test/resources/javascript/feature/**/*.feature", included: false },
 			{ pattern: "src/test/javascript/feature/**/*.js", included: false }
 		],
@@ -30,7 +22,6 @@ module.exports = function(config) {
 		// preprocess matching files before serving them to the browser
 		// available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 		preprocessors: {
-			'src/main/javascript/**/!(*min).js': ['webpack'],
 			'src/test/javascript/**/!(*min).js': ['webpack']
 		},
 
@@ -75,8 +66,8 @@ module.exports = function(config) {
 		//webpack config
 		webpack: Object.assign({}, webpackConfig, { 
 			devtool: false,
-			mode: "development"
-
+			mode: "development",
+			entry: undefined
 		}),
 		/**
 		 * Webpack please don't spam the console when running in karma!

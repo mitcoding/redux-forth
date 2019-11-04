@@ -17,7 +17,6 @@ module.exports = smp.wrap({
 		rules: [
 			{
 				test: /\.jsx?$/,
-				enforce: 'pre',
 				exclude: /(node_modules|bower_components)/,
 				use: [
 					{
@@ -30,7 +29,7 @@ module.exports = smp.wrap({
 					{
 						loader: 'eslint-loader',
 						options: {
-							// eslint options (if necessary)
+							cache: true
 						}
 					}
 				]
