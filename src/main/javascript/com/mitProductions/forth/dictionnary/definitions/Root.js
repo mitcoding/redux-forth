@@ -4,8 +4,8 @@ import TreeWord from "./TreeWord";
 import { processTree } from "../../middleware/processTree";
 
 export default class Root extends TreeWord {
-	constructor(type, comment, command) {
-		super(type, comment, command);
+	constructor(type = "ROOT", comment) {
+		super(type, comment);
 		this.root = true;
 	}
 

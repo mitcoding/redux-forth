@@ -1,10 +1,10 @@
 import Root from "../dictionnary/definitions/Root";
 
 const reset = function() {
-	return [new Root("ROOT")];
+	return [new Root()];
 }
 
-export const compileStackReducer = function(state = [new Root("ROOT")], action) {
+export const compileStackReducer = function(state = [new Root()], action) {
 	state = [...state];
 	state.reset = reset;
 	action = action.word || action;
