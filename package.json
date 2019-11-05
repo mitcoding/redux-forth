@@ -4,8 +4,9 @@
   "description": "",
   "main": "./src/main/javascript/com/mitProductions/forth/kernel.js",
   "scripts": {
-    "dev": "webpack-dev-server --mode development --devtool 'inline-sourcemap' --content-base target --inline --hot",
-    "build": "cross-env NODE_ENV=production webpack",
+    "local": "webpack-dev-server --env test --content-base target --inline --hot",
+    "dev": "cross-env NODE_ENV=development webpack --env dev",
+    "prd": "cross-env NODE_ENV=production webpack --env prd",
     "test": "cross-env NODE_ENV=test karma start karma.config.js"
   },
   "author": "",
@@ -35,6 +36,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "chai": "^4.2.0",
     "circular-dependency-plugin": "^5.2.0",
+    "clean-webpack-plugin": "^3.0.0",
     "core-js": "^3.3.6",
     "cross-env": "^6.0.3",
     "cucumber": "^5.0.2",
@@ -53,6 +55,7 @@
     "sinon-chai": "^3.3.0",
     "speed-measure-webpack-plugin": "^1.3.1",
     "webpack": "^4.41.0",
-    "webpack-dev-server": "^3.8.2"
+    "webpack-dev-server": "^3.8.2",
+    "webpack-merge": "^4.2.2"
   }
 }

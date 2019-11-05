@@ -1,6 +1,7 @@
 // Karma configuration
 // Generated on Fri Aug 19 2016 18:52:47 GMT-0700 (PDT)
-var webpackConfig = require('./webpack.config.js');
+var webpackConfig = require('./webpack.config.test.js');
+
 module.exports = function(config) {
 	config.set({
 		// base path that will be used to resolve all patterns (eg. files, exclude)
@@ -64,31 +65,29 @@ module.exports = function(config) {
 		concurrency: Infinity,
 
 		//webpack config
-		webpack: Object.assign({}, webpackConfig, { 
-			devtool: false,
-			mode: "development",
+		webpack: Object.assign({}, webpackConfig, {
 			entry: undefined
 		}),
 		/**
 		 * Webpack please don't spam the console when running in karma!
 		 */
 		
-		//webpackMiddleware: {
+		webpackMiddleware: {
 			/**
 			 * webpack-dev-middleware configuration
 			 * i.e.
 			 */
-		//	logLevel: 'warn',
+			logLevel: 'warn',
 			/**
 			 * and use stats to turn off verbose output
 			 */
-		//	stats: {
+			stats: {
 				/**
 			 	 * options i.e.
 			 	*/
-		//		chunks: false 
-		//	}
-	//	},
+				chunks: false 
+			}
+		},
 		webpackServer: {
 			noInfo: true 
 		}
