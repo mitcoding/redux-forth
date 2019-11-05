@@ -5,12 +5,15 @@
   "main": "./src/main/javascript/com/mitProductions/forth/kernel.js",
   "scripts": {
     "dev": "webpack-dev-server --mode development --devtool 'inline-sourcemap' --content-base target --inline --hot",
+    "build": "cross-env NODE_ENV=production webpack",
     "test": "cross-env NODE_ENV=test karma start karma.config.js"
   },
   "author": "",
   "license": "ISC",
+  "browserslist": [
+    "> 1%"
+  ],
   "dependencies": {
-    "karma-cucumber-js-latest": "^1.0.5",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "redux": "^4.0.4",
@@ -23,6 +26,7 @@
     "@babel/plugin-proposal-function-bind": "^7.2.0",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "assets-webpack-plugin": "^3.9.10",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-add-module-exports": "^1.0.2",
@@ -31,6 +35,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "chai": "^4.2.0",
     "circular-dependency-plugin": "^5.2.0",
+    "core-js": "^3.3.6",
     "cross-env": "^6.0.3",
     "cucumber": "^5.0.2",
     "eslint": "^6.5.1",
@@ -39,6 +44,7 @@
     "karma": "^4.3.0",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.1",
+    "karma-cucumber-js-latest": "^1.0.5",
     "karma-sinon-chai": "^2.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^4.0.2",

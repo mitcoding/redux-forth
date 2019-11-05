@@ -1,6 +1,7 @@
+const path = require('path');
+const AssetsPlugin = require('assets-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const debug = process.env.NODE_ENV !== "production";
-const path = require('path');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 const webpack = require('webpack');
@@ -22,8 +23,7 @@ module.exports = smp.wrap({
 					{
 						loader: 'babel-loader?cacheDirectory',
 						options: {
-							presets: ['@babel/preset-react', '@babel/preset-env'],
-							plugins: ['react-html-attrs',  'transform-class-properties', ["@babel/plugin-proposal-decorators", { "legacy": true }], '@babel/plugin-proposal-function-bind']
+							presets: ['@babel/preset-react', ['@babel/preset-env', { corejs: 3, debug: false, useBuiltIns: 'usage' }]]
 						}
 					},
 					{
@@ -39,7 +39,7 @@ module.exports = smp.wrap({
 	output: {
 		path: path.resolve(__dirname, "target/js"),
 		publicPath: "/js/",
-		filename: "[name].min.js"
+		filename: "[name].min.[contenthash].js"
 	},
 	optimization: {
 		occurrenceOrder: true,
@@ -60,6 +60,27 @@ module.exports = smp.wrap({
 			allowAsyncCycles: false,
 			// set the current working directory for displaying module paths
 			cwd: process.cwd(),
+		}),
+		new AssetsPlugin({
+			filename: 'AssetHelper.json',
+			path: path.join(__dirname, 'target'),
+			processOutput: function (assets) {
+				let assetHelper = {};
+				Object.keys(assets).forEach(function(bundleName, index) {
+					let bundle = assets[bundleName];
+					Object.keys(bundle).forEach(function(fileType, index) {
+							let 
+								versionedPath = bundle[fileType],
+								fileParts = versionedPath.split("."),
+								origionalPath = fileParts.slice(0, fileParts.length - 2).join(".") + "." + fileType
+							;
+							
+							assetHelper[origionalPath] = versionedPath;
+					});
+				});
+
+				return JSON.stringify(assetHelper);
+			}
 		})
 	]	
 });
