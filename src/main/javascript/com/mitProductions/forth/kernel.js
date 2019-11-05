@@ -3,4 +3,3 @@ import { reducers } from "./reducers";
 import { middleware } from "./middleware";
 
 export const store = createStore(reducers, middleware);
-window.store = store;

@@ -1,5 +1,4 @@
 import DictionaryService from "../dictionnary/search/DictionaryService";
-
 import { BuildTree } from "./BuildTree";
 
 export const createExecutionTree = store => next => action => {

@@ -1,7 +1,28 @@
 import ControlStructureMismatchError from "../../exceptions/ControlStructureMismatchError";
+import DictionaryService from "../search/DictionaryService";
 import TreeWord from "./TreeWord";
 
-import { processTree } from "../../middleware/processTree";
+const processCommands = function(commands, next, store, hasSearchedDictionary = false) { 
+
+	let 
+		dictionaryService = new DictionaryService(),
+		totalCommands = commands.length
+	;
+
+	for (let index = 0; index < totalCommands; index++) {
+		let
+			command = commands[index].type.trim(),
+			action = hasSearchedDictionary === false ? dictionaryService.searchAll(command, store.getState().dictionary) : commands[index];
+		;
+			
+		if (Array.isArray(action) ) {
+			processCommands(action, next, store, true);
+			continue;
+		}
+
+		action.process(commands, index, store, next, processCommands, dictionaryService);		
+	}
+};
 
 export default class Root extends TreeWord {
 	constructor(type = "ROOT", comment) {
@@ -11,7 +32,7 @@ export default class Root extends TreeWord {
 
 	addChildNode(returnAction, next, store) {
 		super.addChildNode(returnAction, next, store);
-		processTree([this.payload.pop()], next, store);
+		processCommands([this.payload.pop()], next, store);
 	}
 
 	closeNode(buildTree) {
