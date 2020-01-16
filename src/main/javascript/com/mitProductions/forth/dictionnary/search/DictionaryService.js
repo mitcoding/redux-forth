@@ -51,7 +51,7 @@ import Word from "../definitions/Word";
 
 import { deepCopy } from "../../../utilities/deepCopy";
 
-export const defaultDictionary = {
+const defaultDictionary = {
 	"ABORTCOMPILE" : AbortCompile,
 	"ABS" : Abs,
 	"AND" : And,
@@ -163,7 +163,7 @@ export default class DictionaryService {
 
 	searchDefault(word = "") {
 		let 
-			Definition = isNumber(word) || isSpecialDigitCommand(word) || defaultDictionary[word.toUpperCase()] || undefined,
+			Definition = isNumber(word) || isSpecialDigitCommand(word) || defaultDictionary[word.toUpperCase()],
 			notInstanceOfWordClass = !(Definition instanceof Word)
 		;
 		
