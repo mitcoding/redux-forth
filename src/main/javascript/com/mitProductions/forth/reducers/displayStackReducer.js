@@ -1,4 +1,4 @@
-export const displayStackReducer = function(state=[], action) {
+export const displayStackReducer = function(state = ["ok"], action) {
 	state = [...state];
 	
 	action = action.word || {};

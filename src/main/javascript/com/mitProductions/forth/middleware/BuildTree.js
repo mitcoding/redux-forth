@@ -1,3 +1,5 @@
+import Print from "../dictionnary/definitions/Print";
+
 const WHITE_SPACE_REGEX = /\s+/gi;
 export class BuildTree {
 	constructor(action, next, store, dictionaryService) {
@@ -14,6 +16,7 @@ export class BuildTree {
 
 	run() {
 		let buildTree = this;
+
 		for (buildTree.index = 0; buildTree.index < buildTree.totalCommands; buildTree.index++) {
 			let 
 				command = this.commands[this.index],
@@ -22,5 +25,17 @@ export class BuildTree {
 
 			action.build(buildTree, command);
 		}
+		
+		printExecutionStatus(buildTree);
 	}
+}
+
+function printExecutionStatus(buildTree) {
+	let displayStack = buildTree.store.getState().displayStack, print = new Print();
+	if (displayStack.length > 0 && displayStack[displayStack.length - 1] !== "\r") {
+		print.payload.push("\r");
+	}
+	
+	print.payload.push("ok");
+	buildTree.next(print);
 }

@@ -7,6 +7,7 @@ export default class ForthCommandError extends Error {
 
 	modifyDisplayStack(state) {
 		state.push(this.getMessage() );
+		state.push("\r");
 		return state;
 	}
 

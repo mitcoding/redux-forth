@@ -1,22 +1,42 @@
 import { store } from "../../../main/javascript/com/mitProductions/forth/kernel.js"
 
+function booleanFlagToLowerCase(arrayJson) {
+	arrayJson = arrayJson.replace(/([,\s]*)?true([,\s]*)/gi, "$1true$2").replace(/([,\s]*)false([,\s]*)/gi, "$1false$2");
+	return arrayJson;
+}
+
+function convertStringNumberToNumber(array) {
+	array = array.map((item) => {
+		switch (true) {
+			case (/^FALSE$/i).test(item):
+				return 0;
+			case (/^TRUE$/i).test(item):
+				return -1;
+			case /^[-]?\d+$/.test(item):
+				return item * 1;
+		}
+		return item;
+	});
+	return array;
+}
+
 defineParameterType({
 	name: "array", 
 	regexp: /(\[[^\]]*\])/,
 	transformer: function(arrayJson) {
-		arrayJson = arrayJson.replace(/([,\s]*)?true([,\s]*)/gi, "$1-1$2").replace(/([,\s]*)false([,\s]*)/gi, "$10$2");
+		arrayJson = booleanFlagToLowerCase(arrayJson);
 
-		return JSON.parse(arrayJson);
+		return convertStringNumberToNumber(JSON.parse(arrayJson) );
 	}
 });
 
 Before(function() {
 	store.dispatch({type: "CLEARSTACK"});
-	store.dispatch({type: "PAGE"});
 	store.dispatch({type: "FORGETALL"});
+	store.dispatch({type: "PAGE"});
 	[...store.getState().integerStack].should.be.empty;
 	[...store.getState().dictionary.stack].should.be.empty;
-	[...store.getState().displayStack].should.be.empty;
+	[...store.getState().displayStack].should.eql(["ok"]);
 });
 
 Given('User has entered {int}', function (int) {
@@ -31,7 +51,8 @@ Then('{string} should equal {array}', function (stackName, expectedArray) {
 	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
 
     let stack = store.getState()[stackName].slice();
-
+	stack = convertStringNumberToNumber(stack);
+	
 	stack.should.eql(expectedArray);
 });
 
