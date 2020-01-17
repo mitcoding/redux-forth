@@ -1,7 +1,7 @@
 import { store } from "../../../main/javascript/com/mitProductions/forth/kernel.js"
 
-function booleanFlagToLowerCase(arrayJson) {
-	arrayJson = arrayJson.replace(/([,\s]*)?true([,\s]*)/gi, "$1true$2").replace(/([,\s]*)false([,\s]*)/gi, "$1false$2");
+function escapeForJSON(arrayJson) {
+	arrayJson = arrayJson.replace(/([,\s]*)?true([,\s]*)/gi, "$1true$2").replace(/([,\s]*)false([,\s]*)/gi, "$1false$2").replace("\r", "\\r");
 	return arrayJson;
 }
 
@@ -22,10 +22,10 @@ function convertStringNumberToNumber(array) {
 
 defineParameterType({
 	name: "array", 
-	regexp: /(\[[^\]]*\])/,
+	regexp: /(\[.*\])/,
 	transformer: function(arrayJson) {
-		arrayJson = booleanFlagToLowerCase(arrayJson);
-
+		arrayJson = escapeForJSON(arrayJson);
+		
 		return convertStringNumberToNumber(JSON.parse(arrayJson) );
 	}
 });

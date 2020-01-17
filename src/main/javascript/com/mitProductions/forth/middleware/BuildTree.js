@@ -31,11 +31,22 @@ export class BuildTree {
 }
 
 function printExecutionStatus(buildTree) {
-	let displayStack = buildTree.store.getState().displayStack, print = new Print();
+	let 
+		displayStack = buildTree.store.getState().displayStack,
+		print = new Print(),
+		status = "ok"
+	;
+
 	if (displayStack.length > 0 && displayStack[displayStack.length - 1] !== "\r") {
 		print.payload.push("\r");
 	}
-	
-	print.payload.push("ok");
+
+	const isATreeWordOpen = buildTree.stack.length > 1;
+	if (isATreeWordOpen) {
+		let branchDepth = buildTree.stack.length - 1;
+		status = buildTree.stack[branchDepth].type + " " + branchDepth + " ]";
+	}
+
+	print.payload.push(status);
 	buildTree.next(print);
 }
