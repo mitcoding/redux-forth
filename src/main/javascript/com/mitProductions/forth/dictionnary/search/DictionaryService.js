@@ -12,6 +12,7 @@ import DoubleQuote from "../definitions/DoubleQuote";
 import Drop from "../definitions/Drop";
 import Dup from "../definitions/Dup";
 import Else from "../definitions/Else";
+import Emit from "../definitions/Emit";
 import Equals from "../definitions/Equals";
 import False from "../definitions/False";
 import Forget from "../definitions/Forget";
@@ -51,6 +52,7 @@ import Word from "../definitions/Word";
 
 import { deepCopy } from "../../../utilities/deepCopy";
 
+
 const defaultDictionary = {
 	"ABORTCOMPILE" : AbortCompile,
 	"ABS" : Abs,
@@ -62,6 +64,7 @@ const defaultDictionary = {
 	"DUP" : Dup,
 	"DROP" : Drop,
 	"ELSE" : Else,
+	"EMIT" : Emit,
 	"FALSE" : False,
 	"FORGET" :  Forget,
 	"FORGETALL" : ForgetAll,

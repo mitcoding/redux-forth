@@ -46,7 +46,9 @@ Given('User has entered {int}', function (int) {
 });
 
 When("User runs {string}", function (command) {
-	store.dispatch({type: command});
+	if (command) {
+		store.dispatch({type: command});
+	}
 });
 
 Then('{string} should equal {array}', function (stackName, expectedArray) {

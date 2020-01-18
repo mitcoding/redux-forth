@@ -173,6 +173,23 @@ Scenario: User tries to create a constant when no numbers are on the IntegerStac
 	And 'DisplayStack' should equal ["ok", "constant uhOh", "\r", "Stack Underflow", "\r", "ok"]
 	And 'UhOh' should not be added to the dictionary
 
+Scenario Outline: User want's to print a charector by char code.
+	Given User runs '<charCode>'
+	When User runs 'EMIT'
+	Then 'IntegerStack' should equal <expectedValues1>
+	And 'DisplayStack' should equal <exepectedValues2>
+
+Examples:
+	| charCode	| expectedValues1 | exepectedValues2										|
+	| 33		| []			  | ["ok", 33, "\r", "ok", "EMIT", "\r", "!", "\r", "ok"]	|
+	| 34		| []			  | ["ok", 34, "\r", "ok", "EMIT", "\r", "\"", "\r", "ok"]	|
+	| 35		| []			  | ["ok", 35, "\r", "ok", "EMIT", "\r", "#", "\r", "ok"]	|
+	| 36		| []			  | ["ok", 36, "\r", "ok", "EMIT", "\r", "$", "\r", "ok"]	|
+	| 37		| []			  | ["ok", 37, "\r", "ok", "EMIT", "\r", "%", "\r", "ok"]	|
+	| 38		| []			  | ["ok", 38, "\r", "ok", "EMIT", "\r", "&", "\r", "ok"]	|
+	| 42		| []			  | ["ok", 42, "\r", "ok", "EMIT", "\r", "*", "\r", "ok"]	|
+	|   		| []			  | ["ok", "EMIT", "\r", "Stack Underflow", "\r", "ok"]		|
+
 Scenario Outline: User inputs several forth commands
 	When User runs '<command>'
 	Then '<stackName1>' should equal <expectedValues1>
