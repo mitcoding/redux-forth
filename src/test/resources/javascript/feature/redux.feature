@@ -345,3 +345,23 @@ Scenario: User wants to print a large F with *
 	When User runs 'F'
 	Then 'IntegerStack' should equal []
 	Then 'DisplayStack' should equal ["ok", " ", ": space 32 emit ;", "\r", "ok", " ", ": spaces 0 do space loop ;", "\r", "ok", " ", ": star 42 emit ;", "\r", "ok", " ", ": stars 0 do star loop ;", "\r", "ok", " ", ": margin cr 30 spaces ;", "\r", "ok", " ", ": blip margin star ;", "\r", "ok", " ", ": bar margin 5 stars ;", "\r", "ok", " ", ": f bar blip bar blip blip ;", "\r", "ok", " ", "F", "\r", "\r", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "*", "*", "*", "*", "\r", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "\r", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "*", "*", "*", "*", "\r", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "\r", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "*", "\r", "ok", " "]
+
+Scenario: User types word with extra white space at begining of word
+	When User runs '               1'
+	Then 'IntegerStack' should equal [1]
+	And 'DisplayStack' should equal ["ok", " ", "               1", "\r", "ok", " "]
+
+Scenario: User types word with extra white space at end of word
+	When User runs '4                      '
+	Then 'IntegerStack' should equal [4]
+	And 'DisplayStack' should equal ["ok", " ", "4                      ", "\r", "ok", " "]
+
+Scenario: User types words with extra white space round all the words
+	When User runs '           4               2                   *             '
+	Then 'IntegerStack' should equal [8]
+	And 'DisplayStack' should equal ["ok", " ", "           4               2                   *             ", "\r", "ok", " "]
+
+Scenario: User types only white space
+	When User runs '                          '
+	Then 'IntegerStack' should equal []
+	And 'DisplayStack' should equal ["ok", " ", "                          ", "\r", "ok", " "]

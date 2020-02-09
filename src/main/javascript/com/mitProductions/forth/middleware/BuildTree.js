@@ -7,7 +7,7 @@ export class BuildTree {
 		this.dictionaryService = dictionaryService;
 		this.next = next;
 		this.store = store;
-		this.commands = (action.type + "").split(WHITE_SPACE_REGEX);
+		this.commands = (action.type + "").trim().split(WHITE_SPACE_REGEX);
 		this.index = 0;
 		this.totalCommands = this.commands.length;
 		this.stack = store.getState().compileStack;
@@ -17,17 +17,23 @@ export class BuildTree {
 	run() {
 		let buildTree = this;
 
-		for (buildTree.index = 0; buildTree.index < buildTree.totalCommands; buildTree.index++) {
-			let 
-				command = this.commands[this.index],
-				action = this.dictionaryService.searchAll(command, buildTree.store.getState().dictionary, true)
-			;
+		if (commandsNotEmpty(this.commands) ) {
+			for (buildTree.index = 0; buildTree.index < buildTree.totalCommands; buildTree.index++) {
+				let 
+					command = this.commands[this.index],
+					action = this.dictionaryService.searchAll(command, buildTree.store.getState().dictionary, true)
+				;
 
-			action.build(buildTree, command);
+				action.build(buildTree, command);
+			}
 		}
 		
 		printExecutionStatus(buildTree);
 	}
+}
+
+function commandsNotEmpty(commands) {
+	return !(commands.length === 0 || (commands.length === 1 && commands[0] === "") );
 }
 
 function printExecutionStatus(buildTree) {
