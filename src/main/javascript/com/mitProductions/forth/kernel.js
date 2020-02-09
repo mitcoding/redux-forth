@@ -3,4 +3,6 @@ import { reducers } from "./reducers";
 import { middleware } from "./middleware";
 
 export const store = createStore(reducers, middleware);
-window.store = store;
+export const actions = {
+	input: function(command) { return { type: command }; } 
+};
