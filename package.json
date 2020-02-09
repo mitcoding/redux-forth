@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/main/javascript/com/mitProductions/forth/kernel.js",
+  "npmFileMap": [
+    {
+      "basePath": "/target/js/",
+      "files": [
+        "*.js"
+      ]
+    }
+  ],
+  "npmName": "redux-forth",
   "scripts": {
     "local": "webpack-dev-server --env test --content-base target --inline --hot",
     "dev": "cross-env NODE_ENV=development webpack --env dev",
     "prd": "cross-env NODE_ENV=production webpack --env prd",
+    "prepare": "npm run prd",
     "test": "cross-env NODE_ENV=test karma start karma.config.js"
   },
   "author": "",
