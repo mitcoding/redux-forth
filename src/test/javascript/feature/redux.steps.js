@@ -38,7 +38,7 @@ Before(function() {
 	store.dispatch({type: "PAGE"});
 	[...store.getState().integerStack].should.be.empty;
 	[...store.getState().dictionary.stack].should.be.empty;
-	[...store.getState().displayStack].should.eql(["ok"]);
+	[...store.getState().displayStack].should.eql(["ok", " "]);
 });
 
 Given('User has entered {int}', function (int) {

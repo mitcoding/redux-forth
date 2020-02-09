@@ -12,6 +12,6 @@ export const createExecutionTree = store => next => action => {
 function printActionTypeOnDisplayStack(type, next) {
 	let print = new Print();
 	print.payload.push(type);
-	print.payload.push("\r");
+	print.printCarrageReturn = true;
 	next(print);
 }
