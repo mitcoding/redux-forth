@@ -1,5 +1,5 @@
 import AddCustomWord from "./AddCustomWord";
-import IntegerWord from "./IntegerWord";
+import NumberWord from "./NumberWord";
 import StackUnderFlowError from  "../../exceptions/StackUnderFlowError";
 import TreeWord from "./TreeWord";
 
@@ -33,7 +33,7 @@ export default class Constant extends TreeWord {
 		}
 
 		next(dictionaryService.searchDefault("DROP"));
-		next(new AddCustomWord(name.toUpperCase(), "( -- " + command + ")", [new IntegerWord(command)]) );
+		next(new AddCustomWord(name.toUpperCase(), "( -- " + command + ")", [NumberWord.create(command)]) );
 		return this;
 	}
 }

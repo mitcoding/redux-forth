@@ -1,4 +1,4 @@
-import { store } from "../../../main/javascript/com/mitProductions/forth/kernel.js"
+import { store, actions } from "../../../main/javascript/com/mitProductions/forth/kernel.js"
 
 function convertAllStringNumbersToNumber(array) {
 	return array.map(parseStringToNumber);
@@ -33,21 +33,21 @@ defineParameterType({
 });
 
 Before(function() {
-	store.dispatch({type: "CLEARSTACK"});
-	store.dispatch({type: "FORGETALL"});
-	store.dispatch({type: "PAGE"});
+	store.dispatch(actions.input("CLEARSTACK") );
+	store.dispatch(actions.input("FORGETALL") );
+	store.dispatch(actions.input("PAGE") );
 	[...store.getState().integerStack].should.be.empty;
 	[...store.getState().dictionary.stack].should.be.empty;
 	[...store.getState().displayStack].should.eql(["ok", " "]);
 });
 
 Given('User has entered {int}', function (int) {
-	store.dispatch({type: int});
+	store.dispatch(actions.input(int) );
 });
 
 When("User runs {string}", function (command) {
 	if (command) {
-		store.dispatch({type: command});
+		store.dispatch(actions.input(command) );
 	}
 });
 

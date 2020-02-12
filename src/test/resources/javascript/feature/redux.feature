@@ -365,3 +365,18 @@ Scenario: User types only white space
 	When User runs '                          '
 	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal ["ok", " ", "                          ", "\r", "ok", " "]
+
+Scenario: Users needs ability to push hex word to integer stack
+	When User runs '0xFF'
+	And User runs '0x037F'
+	And User runs '0x1FFFFFFFFFFFFF'
+	Then 'IntegerStack' should equal [255, 895, 9007199254740991]
+	And 'DisplayStack' should equal ["ok", " ", "0xFF", "\r", "ok", " ", "0x037F", "\r", "ok", " ", "0x1FFFFFFFFFFFFF", "\r", "ok", " "]
+
+Scenario: Users needs ability to push binary word to integer stack
+	When User runs '0b00100'
+	And User runs '0b1'
+	And User runs '0b1010011110011010011110011010'
+	And User runs '0b1111111111100000000000000000000000000000000000000000000000000001'
+	Then 'IntegerStack' should equal [4, 1, 175744922, -9007199254740991]
+	And 'DisplayStack' should equal ["ok", " ", "0b00100", "\r", "ok", " ", "0b1", "\r", "ok", " ", "0b1010011110011010011110011010", "\r", "ok", " ", "0b1111111111100000000000000000000000000000000000000000000000000001", "\r", "ok", " "]

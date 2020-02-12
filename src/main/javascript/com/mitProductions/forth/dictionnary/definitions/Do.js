@@ -1,5 +1,5 @@
 import AbortCompile from "./AbortCompile";
-import IntegerWord from "./IntegerWord";
+import NumberWord from "./NumberWord";
 import TreeWord from "./TreeWord";
 
 export default class Do extends TreeWord {
@@ -35,7 +35,7 @@ export default class Do extends TreeWord {
 
 		do {
 			if (showIndex) {
-				next(new IntegerWord(startingValue));
+				next(NumberWord.create(startingValue));
 			}
 
 			processTree(loopCommands, next, store);

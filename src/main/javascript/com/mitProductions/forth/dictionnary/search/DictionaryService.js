@@ -19,7 +19,7 @@ import Forget from "../definitions/Forget";
 import ForgetAll from "../definitions/ForgetAll";
 import GreaterThan from "../definitions/GreaterThan";
 import If from "../definitions/If";
-import IntegerWord from "../definitions/IntegerWord";
+import NumberWord from "../definitions/NumberWord";
 import LeftParenthesis from "../definitions/LeftParenthesis";
 import LessThan from "../definitions/LessThan";
 import Loop from "../definitions/Loop";
@@ -104,7 +104,9 @@ const defaultDictionary = {
 };
 
 const isNumber = function (command) {
-	return /^-?\d+$/.exec(command) ? new IntegerWord(command) : false;
+	if (isNaN(new Number(command) ) ) { return false; }
+
+	return NumberWord.create(command);
 }
 
 const isSpecialDigitCommand = function (command) {
