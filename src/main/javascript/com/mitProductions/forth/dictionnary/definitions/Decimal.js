@@ -7,7 +7,7 @@ export default class Decimal extends Word {
 	}
 	
 	modifyDictionary(state) {
-		state.mode = "dec";
+		state.mode = NumberWord.DEC;
 		return state;
 	}
 
@@ -16,7 +16,7 @@ export default class Decimal extends Word {
 			state.stack[i] = NumberWord.create(value, state.mode).toDecimal();
 		});
 
-		state.mode = "dec";
+		state.mode = NumberWord.DEC;
 		return state;
 	}	
 }

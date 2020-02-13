@@ -11,8 +11,8 @@ const processCommands = function(commands, next, store, hasSearchedDictionary = 
 
 	for (let index = 0; index < totalCommands; index++) {
 		let
-			command = commands[index].type.trim(),
-			action = hasSearchedDictionary === false ? dictionaryService.searchAll(command, store.getState().dictionary) : commands[index];
+			command = commands[index],
+			action = hasSearchedDictionary === false ? dictionaryService.searchAll(command, store.getState().dictionary) : command;
 		;
 			
 		if (Array.isArray(action) ) {

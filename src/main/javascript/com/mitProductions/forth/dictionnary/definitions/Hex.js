@@ -7,7 +7,7 @@ export default class Hex extends Word {
 	}
 	
 	modifyDictionary(state) {
-		state.mode = "hex";
+		state.mode = NumberWord.HEX;
 		return state;
 	}
 
@@ -16,7 +16,7 @@ export default class Hex extends Word {
 			state.stack[i] = NumberWord.create(value, state.mode).toHex();
 		});
 
-		state.mode = "hex";
+		state.mode = NumberWord.HEX;
 		return state;
 	}
 }

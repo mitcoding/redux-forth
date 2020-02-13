@@ -25,8 +25,8 @@ export default class Do extends TreeWord {
 			command = commands[index],
 			mode = store.getState().integerStack.mode,
 			state = store.getState().integerStack.clone(),
-			startingValue = state.pop(),
-			limit  = state.pop(),
+			startingValue = state.popAsDecimal(),
+			limit  = state.popAsDecimal(),
 			showIndex = (command.payload[0].type.toUpperCase() === "I"),
 			loopCommands = showIndex ? command.payload.slice(1) : command.payload
 		;

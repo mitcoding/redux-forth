@@ -7,11 +7,11 @@ export default class And extends Word {
 
 	modifyIntegerStack(state) {
 		var 
-			topFlag = state.pop() !== 0 ? true : false,
-			nextFlag = state.pop() !== 0 ? true : false
+			topFlag = state.popAsDecimal() !== 0 ? true : false,
+			nextFlag = state.popAsDecimal() !== 0 ? true : false
 		;
 
-		state.push((topFlag & nextFlag) ? -1 : 0);
+		state.pushDecimal((topFlag & nextFlag) ? -1 : 0);
 		return state;
 	}
 }

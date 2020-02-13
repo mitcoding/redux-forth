@@ -1,5 +1,7 @@
+import NumberWord from "../dictionnary/definitions/NumberWord"
+
 export default class NumberStack {
-	constructor(mode = "dec", stack = []) {
+	constructor(mode = NumberWord.DEC, stack = []) {
 		this.mode = mode;
 		this.stack = stack;
 	}
@@ -9,8 +11,34 @@ export default class NumberStack {
 		return this;
 	}
 
+	pushDecimal(decimal) {
+		decimal = NumberWord.create(decimal, NumberWord.DEC);
+
+		if (decimal) {
+			switch(this.mode) {
+				case NumberWord.HEX :
+					this.push(decimal.toHex() );
+					break;
+				case NumberWord.BIN :
+					this.push(decimal.toBinary() );
+					break;
+				default :
+					this.push(decimal.toDecimal() );
+			}
+		}
+		
+		return this;
+	}
+
 	pop() {
 		return this.stack.pop();
+	}
+
+	popAsDecimal() {
+		let value = this.pop();
+		if (!value) { return value; }
+		
+		return NumberWord.create(value, this.mode).toDecimal();
 	}
 
 	clone() {
@@ -28,6 +56,13 @@ export default class NumberStack {
 
 	getLastItem() {
 		return this.stack[this.length() - 1];
+	}
+
+	getLastItemAsDecimal() {
+		let value = this.getLastItem();
+		if (!value) { return value; }
+		
+		return NumberWord.create(value, this.mode).toDecimal();
 	}
 
 	length() {

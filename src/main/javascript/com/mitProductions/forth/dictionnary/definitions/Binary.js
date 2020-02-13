@@ -7,7 +7,7 @@ export default class Binary extends Word {
 	}
 	
 	modifyDictionary(state) {
-		state.mode = "bin";
+		state.mode = NumberWord.BIN;
 		return state;
 	}
 
@@ -16,7 +16,7 @@ export default class Binary extends Word {
 			state.stack[i] = NumberWord.create(value, state.mode).toBinary();
 		});
 
-		state.mode = "bin";
+		state.mode = NumberWord.BIN;
 		return state;
 	}	
 }

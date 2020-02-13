@@ -6,7 +6,7 @@ export default class Abs extends Word {
 	}
 	
 	modifyIntegerStack(state) {
-		state.push(Math.abs(state.pop() ) );
+		state.pushDecimal(Math.abs(state.popAsDecimal() ) );
 		return state;
 	}
 }

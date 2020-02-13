@@ -7,11 +7,11 @@ export default class Min extends Word {
 
 	modifyIntegerStack(state) {
 		var
-			topInt = state.pop(),
-			nextInt = state.pop()
+			topInt = state.popAsDecimal(),
+			nextInt = state.popAsDecimal()
 		;
 
-		state.push(Math.min(topInt, nextInt) );
+		state.pushDecimal(Math.min(topInt, nextInt) );
 		return state;
 	}
 }

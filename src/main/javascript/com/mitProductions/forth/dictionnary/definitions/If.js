@@ -40,7 +40,7 @@ export default class If extends TreeWord {
 	process(commands, index, store, next, processTree, dictionaryService) {
 		let
 			mode = store.getState().integerStack.mode,
-			flag = store.getState().integerStack.clone().pop()
+			flag = store.getState().integerStack.clone().popAsDecimal()
 		;
 
 		if (isNaN(flag) ) { 

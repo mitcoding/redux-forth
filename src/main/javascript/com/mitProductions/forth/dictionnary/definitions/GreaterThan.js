@@ -7,11 +7,11 @@ export default class GreaterThan extends Word {
 
 	modifyIntegerStack(state) {
 		var
-			topInt = state.pop(),
-			nextInt = state.pop()
+			topInt = state.popAsDecimal(),
+			nextInt = state.popAsDecimal()
 		;
 		
-		state.push(nextInt > topInt ? -1 : 0);
+		state.pushDecimal(nextInt > topInt ? -1 : 0);
 		return state;
 	}
 }

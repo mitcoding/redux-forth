@@ -109,7 +109,19 @@ const defaultDictionary = {
 	"<>" : NotEqual
 };
 
+const getWord = function (command) {
+	if (command instanceof Word) {
+		return command.type.trim();
+	}
+
+	return command || "";
+}
+
 const isNumber = function (command, mode) {
+	if (command instanceof NumberWord) {
+		return command;
+	}
+	
 	return NumberWord.create(command, mode);
 }
 
@@ -142,8 +154,9 @@ export default class DictionaryService {
 		return this.searchCustom(command, customDictionary, findCommandOnly) || this.searchDefault(command, customDictionary.mode) || new UnknownWord(command);
 	}
 
-	searchCustom(word = "", customDictionary, findDefinitionOnly) {
+	searchCustom(command, customDictionary, findDefinitionOnly) {
 		let 
+			word = getWord(command),
 			_dictionary = deepCopy(customDictionary),
 			indexes = (_dictionary.terms[word.toUpperCase()] || { indexes: [] }).indexes,
 			index = indexes.pop()
@@ -170,9 +183,10 @@ export default class DictionaryService {
 		return undefined;
 	}
 
-	searchDefault(word = "", mode = "dec") {
+	searchDefault(command, mode = NumberWord.DEC) {
 		let 
-			Definition = isNumber(word, mode) || isSpecialDigitCommand(word) || defaultDictionary[word.toUpperCase()],
+			word = getWord(command),
+			Definition = isNumber(command, mode) || isSpecialDigitCommand(word) || defaultDictionary[word.toUpperCase()],
 			notInstanceOfWordClass = !(Definition instanceof Word)
 		;
 		

@@ -26,15 +26,15 @@ export default class Constant extends TreeWord {
 		let 
 			mode = store.getState().integerStack.mode,
 			name = commands[index].payload[0].type,
-			command = store.getState().integerStack.clone().pop()
+			number = NumberWord.create(store.getState().integerStack.clone().pop(), mode);
 		;
 
-		if (isNaN(command) ) {
+		if (!number) {
 			return next(new StackUnderFlowError() );
 		}
 
 		next(dictionaryService.searchDefault("DROP"), mode);
-		next(new AddCustomWord(name.toUpperCase(), "( -- " + command + ")", [NumberWord.create(command, mode)]) );
+		next(new AddCustomWord(name.toUpperCase(), "( -- " + number.toDecimal() + ")", [number]) );
 		return this;
 	}
 }

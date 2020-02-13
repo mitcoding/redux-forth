@@ -6,10 +6,10 @@ export default class MultiplyDivide extends Word {
 	}
 
 	modifyIntegerStack(state, dictionaryService) {
-		var topInt = state.pop();
+		var topInt = state.popAsDecimal();
 
 		state = dictionaryService.searchDefault("*").modifyIntegerStack(state);
-		state.push(topInt);
+		state.pushDecimal(topInt);
 		return dictionaryService.searchDefault("/").modifyIntegerStack(state);
 	}
 }

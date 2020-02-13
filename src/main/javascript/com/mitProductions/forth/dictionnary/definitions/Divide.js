@@ -7,11 +7,11 @@ export default class Divide extends Word {
 
 	modifyIntegerStack(state) {
 		var
-			topInt = state.pop(),
-			nextInt = state.pop()
+			topInt = state.popAsDecimal(),
+			nextInt = state.popAsDecimal()
 		;
 		
-		state.push(Math.floor(nextInt / topInt) );
+		state.pushDecimal(Math.floor(nextInt / topInt) );
 		return state;
 	}
 }

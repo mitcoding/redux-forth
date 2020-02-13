@@ -6,9 +6,9 @@ export default class Negate extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		var topInt = state.pop();
+		var topInt = state.popAsDecimal();
 
-		state.push(topInt * -1);
+		state.pushDecimal(topInt * -1);
 		return state;
 	}
 }

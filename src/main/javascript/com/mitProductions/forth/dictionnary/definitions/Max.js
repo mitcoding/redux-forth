@@ -7,11 +7,11 @@ export default class Max extends Word {
 
 	modifyIntegerStack(state) {
 		var 
-			topInt = state.pop(),
-			nextInt = state.pop()
+			topInt = state.popAsDecimal(),
+			nextInt = state.popAsDecimal()
 		;
 
-		state.push(Math.max(topInt, nextInt) );
+		state.pushDecimal(Math.max(topInt, nextInt) );
 		return state;
 	}
 }

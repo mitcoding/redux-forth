@@ -7,7 +7,7 @@ function isNotANumber(value, mode) {
 		return false;
 	}
 
-	return isNaN(value);
+	return true;
 }
 
 export const integerStackReducer = function(state = new NumberStack(), action) {

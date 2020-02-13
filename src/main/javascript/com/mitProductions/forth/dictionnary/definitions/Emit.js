@@ -19,7 +19,7 @@ export default class Emit extends Word {
 
 	process(commands, index, store, next) {
 
-		this.charCode = store.getState().integerStack.getLastItem();
+		this.charCode = store.getState().integerStack.getLastItemAsDecimal();
 		if (isNaN(this.charCode) ) {
 			return next(new StackUnderFlowError() );
 		}

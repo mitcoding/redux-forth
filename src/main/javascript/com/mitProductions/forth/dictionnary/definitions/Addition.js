@@ -7,11 +7,11 @@ export default class Addition extends Word {
 
 	modifyIntegerStack(state) {
 		var
-			topInt = state.pop(),
-			nextInt = state.pop()
+			topInt = state.popAsDecimal(),
+			nextInt = state.popAsDecimal()
 		;
 		
-		state.push(nextInt + topInt);
+		state.pushDecimal(nextInt + topInt);
 		return state;
 	}
 }

@@ -19,6 +19,8 @@ function parseStringToNumber(value) {
 			return 0;
 		case (/^TRUE$/i).test(value):
 			return -1;
+		case /^F{16}$/.test(value):
+			return -1;
 		case /^[-]?\d+$/.test(value):
 			return value * 1;
 	}

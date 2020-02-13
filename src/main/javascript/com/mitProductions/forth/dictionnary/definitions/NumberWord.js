@@ -64,10 +64,10 @@ export default class NumberWord extends Word {
 	modifyIntegerStack(state) {
 		let value;
 		switch(state.mode) {
-			case "bin" :
+			case NumberWord.BIN :
 				value = this.toBinary();
 				break;
-			case "hex" :
+			case NumberWord.HEX :
 				value = this.toHex();
 				break;
 			default :
@@ -80,9 +80,12 @@ export default class NumberWord extends Word {
 	}
 }
 
+NumberWord.HEX = "hex";
+NumberWord.DEC = "dec";
+NumberWord.BIN = "bin";
+
 NumberWord.isHex = function isHex(value) {
 	if (!value) { return false; }
-	value = ("0x" + value).replace("0x0x", "0x");
 	
 	hexRegex.lastIndex = 0;
 	return hexRegex.exec(value) ? true : false;
@@ -199,16 +202,17 @@ class IntegerWord extends NumberWord {
 
 NumberWord.create = function(value, mode) {
 	switch(mode) {
-		case "dec" :
+		case this.DEC :
 			if (this.isDecimal(value) ) { return new IntegerWord(value); }
 			if (this.isBinary(value) ) { return new BinaryWord(value); }
 			if (this.isHex(value) ) { return new HexWord(value); }
 			
 			break;
-		case "hex" :
+		case this.HEX :
+			value = ("0x" + value).replace("0x0x", "0x");
 			if (this.isHex(value) ) { return new HexWord(value); }
 			break;
-		case "bin" :
+		case this.BIN :
 			if (this.isBinary("0b" + value) ) { return new BinaryWord(value); }
 			break;
 	}
