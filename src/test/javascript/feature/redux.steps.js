@@ -45,7 +45,7 @@ Before(function() {
 	store.dispatch(actions.input("DECIMAL") );
 	store.dispatch(actions.input("FORGETALL") );
 	store.dispatch(actions.input("PAGE") );
-	[...store.getState().integerStack.stack].should.be.empty;
+	store.getState().integerStack.clone().stack.should.be.empty;
 	[...store.getState().dictionary.stack].should.be.empty;
 	[...store.getState().displayStack].should.eql(["ok", " "]);
 });

@@ -24,7 +24,7 @@ export default class Do extends TreeWord {
 		let 
 			command = commands[index],
 			mode = store.getState().integerStack.mode,
-			state = [...store.getState().integerStack.stack],
+			state = store.getState().integerStack.clone(),
 			startingValue = state.pop(),
 			limit  = state.pop(),
 			showIndex = (command.payload[0].type.toUpperCase() === "I"),

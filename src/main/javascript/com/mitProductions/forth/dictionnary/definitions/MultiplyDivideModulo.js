@@ -7,16 +7,16 @@ export default class MultiplyDivideModulo extends Word {
 
 	modifyIntegerStack(state, dictionaryService) {
 		var 
-			stack = state.stack,
-			topInt = stack.pop(),
+			topInt = state.pop(),
 			divState
 		;
 
 		state = dictionaryService.searchDefault("*").modifyIntegerStack(state);
-		stack.push(topInt);
-		divState = dictionaryService.searchDefault("/").modifyIntegerStack({...state, stack: [...state.stack] });
+		state.push(topInt);
+		
+		divState = dictionaryService.searchDefault("/").modifyIntegerStack(state.clone() );
 		state = dictionaryService.searchDefault("MOD").modifyIntegerStack(state);
-		stack.push(divState.stack.pop() );
+		state.push(divState.pop() );
 		return state;
 	}
 }

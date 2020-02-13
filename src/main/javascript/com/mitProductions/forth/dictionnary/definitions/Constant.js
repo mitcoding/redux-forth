@@ -26,7 +26,7 @@ export default class Constant extends TreeWord {
 		let 
 			mode = store.getState().integerStack.mode,
 			name = commands[index].payload[0].type,
-			command = [...store.getState().integerStack.stack].pop()
+			command = store.getState().integerStack.clone().pop()
 		;
 
 		if (isNaN(command) ) {

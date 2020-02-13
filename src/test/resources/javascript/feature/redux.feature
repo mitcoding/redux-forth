@@ -136,14 +136,14 @@ Scenario: User wants to move 3 number number to the top of the stack
 	Then 'IntegerStack' should equal [1, 3, 4, 2]
 	And 'DisplayStack' should equal ["ok", " ", 1, "\r", "ok", " ", 2, "\r", "ok", " ", 3, "\r", "ok", " ", 4, "\r", "ok", " ", "ROT", "\r", "ok", " "]
 
-Scenario: User wants to use the top number to determine which number to copy to the top of the stack, not counting n itself. (i.e. the sequence 2 PICK is equivlent to OVER).
+Scenario: User wants to use the top number to determine which number to copy to the top of the stack, not counting n itself. (i.e. the sequence 1 PICK is equivlent to OVER).
 	Given User has entered 4
 	And User has entered 5
 	And User has entered 6
 	And User has entered 7
 	And User has entered 2
 	When User runs 'PICK'
-	Then 'IntegerStack' should equal [4, 5, 6, 7, 2, 6]
+	Then 'IntegerStack' should equal [4, 5, 6, 7, 5]
 	And 'DisplayStack' should equal ["ok", " ", 4, "\r", "ok", " ", 5, "\r", "ok", " ", 6, "\r", "ok", " ", 7, "\r", "ok", " ", 2, "\r", "ok", " ", "PICK", "\r", "ok", " "]
 
 Scenario: User adds a TRUE flag and FALSE flag to the stack then NOTs the FALSE flag

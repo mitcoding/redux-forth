@@ -1,3 +1,4 @@
+import NumberStack from "../stack/NumberStack";
 import NumberWord from "../dictionnary/definitions/NumberWord";
 import DictionaryService from "../dictionnary/search/DictionaryService";
 
@@ -9,14 +10,13 @@ function isNotANumber(value, mode) {
 	return isNaN(value);
 }
 
-export const integerStackReducer = function(state={ stack: [], mode: "dec" }, action) {
-	state = {...state, stack: [...state.stack] };
-
+export const integerStackReducer = function(state = new NumberStack(), action) {
+	
 	action = action.word || action;
 	if (action.modifyIntegerStack) {
-		state = action.modifyIntegerStack(state, new DictionaryService() );
+		state = action.modifyIntegerStack(state.clone(), new DictionaryService() );
 		
-		return isNotANumber(state.stack[state.stack.length - 1], state.mode) ? (state.stack.pop(), state) : state;
+		return isNotANumber(state.getLastItem(), state.mode) ? (state.pop(), state) : state;
 	}
 
 	return state;

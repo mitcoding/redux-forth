@@ -7,13 +7,12 @@ export default class Swap extends Word {
 
 	modifyIntegerStack(state) {
 		var 
-			stack = state.stack,
-			topInt = stack.pop(),
-			nextInt = stack.pop()
+			topInt = state.pop(),
+			nextInt = state.pop()
 		;
 		
-		stack.push(topInt);
-		stack.push(nextInt);
+		state.push(topInt);
+		state.push(nextInt);
 		return state;
 	}
 }

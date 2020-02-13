@@ -75,7 +75,7 @@ export default class NumberWord extends Word {
 				break;
 		}
 		
-		state.stack.push(value);
+		state.push(value);
 		return state;
 	}
 }

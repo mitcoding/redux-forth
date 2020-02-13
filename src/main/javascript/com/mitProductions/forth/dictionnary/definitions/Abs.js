@@ -4,10 +4,9 @@ export default class Abs extends Word {
 	constructor(type = "ABS", comment = "(n -- -n)") {
 		super(type, comment);
 	}
+	
 	modifyIntegerStack(state) {
-		let stack = state.stack;
-
-		stack.push(Math.abs(stack.pop() ) );
+		state.push(Math.abs(state.pop() ) );
 		return state;
 	}
 }
