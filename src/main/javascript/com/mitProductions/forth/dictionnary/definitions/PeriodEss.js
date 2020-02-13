@@ -7,7 +7,7 @@ export default class PeriodEss extends Print {
 	}
 	
 	process(command, index, store, next) {
-		let integerStack = [...store.getState().integerStack];
+		let integerStack = [...store.getState().integerStack.stack];
 
 		if (integerStack.length === 0) {
 			next(new EmptyStackError() );

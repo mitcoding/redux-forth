@@ -7,11 +7,12 @@ export default class Equals extends Word {
 
 	modifyIntegerStack(state) {
 		var
-			topInt = state.pop(),
-			nextInt = state.pop()
+			stack = state.stack,
+			topInt = stack.pop(),
+			nextInt = stack.pop()
 		;
 		
-		state.push(nextInt === topInt ? -1 : 0);
+		stack.push(nextInt === topInt ? -1 : 0);
 		return state;
 	}
 }

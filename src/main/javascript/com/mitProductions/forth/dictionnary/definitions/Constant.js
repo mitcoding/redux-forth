@@ -24,16 +24,17 @@ export default class Constant extends TreeWord {
 
 	process(commands, index, store, next, processTree, dictionaryService) {
 		let 
+			mode = store.getState().integerStack.mode,
 			name = commands[index].payload[0].type,
-			command = [...store.getState().integerStack].pop()
+			command = [...store.getState().integerStack.stack].pop()
 		;
 
 		if (isNaN(command) ) {
 			return next(new StackUnderFlowError() );
 		}
 
-		next(dictionaryService.searchDefault("DROP"));
-		next(new AddCustomWord(name.toUpperCase(), "( -- " + command + ")", [NumberWord.create(command)]) );
+		next(dictionaryService.searchDefault("DROP"), mode);
+		next(new AddCustomWord(name.toUpperCase(), "( -- " + command + ")", [NumberWord.create(command, mode)]) );
 		return this;
 	}
 }

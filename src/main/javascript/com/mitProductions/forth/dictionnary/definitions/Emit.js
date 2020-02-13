@@ -13,13 +13,13 @@ export default class Emit extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		state.pop();
+		state.stack.pop();
 		return state;
 	}
 
 	process(commands, index, store, next) {
 
-		this.charCode = store.getState().integerStack.slice(-1)[0];
+		this.charCode = store.getState().integerStack.stack.slice(-1)[0];
 		if (isNaN(this.charCode) ) {
 			return next(new StackUnderFlowError() );
 		}

@@ -5,7 +5,9 @@ export default class Abs extends Word {
 		super(type, comment);
 	}
 	modifyIntegerStack(state) {
-		state.push(Math.abs(state.pop() ) );
+		let stack = state.stack;
+
+		stack.push(Math.abs(stack.pop() ) );
 		return state;
 	}
 }

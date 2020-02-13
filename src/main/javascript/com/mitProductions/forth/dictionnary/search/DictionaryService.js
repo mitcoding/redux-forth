@@ -2,10 +2,12 @@ import AbortCompile from "../definitions/AbortCompile";
 import Abs from "../definitions/Abs";
 import Addition from "../definitions/Addition";
 import And from "../definitions/And";
+import Binary from "../definitions/Binary";
 import CarriageReturn from "../definitions/CarriageReturn";
 import ClearStack from "../definitions/ClearStack";
 import Colon from "../definitions/Colon";
 import Constant from "../definitions/Constant";
+import Decimal from "../definitions/Decimal";
 import Divide from "../definitions/Divide";
 import Do from "../definitions/Do";
 import DoubleQuote from "../definitions/DoubleQuote";
@@ -18,6 +20,7 @@ import False from "../definitions/False";
 import Forget from "../definitions/Forget";
 import ForgetAll from "../definitions/ForgetAll";
 import GreaterThan from "../definitions/GreaterThan";
+import Hex from "../definitions/Hex";
 import If from "../definitions/If";
 import NumberWord from "../definitions/NumberWord";
 import LeftParenthesis from "../definitions/LeftParenthesis";
@@ -57,9 +60,11 @@ const defaultDictionary = {
 	"ABORTCOMPILE" : AbortCompile,
 	"ABS" : Abs,
 	"AND" : And,
+	"BINARY" : Binary,
 	"CLEARSTACK" : ClearStack,
 	"CONSTANT" : Constant,
 	"CR" : CarriageReturn,
+	"DECIMAL" : Decimal,
 	"DO" : Do,
 	"DUP" : Dup,
 	"DROP" : Drop,
@@ -68,6 +73,7 @@ const defaultDictionary = {
 	"FALSE" : False,
 	"FORGET" :  Forget,
 	"FORGETALL" : ForgetAll,
+	"HEX" : Hex,
 	"IF" : If,
 	"LOOP" : Loop,
 	"MAX" : Max,
@@ -103,10 +109,8 @@ const defaultDictionary = {
 	"<>" : NotEqual
 };
 
-const isNumber = function (command) {
-	if (isNaN(new Number(command) ) ) { return false; }
-
-	return NumberWord.create(command);
+const isNumber = function (command, mode) {
+	return NumberWord.create(command, mode);
 }
 
 const isSpecialDigitCommand = function (command) {
@@ -135,13 +139,13 @@ export default class DictionaryService {
 	}
 		
 	searchAll(command, customDictionary, findCommandOnly) {
-		return this.searchCustom(command, customDictionary, findCommandOnly) || this.searchDefault(command) || new UnknownWord(command);
+		return this.searchCustom(command, customDictionary, findCommandOnly) || this.searchDefault(command, customDictionary.mode) || new UnknownWord(command);
 	}
 
 	searchCustom(word = "", customDictionary, findDefinitionOnly) {
 		let 
 			_dictionary = deepCopy(customDictionary),
-			indexes = (_dictionary[word.toUpperCase()] || { indexes: [] }).indexes,
+			indexes = (_dictionary.terms[word.toUpperCase()] || { indexes: [] }).indexes,
 			index = indexes.pop()
 		;
 
@@ -166,9 +170,9 @@ export default class DictionaryService {
 		return undefined;
 	}
 
-	searchDefault(word = "") {
+	searchDefault(word = "", mode = "dec") {
 		let 
-			Definition = isNumber(word) || isSpecialDigitCommand(word) || defaultDictionary[word.toUpperCase()],
+			Definition = isNumber(word, mode) || isSpecialDigitCommand(word) || defaultDictionary[word.toUpperCase()],
 			notInstanceOfWordClass = !(Definition instanceof Word)
 		;
 		

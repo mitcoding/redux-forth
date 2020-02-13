@@ -23,19 +23,20 @@ export default class Do extends TreeWord {
 	process(commands, index, store, next, processTree, dictionaryService) {
 		let 
 			command = commands[index],
-			state = [...store.getState().integerStack],
+			mode = store.getState().integerStack.mode,
+			state = [...store.getState().integerStack.stack],
 			startingValue = state.pop(),
 			limit  = state.pop(),
 			showIndex = (command.payload[0].type.toUpperCase() === "I"),
 			loopCommands = showIndex ? command.payload.slice(1) : command.payload
 		;
 
-		next(dictionaryService.searchDefault("DROP") );
-		next(dictionaryService.searchDefault("DROP") );
+		next(dictionaryService.searchDefault("DROP"), mode);
+		next(dictionaryService.searchDefault("DROP"), mode);
 
 		do {
 			if (showIndex) {
-				next(NumberWord.create(startingValue));
+				next(NumberWord.create(startingValue, mode) );
 			}
 
 			processTree(loopCommands, next, store);

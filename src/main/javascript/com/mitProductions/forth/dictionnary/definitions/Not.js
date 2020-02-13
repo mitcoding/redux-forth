@@ -6,8 +6,12 @@ export default class Not extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		var topInt = state.pop();
-		state.push(topInt === 0 ? -1 : 0);
+		var
+			stack = state.stack, 
+			topInt = stack.pop()
+		;
+
+		stack.push(topInt === 0 ? -1 : 0);
 		return state;
 	}
 }

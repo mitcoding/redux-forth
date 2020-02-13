@@ -5,7 +5,7 @@ export default class ForgetAll extends CustomWord {
 		super(type, comment);
 	}
 	
-	modifyDictionary() {
-		return { stack: [] };
+	modifyDictionary(state) {
+		return { mode: state.mode, terms: {}, stack: [] };
 	}	
 }

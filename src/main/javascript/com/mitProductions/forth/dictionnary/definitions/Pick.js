@@ -7,11 +7,12 @@ export default class Pick extends Word {
 
 	modifyIntegerStack(state) {
 		var 
-			topInt = state[state.length - 1],
-			copyInt = state[state.length - (topInt + 1)]
+			stack = state.stack,
+			topInt = stack[stack.length - 1],
+			copyInt = stack[stack.length - (topInt + 1)]
 		;
 		
-		state.push(copyInt);
+		stack.push(copyInt);
 		return state;
 	}
 }

@@ -6,6 +6,7 @@ export default class Drop extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		return state.slice(0, state.length - 1);
+		state.stack = state.stack.slice(0, state.stack.length - 1);
+		return state;
 	}
 }

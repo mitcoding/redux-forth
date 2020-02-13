@@ -6,8 +6,12 @@ export default class Over extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		var nextInt = state[state.length - 2];
-		state.push(nextInt);
+		var 
+			stack = state.stack,
+			nextInt = stack[stack.length - 2]
+		;
+
+		stack.push(nextInt);
 		return state;
 	}
 }

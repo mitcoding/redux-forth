@@ -6,7 +6,9 @@ export default class Dup extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		state.push(state[state.length - 1]);
+		let stack = state.stack;
+
+		stack.push(stack[stack.length - 1]);
 		return state;
 	}
 }

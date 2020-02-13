@@ -26,6 +26,14 @@ function parseStringToNumber(value) {
 	return value;
 };
 
+function getStack(store, name) {
+	if (name.toLowerCase() === "integerstack") {
+		return store[name].stack.slice();
+	}
+
+	return store[name].slice();
+}
+
 defineParameterType({
 	name: "array", 
 	regexp: /(\[.*\])/,
@@ -34,15 +42,16 @@ defineParameterType({
 
 Before(function() {
 	store.dispatch(actions.input("CLEARSTACK") );
+	store.dispatch(actions.input("DECIMAL") );
 	store.dispatch(actions.input("FORGETALL") );
 	store.dispatch(actions.input("PAGE") );
-	[...store.getState().integerStack].should.be.empty;
+	[...store.getState().integerStack.stack].should.be.empty;
 	[...store.getState().dictionary.stack].should.be.empty;
 	[...store.getState().displayStack].should.eql(["ok", " "]);
 });
 
-Given('User has entered {int}', function (int) {
-	store.dispatch(actions.input(int) );
+Given(/^User has entered (.*)/, function (command) {
+	store.dispatch(actions.input(command) );
 });
 
 When("User runs {string}", function (command) {
@@ -54,7 +63,7 @@ When("User runs {string}", function (command) {
 Then('{string} should equal {array}', function (stackName, expectedArray) {
 	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
 
-    let stack = store.getState()[stackName].slice();
+    let stack = getStack(store.getState(), stackName);
 	stack = convertAllStringNumbersToNumber(stack);
 	
 	stack.should.eql(expectedArray);
@@ -63,7 +72,7 @@ Then('{string} should equal {array}', function (stackName, expectedArray) {
 Then('{string} should be added to the dictionary', function (command) {
 	let
 		dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) ),
-		customWord = dictionary[command.toUpperCase()],
+		customWord = dictionary.terms[command.toUpperCase()],
 		customDefinition = dictionary.stack[customWord.indexes.pop()]
 	;
 
@@ -76,7 +85,7 @@ Then('{string} should be added to the dictionary', function (command) {
 Then('{string} should not be added to the dictionary', function (command) {
 	let 
 		dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) ),
-		customWord = dictionary[command]
+		customWord = dictionary.terms[command]
 	;
 	
 	should.not.exist(customWord);
@@ -86,9 +95,16 @@ Then('{string} should not be added to the dictionary', function (command) {
 Then('{string} should have a comment of {string}', function (command, comment) {
 	let 
 		dictionary = JSON.parse(JSON.stringify(store.getState().dictionary) ),
-		customWord = (dictionary[command.toUpperCase()] || { indexes: [] }),
+		customWord = (dictionary.terms[command.toUpperCase()] || { indexes: [] }),
 		customDefinition = dictionary.stack[customWord.indexes.pop()] || { comment: '' }
 	;
 	
 	customDefinition.comment.should.equal(comment);
+});
+
+Then('{string} mode should equal {string}', function (stackName, expectedMode) {
+	stackName = stackName.substring(0,1).toLowerCase() + stackName.substring(1);
+	
+	let stackMode = store.getState()[stackName].mode;
+	stackMode.should.equal(expectedMode);
 });

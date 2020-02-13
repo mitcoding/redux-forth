@@ -7,12 +7,14 @@ export default class Rot extends Word {
 
 	modifyIntegerStack(state) {
 		var 
-			removeIndex = state.length - 3,
-			nextInt = state[removeIndex]
+			stack = state.stack,
+			removeIndex = stack.length - 3,
+			nextInt = stack[removeIndex]
 		;
 		
-		state = state.filter(function(value, index) { return index !== removeIndex; });
-		state.push(nextInt);
+		state.stack = stack.filter(function(value, index) { return index !== removeIndex; });
+		state.stack.push(nextInt);
+		
 		return state;
 	}
 }

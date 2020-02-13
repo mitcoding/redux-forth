@@ -33,18 +33,22 @@ export default class If extends TreeWord {
 	}
 
 	openNode(buildTree, command) {
-		buildTree.currentCondition = this.addChildNode(buildTree.dictionaryService.searchDefault(command) );
+		buildTree.currentCondition = this.addChildNode(buildTree.dictionaryService.searchDefault(command, buildTree.store.getState().integerStack.mode) );
 		buildTree.stack.push(buildTree.currentCondition);
 	}
 
 	process(commands, index, store, next, processTree, dictionaryService) {
-		let flag = [...store.getState().integerStack].pop();
+		let
+			mode = store.getState().integerStack.mode,
+			flag = [...store.getState().integerStack.stack].pop()
+		;
+
 		if (isNaN(flag) ) { 
 			next( new StackUnderFlowError() );
 			return this;
 		}
 
-		next(dictionaryService.searchDefault("DROP") );
+		next(dictionaryService.searchDefault("DROP"), mode);
 
 		let 
 			command = commands[index],

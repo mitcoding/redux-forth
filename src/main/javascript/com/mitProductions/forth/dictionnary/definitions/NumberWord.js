@@ -20,7 +20,7 @@ let
 		"1110" : "E",
 		"1111" : "F"
 	},
-	hexRegex = /^0x[0-9A-F]+$/,
+	hexRegex = /^0x[0-9A-F]+$/i,
 	hexToBin = {
 		0 : "0000",
 		1 : "0001",
@@ -62,19 +62,41 @@ export default class NumberWord extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		state.push(this.toDecimal() );
+		let value;
+		switch(state.mode) {
+			case "bin" :
+				value = this.toBinary();
+				break;
+			case "hex" :
+				value = this.toHex();
+				break;
+			default :
+				value = this.toDecimal();
+				break;
+		}
+		
+		state.stack.push(value);
 		return state;
 	}
 }
 
 NumberWord.isHex = function isHex(value) {
+	if (!value) { return false; }
+	value = ("0x" + value).replace("0x0x", "0x");
+	
 	hexRegex.lastIndex = 0;
 	return hexRegex.exec(value) ? true : false;
 }
 
 NumberWord.isBinary = function isBinary(value) {
+	if (!value) { return false; }
+
 	binaryRegex.lastIndex = 0;
 	return binaryRegex.exec(value) ? true : false;
+}
+
+NumberWord.isDecimal = function isDecimal(value) {
+	return !isNaN((value + "").split(/^0x|b/gi).join("") ) && !this.isBinary(value) ? true : false;
 }
 
 class BinaryWord extends NumberWord {
@@ -142,7 +164,7 @@ class HexWord extends NumberWord {
 	}
 
 	toHex() {
-		return this.type.split(/^0x/).join("");
+		return this.type.split(/^0x/).join("").toUpperCase();
 	}
 
 	toDecimal() {
@@ -175,9 +197,21 @@ class IntegerWord extends NumberWord {
 	}
 }
 
-NumberWord.create = function(value) {
-	if (this.isBinary(value) ) { return new BinaryWord(value); }
-	if (this.isHex(value) ) { return new HexWord(value); }
+NumberWord.create = function(value, mode) {
+	switch(mode) {
+		case "dec" :
+			if (this.isDecimal(value) ) { return new IntegerWord(value); }
+			if (this.isBinary(value) ) { return new BinaryWord(value); }
+			if (this.isHex(value) ) { return new HexWord(value); }
+			
+			break;
+		case "hex" :
+			if (this.isHex(value) ) { return new HexWord(value); }
+			break;
+		case "bin" :
+			if (this.isBinary("0b" + value) ) { return new BinaryWord(value); }
+			break;
+	}
 
-	return new IntegerWord(value);
+	return false;
 };

@@ -6,12 +6,12 @@ export default class Period extends Print {
 	}
 	
 	modifyIntegerStack(state) {
-		state.pop();
+		state.stack.pop();
 		return state;
 	}
 
 	process(command, index, store, next) {
-		let integerStack = [...store.getState().integerStack];
+		let integerStack = [...store.getState().integerStack.stack];
 		this.payload.push(integerStack.pop() );
 
 		next(this);

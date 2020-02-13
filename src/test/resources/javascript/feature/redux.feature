@@ -366,17 +366,44 @@ Scenario: User types only white space
 	Then 'IntegerStack' should equal []
 	And 'DisplayStack' should equal ["ok", " ", "                          ", "\r", "ok", " "]
 
-Scenario: Users needs ability to push hex word to integer stack
+Scenario: User needs ability to push hex word to integer stack
 	When User runs '0xFF'
 	And User runs '0x037F'
 	And User runs '0x1FFFFFFFFFFFFF'
 	Then 'IntegerStack' should equal [255, 895, 9007199254740991]
 	And 'DisplayStack' should equal ["ok", " ", "0xFF", "\r", "ok", " ", "0x037F", "\r", "ok", " ", "0x1FFFFFFFFFFFFF", "\r", "ok", " "]
 
-Scenario: Users needs ability to push binary word to integer stack
+Scenario: User needs ability to push binary word to integer stack
 	When User runs '0b00100'
 	And User runs '0b1'
 	And User runs '0b1010011110011010011110011010'
 	And User runs '0b1111111111100000000000000000000000000000000000000000000000000001'
 	Then 'IntegerStack' should equal [4, 1, 175744922, -9007199254740991]
 	And 'DisplayStack' should equal ["ok", " ", "0b00100", "\r", "ok", " ", "0b1", "\r", "ok", " ", "0b1010011110011010011110011010", "\r", "ok", " ", "0b1111111111100000000000000000000000000000000000000000000000000001", "\r", "ok", " "]
+
+Scenario Outline: User needs ability to switch input mode (e.g. decimal, binary or hexidecimal)
+	Given User has entered '<command1>'
+	When User runs '<command2>'
+	Then 'IntegerStack' mode should equal '<mode>'
+	And 'Dictionary' mode should equal '<mode>'
+
+Examples:
+	| command1	| command2	| mode	|
+	| decimal	| hex		| hex	|
+	| hex		| binary	| bin	|
+	| bininary	| decimal	| dec	|
+
+Scenario Outline: User wants data in the stack to match input mode
+	Given User runs '<command1>'
+	When User runs '<command2>'
+	Then 'IntegerStack' should equal <stack>
+
+Examples:
+	| command1																						| command2	| stack																									|
+	| 255 15 4 -9007199254740991																	| hex		| ["00FF", "0F", "4", "FFE0000000000001"]																|
+	| 255 15 4 -9007199254740991																	| binary	| ["11111111", "1111", "100", "1111111111100000000000000000000000000000000000000000000000000001"]		|
+	| hex FF 0xF 0b1 FFE0000000000001 																| binary	| ["11111111", "1111", "10110001", "1111111111100000000000000000000000000000000000000000000000000001"]	|
+	| hex 25 18 255 -400																			| decimal	| [37, 24, 597]																							|
+	| binary 11111111 FF 315 1111111111100000000000000000000000000000000000000000000000000001 		| decimal	| [255, -9007199254740991]																				|
+	| binary 0101 1010 110011 1010101																| hex		| ["5", "0A", "33", "55"]																				|
+	

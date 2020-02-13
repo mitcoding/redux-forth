@@ -7,11 +7,12 @@ export default class Mod extends Word {
 
 	modifyIntegerStack(state) {
 		var 
-			topInt = state.pop(),
-			nextInt = state.pop()
+			stack = state.stack,
+			topInt = stack.pop(),
+			nextInt = stack.pop()
 		;
 
-		state.push(nextInt % topInt);
+		stack.push(nextInt % topInt);
 		return state;
 	}
 }

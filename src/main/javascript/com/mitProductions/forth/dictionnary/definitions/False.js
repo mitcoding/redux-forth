@@ -6,7 +6,7 @@ export default class False extends Word {
 	}
 
 	modifyIntegerStack(state) {
-		state.push(0);
+		state.stack.push(0);
 		return state;
 	}
 }

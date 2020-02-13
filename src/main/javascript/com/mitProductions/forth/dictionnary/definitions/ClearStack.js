@@ -5,7 +5,8 @@ export default class ClearStack extends Word {
 		super(type, comment);
 	}
 
-	modifyIntegerStack() {
-		return [];
+	modifyIntegerStack(state) {
+		state.stack = [];
+		return state;
 	}
 }
